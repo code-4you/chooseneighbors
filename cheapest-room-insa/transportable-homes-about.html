@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transportable Homes — Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f1e9;--ink:#1f1c17;--muted:#5e574b;--rule:#c8c0ad;
+    --blueprint:#1d4e63;--tag:#9a3b1b;--box:#ebe6d8;--gold:#c08a4a;--good:#3f6b3f;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Spectral',Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .sheet{max-width:780px;margin:0 auto;padding:0 28px 80px;}
+  .hero{position:relative;margin:0 -28px 0;background:var(--blueprint);color:#eef3f4;overflow:hidden;border-bottom:3px solid var(--ink);}
+  .hero .grid{position:absolute;inset:0;opacity:.5;}
+  .hero-inner{position:relative;max-width:780px;margin:0 auto;padding:40px 28px 36px;}
+  .hero .kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9fd0e0;margin:0 0 14px;}
+  .hero h1{font-weight:700;font-size:33px;line-height:1.14;margin:0;letter-spacing:-.015em;max-width:22ch;}
+  .hero h1 em{font-style:italic;color:#e7c9a0;font-weight:600;}
+  .hero .sub{margin:14px 0 0;font-size:16px;color:#cfe4ec;max-width:52ch;}
+  h2{font-weight:600;font-size:22px;margin:46px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--rule);}
+  h2 .num{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--blueprint);margin-right:10px;font-weight:600;}
+  p{margin:0 0 16px;}
+  a{color:var(--blueprint);}
+  .lead{font-size:19px;}
+  /* type cards */
+  .types{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0 8px;}
+  @media(max-width:640px){.types{grid-template-columns:1fr;}}
+  .tcard{border:1px solid var(--rule);border-top:4px solid var(--blueprint);background:var(--paper);padding:18px 20px 14px;}
+  .tcard h3{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--blueprint);margin:0 0 4px;}
+  .tcard .price{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--good);margin:0 0 8px;}
+  .tcard p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.5;}
+  /* steps */
+  .steps{counter-reset:s;margin:14px 0 8px;padding:0;list-style:none;}
+  .steps li{counter-increment:s;position:relative;padding:0 0 16px 46px;}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;
+    background:var(--blueprint);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;}
+  .steps li b{color:var(--ink);}
+  /* box */
+  .box{background:var(--box);border:1px solid var(--rule);border-left:4px solid var(--gold);padding:20px 24px;margin:14px 0;}
+  .box h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;font-weight:600;}
+  .box.good{border-left-color:var(--good);}
+  .box.good h3{color:var(--good);}
+  .box p:last-child{margin-bottom:0;}
+  /* notes */
+  .notes{border:1px solid var(--rule);padding:20px 24px 8px;margin:14px 0;}
+  .notes h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tag);margin:0 0 12px;font-weight:600;}
+  .notes ul{margin:0;padding-left:20px;}
+  .notes li{margin-bottom:12px;font-size:15px;}
+  .notes li b{color:var(--ink);}
+  .disclaimer{font-size:14px;color:var(--muted);font-style:italic;border-top:1px solid var(--rule);padding-top:14px;margin-top:18px;line-height:1.55;}
+  .cta{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.04em;
+    background:var(--blueprint);color:#fff;text-decoration:none;padding:10px 18px;border-radius:3px;margin:6px 8px 6px 0;}
+  .cta.alt{background:transparent;color:var(--blueprint);border:1px solid var(--blueprint);}
+  .refs{margin-top:46px;border-top:3px solid var(--ink);padding-top:16px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.7;color:var(--muted);}
+  .refs .found{color:var(--ink);font-weight:600;}
+  @media print{
+    body{background:#fff;color:#000;}
+    .hero{background:#fff;color:#000;border-bottom:2pt solid #000;margin:0;}
+    .hero .grid{display:none;}.hero .kicker,.hero .sub,.hero h1 em{color:#000;}
+    .tcard,.box,.notes{background:#fff!important;border-color:#000;}
+    .steps li::before{background:#fff;color:#000;border:1.5pt solid #000;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .cta{display:none;}
+  }
+</style>
+<!-- ===== cross-page nav (injected) ===== -->
+<style>
+.xnav{position:fixed;top:0;left:0;z-index:2147483600;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.xnav *{box-sizing:border-box;}
+.xnav-toggle{display:inline-flex;align-items:center;gap:.5em;margin:11px;padding:8px 14px;
+  background:rgba(15,22,38,.86);color:#e8eef7;border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;line-height:1;
+  letter-spacing:.02em;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 4px 14px rgba(0,0,0,.30);}
+.xnav-toggle:hover{background:rgba(28,40,66,.94);}
+.xnav-toggle .xnav-chev{font-size:10px;opacity:.8;transition:transform .2s ease;}
+.xnav.open .xnav-toggle .xnav-chev{transform:rotate(180deg);}
+.xnav-panel{display:none;margin:0 11px;min-width:250px;max-width:min(82vw,360px);
+  background:rgba(15,22,38,.97);border:1px solid rgba(255,255,255,.16);border-radius:13px;
+  overflow:hidden;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  box-shadow:0 12px 34px rgba(0,0,0,.45);}
+.xnav.open .xnav-panel{display:block;}
+.xnav-head{padding:10px 15px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7aa7e8;border-bottom:1px solid rgba(255,255,255,.10);}
+.xnav-item{display:flex;align-items:center;gap:9px;padding:11px 15px;color:#cfdcef;
+  text-decoration:none;font-size:13.5px;line-height:1.3;
+  border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.xnav-item:last-child{border-bottom:none;}
+.xnav-item:hover{background:rgba(74,141,224,.20);color:#fff;}
+.xnav-item.current{background:rgba(74,141,224,.15);color:#fff;font-weight:600;cursor:default;}
+.xnav-dot{width:6px;height:6px;border-radius:50%;background:#4a8de0;flex:none;opacity:.45;}
+.xnav-item.current .xnav-dot{opacity:1;}
+@media print{.xnav{display:none!important;}}
+</style>
+<nav class="xnav" id="xnav">
+  <button class="xnav-toggle" type="button"
+          onclick="document.getElementById('xnav').classList.toggle('open')">
+    <span>&#9776; Menu</span><span class="xnav-chev">&#9662;</span>
+  </button>
+  <div class="xnav-panel">
+    <div class="xnav-head">Project &middot; jump to</div>
+      <a class="xnav-item" href="index.html"><span class="xnav-dot"></span><span>Overview</span></a>
+      <a class="xnav-item" href="slides_2.html"><span class="xnav-dot"></span><span>52 Tumbella Rd — 2-Home Plan</span></a>
+      <a class="xnav-item" href="slides_4.html"><span class="xnav-dot"></span><span>SA Caravan Park Property Hunt</span></a>
+      <a class="xnav-item" href="building-plan-salvage-section_1.html"><span class="xnav-dot"></span><span>Building Plan — Salvaging Parts</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding Case</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding_1.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding (Plan 2144…)</span></a>
+      <a class="xnav-item current"><span class="xnav-dot"></span><span>Transportable Homes — Overview</span></a>
+      <a class="xnav-item" href="transportable-homes-prices.html"><span class="xnav-dot"></span><span>Cheapest Buildings — 2026 Prices</span></a>
+  </div>
+</nav>
+<script>
+document.addEventListener('click',function(e){
+  var n=document.getElementById('xnav');
+  if(n&&n.classList.contains('open')&&!n.contains(e.target))n.classList.remove('open');
+});
+</script>
+<!-- ===== end nav ===== -->
+</head>
+<body>
+<article class="sheet">
+
+  <header class="hero">
+    <svg class="grid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 800 200" aria-hidden="true">
+      <defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#fff" stroke-width="0.5" opacity="0.25"/></pattern></defs>
+      <rect width="800" height="200" fill="url(#g)"/>
+    </svg>
+    <div class="hero-inner">
+      <p class="kicker">Transportable homes · overview</p>
+      <h1>A room you can <em>truck in</em> and unfold in a day</h1>
+      <p class="sub">What the cheap "expander" buildings and cabins from Express Portables actually are, how they arrive, what you get for the money, and where they sit with the council — written for the salvage / land-trust plan.</p>
+    </div>
+  </header>
+
+  <p class="lead">A transportable home is a small steel-framed building made in a factory and delivered to your site whole. The cheapest ones split into two ideas: <b>cabins and pods</b> that arrive as a finished box, and <b>"expanders"</b> that travel as a flat container and fold out on site into two or three times their travelling footprint. Both are the ready-made cousin of building a room from salvaged parts: faster and predictable, but you pay for the factory doing the work.</p>
+
+  <h2><span class="num">1</span>The two kinds you'll see</h2>
+  <div class="types">
+    <div class="tcard">
+      <h3>Cabins &amp; pods</h3>
+      <p class="price">from ~$9,950 (3 m pod)</p>
+      <p>A solid finished room — steel frame, insulated walls, a door, windows, lights and power points. 3 m, 4 m and 6 m sizes; some come with a bathroom or kitchenette. Good as a single bedroom, office, or sleep-out.</p>
+    </div>
+    <div class="tcard">
+      <h3>Expander (fold-out) homes</h3>
+      <p class="price">from ~$17,900 (24 m²)</p>
+      <p>Ships as a flat-pack container, then the walls and roof fold out with gas struts to make a much bigger space — the 24 m² unit opens to roughly 4 m × 6 m. More floor area per delivery, but the front panels need hinging on site (3+ people).</p>
+    </div>
+  </div>
+
+  <h2><span class="num">2</span>How one actually arrives</h2>
+  <ol class="steps">
+    <li><b>Order &amp; build.</b> You choose a model and options (cladding, air-con, hot water); the supplier quotes 12–15 weeks to build.</li>
+    <li><b>Freight.</b> It travels on a crane truck or tilt-tray from the Gold Coast factory. You need 10–15 m of straight, firm access for the truck to unload and drive away.</li>
+    <li><b>Set down.</b> The truck cranes or slides it onto a level base or piers you've prepared. Expanders are then unfolded and the front panels hinged.</li>
+    <li><b>Connect.</b> A licensed electrician hooks up the power and a plumber connects water and waste — these are not done for you.</li>
+    <li><b>Move in.</b> Once it's connected and signed off, it's a dry, lockable, insulated room.</li>
+  </ol>
+
+  <h2><span class="num">3</span>The council question — read this first</h2>
+  <div class="box">
+    <h3>Building vs movable dwelling</h3>
+    <p>Most of these are sold as <b>portable / relocatable buildings</b> and do <b>not</b> meet the Class 1a house standard in the Building Code by themselves. The supplier notes that when a unit is bought <b>on one of their trailers</b>, it is treated as a <b>caravan (movable dwelling)</b>, which in many council areas can be placed without the same building approval.</p>
+    <p>What you may lawfully put on a block — and for how long someone can live in it — is decided by your local council and the zoning of the land, not by the supplier. There are also Class 1a expander models if you specifically need a code-compliant house. Always confirm with the council for your site before buying.</p>
+  </div>
+
+  <h2><span class="num">4</span>What you pay for beyond the sticker</h2>
+  <p>The advertised price is the building only, ex-factory. To live in one you also budget for delivery, a licensed electrician and plumber, footings or a base, and — if you want the movable-dwelling route — a trailer (about $13,950 for the 24 m² dual-axle). Optional extras like air-conditioning, hot water and cladding add roughly $800–$1,400 each. The <a href="transportable-homes-prices.html">2026 price list</a> works a landed-in-SA figure for each of the cheapest models.</p>
+
+  <h2><span class="num">5</span>Where they fit the plan</h2>
+  <div class="box good">
+    <h3>Ready-made rooms beside the self-builds</h3>
+    <p>The salvage plan has people building their own rooms from recycled parts on charity-held land. That's the cheapest path but the slowest, and not everyone in crisis can build. A handful of these transportable units are the fast complement: drop in two or three finished cabins so people are housed and the place looks lived-in within weeks, while self-builders get going alongside. It's the same "visible, occupied homes first" idea behind the funding case — just bought instead of built.</p>
+  </div>
+
+  <p style="margin-top:18px;">
+    <a class="cta" href="transportable-homes-prices.html">See the cheapest buildings &amp; 2026 prices &rarr;</a>
+    <a class="cta alt" href="https://expressportables.com.au/" target="_blank" rel="noopener">Visit expressportables.com.au &rarr;</a>
+  </p>
+
+  <div class="notes">
+    <h3>Honest notes</h3>
+    <ul>
+      <li><b>These are small.</b> A 3 m–6 m cabin is one room. The 24 m² and 35 m² expanders are bigger but still compact; layouts beyond an open plan are mostly DIY.</li>
+      <li><b>"Move-in ready" has caveats.</b> The building is supplied; the connection work (electrical fit-off, plumbing), footings and approvals are yours to arrange and pay for.</li>
+      <li><b>Specs and prices change.</b> Models, options and discounts are set by the supplier and move often — this overview reflects the site as read on 19 June 2026.</li>
+    </ul>
+    <p class="disclaimer">This page is general information drawn from the supplier's own product pages, not building, legal or financial advice. Whether a transportable building is suitable or lawful for a particular site depends on the council, the zoning and the connection work required. Confirm specifications with Express Portables and requirements with your local council before committing money.</p>
+  </div>
+
+  <footer class="refs">
+    <p><span class="found">Compiled 19 June 2026.</span> South Australia context.</p>
+    <p>Source: expressportables.com.au product and collection pages (Expander Homes, Cabins, Pods &amp; Offices) and the supplier's stated specifications on council compliance, transport and installation, as read 19 June 2026. Council and zoning rules vary by site — verify locally.</p>
+  </footer>
+
+</article>
+</body>
+</html>

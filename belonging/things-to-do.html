@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Always something to do — Belonging</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px}
+  .brand b{font-weight:900}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
+  .crumbs{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14.5px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .crumbs a:hover{color:var(--terra)}
+  .hero{padding:80px 0 30px;max-width:24ch}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(44px,8.4vw,90px);line-height:.94;letter-spacing:-.03em}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(20px,2.5vw,25px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:var(--measure);margin-top:30px}
+  .dek b{font-weight:500;color:var(--ink)}
+  .insight{max-width:var(--measure);margin:48px 0 10px;border-top:1px solid var(--line);padding-top:46px}
+  .insight blockquote{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;font-size:clamp(25px,4vw,38px);line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin-bottom:24px}
+  .insight blockquote em{font-style:italic;color:var(--terra-deep)}
+  .insight p{color:var(--ink-soft);margin-bottom:18px}
+  .insight p strong{color:var(--ink);font-weight:600}
+  .section-label{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--terra);margin:60px 0 8px;display:flex;align-items:center;gap:14px;max-width:var(--measure)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  .section-intro{max-width:var(--measure);font-size:21px;line-height:1.55;color:var(--ink);margin-bottom:18px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;letter-spacing:-.01em}
+  .section-body{max-width:var(--measure);color:var(--ink-soft);margin-bottom:18px}
+  .section-body strong{color:var(--ink);font-weight:600}
+  .features{max-width:var(--measure);display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:8px 0}
+  @media(min-width:600px){.features{grid-template-columns:1fr 1fr}}
+  .feature{background:var(--paper);padding:20px 22px}
+  .feature h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:17px;color:var(--ink);margin-bottom:6px}
+  .feature p{font-size:15.5px;line-height:1.45;color:var(--ink-soft)}
+  .screen{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--terra);padding:24px 28px;margin:24px 0 6px;border-radius:0 6px 6px 0}
+  .screen h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra-deep);margin-bottom:14px}
+  .screen p{color:var(--ink);margin-bottom:0;font-size:17px;line-height:1.55}
+  .screen p strong{font-weight:600}
+  .closing{max-width:var(--measure);border-top:3px double var(--line);margin-top:50px;padding:48px 0 10px}
+  .closing p{font-size:21px;line-height:1.6;color:var(--ink)}
+  .closing .sig{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:16px;color:var(--ink-faint);margin-top:24px}
+  .closing .sig a{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer{border-top:1px solid var(--line);margin-top:54px;padding:38px 0 70px;font-family:'Google Sans','Outfit',Arial,sans-serif;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+  footer a{color:var(--ink-soft);text-decoration:none;font-size:15px;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--terra)}
+  footer .meta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:48ch}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+  <meta name="description" content="Always something to do: how daily life, activities and the around-me idea keep a community alive without invitations.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/things-to-do.html">
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>Belonging</b> <span>choose your neighbours</span></a>
+    <div class="crumbs"><a href="index.html">Home</a> &nbsp;›&nbsp; Always something to do</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Daily life</div>
+    <h1>Always<br>something<br><em>to do</em></h1>
+  </header>
+
+  <p class="dek reveal">A place to walk into where people are. Performances, meals, talks, projects, work you can pick up any time — and an app that quietly knows what's on and who's around. <b>So that waking at 3am with nothing and no one is never the shape of your life.</b></p>
+
+  <section class="insight reveal">
+    <blockquote>The opposite of isolation isn't a busy calendar. <em>It's somewhere to go where you already belong.</em></blockquote>
+    <p>Most of us fight loneliness by trying to schedule it away — texting a friend, planning a night out, booking a holiday. It works for a few hours, then the quiet returns. The problem isn't a lack of effort; it's that there's nowhere that's simply <strong>there</strong>, no place you can drift into without a plan, no shared life happening down the path.</p>
+    <p>Belonging builds that place, and gives it a nervous system: <strong>a hall where things are always happening, and an app that connects you to them and to each other.</strong></p>
+  </section>
+
+  <div class="section-label reveal">The meeting place</div>
+  <p class="section-intro reveal">A hall that's neither home nor work — somewhere you can just be.</p>
+  <p class="section-body reveal">At the heart of each village is a shared place you can walk into with no reason and no money needed. It's the "third place" that ordinary suburbs quietly designed away — and it's where a community's daily life actually happens.</p>
+
+  <div class="features reveal">
+    <div class="feature"><h4>Eat together</h4><p>A buffet of dishes made by the people around you, named and priced by whoever cooked them — the most reliable way humans have ever found to gather.</p></div>
+    <div class="feature"><h4>Something on tonight</h4><p>A rolling schedule of performances, talks, discussions, music, and services — and you might be on it. Some nights, people are paid to put on something good.</p></div>
+    <div class="feature"><h4>Walls you can edit</h4><p>Projected, shared screens anyone can put work onto, voted up if people want to see more of it — a living noticeboard for the place.</p></div>
+    <div class="feature"><h4>Room to begin things</h4><p>Spaces for people's small businesses, a shop for local makers, apartments for newcomers to stay, and work to pick up any time.</p></div>
+  </div>
+
+  <div class="section-label reveal">The app</div>
+  <p class="section-intro reveal">It answers one question, well: what is there to do — and who's up for it — right now?</p>
+  <p class="section-body reveal">The app isn't a feed to scroll. It's a way to surface the things and people already around you: what's on at the hall, which friends are free, what work or projects you could join, and the interests that connect you to others.</p>
+
+  <div class="features reveal">
+    <div class="feature"><h4>A "things to do" screen</h4><p>The first thing you see: what's happening near you now, and what your friends are up to — so there's always a next step out of the quiet.</p></div>
+    <div class="feature"><h4>Activities to join</h4><p>Mark an activity <strong>available</strong>, <strong>active</strong>, or hidden. See friends' open activities and nearby groups within a distance you set.</p></div>
+    <div class="feature"><h4>Matched by interest</h4><p>List what you care about; the app groups you with others who share it, so the right people find the right project.</p></div>
+    <div class="feature"><h4>Work, any time</h4><p>Switch yourself to available, and pick up tasks or jobs whenever it suits — with short videos showing what each task involves.</p></div>
+  </div>
+
+  <div class="screen reveal">
+    <h3>The thought behind "#around me"</h3>
+    <p>Wake at an odd hour with that familiar nothing, and the things around you — the hall, the open work, the people nearby — are already sitting quietly in your awareness. Maybe you don't want to see anyone you know that night, and that's fine; you stay invisible and order in, or go somewhere quiet. But these things rest in the back of the mind as a standing answer to isolation — <strong>a sense that there's always somewhere, and someone, if you want it.</strong></p>
+  </div>
+
+  <section class="closing reveal">
+    <p>None of this is forced. You can stay home, stay invisible, do nothing at all. The point isn't to fill your time — it's that the option to belong is always there, a few steps down the path, on a night you didn't plan. That's what turns a set of homes into a place that's alive.</p>
+    <p class="sig">Your control over being seen or unseen lives in <a href="keeping-people-safe.html">Keeping people safe</a>. Why these shared spaces actually create connection is in <a href="why-it-works-on-people.html">Why it works on people</a>.</p>
+  </section>
+
+  <footer>
+    <a href="index.html">‹ Back to home</a>
+    <p class="meta">Belonging — choose your neighbours. A community designed so that no one has to live, or grow old, in isolation.</p>
+  </footer>
+</div>
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*50)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

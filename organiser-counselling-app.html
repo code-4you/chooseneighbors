@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Example of an Organizer / Counselling App</title>
+<meta name="description" content="A working example: a free AI counselor, a things-to-do list, community ideas share, and a choose-your-neighbours preference that build a 'Profile for your organiser / counselor'. Try it live — press c.">
+<link rel="canonical" href="https://chooseneighbors.com/organiser-counselling-app.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{background:#fff;border-radius:14px;width:min(880px,calc(100% - 28px));margin:22px auto 44px;padding:46px 7vw 46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+
+  h1{font-weight:600;font-size:clamp(28px,4.8vw,48px);line-height:1.05;letter-spacing:-.025em;max-width:22ch;margin-bottom:18px}
+  .dek{font-size:clamp(17.5px,2.2vw,21px);line-height:1.55;color:var(--ink-soft);font-weight:300;max-width:60ch}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  .try{background:var(--ink);color:#f4ece0;border-radius:12px;padding:30px 32px;margin:32px 0;position:relative;overflow:hidden}
+  .try::after{content:"";position:absolute;right:-40px;bottom:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(179,82,56,.5),transparent 70%)}
+  .try .kick{font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--gold);margin-bottom:10px}
+  .try h2{font-weight:600;font-size:clamp(20px,3vw,27px);line-height:1.1;margin-bottom:14px}
+  .try a{display:inline-block;font-weight:600;font-size:15px;color:#f4ece0;text-decoration:none;border:1px solid rgba(244,236,224,.4);border-radius:30px;padding:11px 22px;transition:.25s;position:relative;z-index:1;margin:0 10px 8px 0}
+  .try a:hover{background:var(--terra);border-color:var(--terra)}
+
+  h3{font-weight:600;font-size:20px;margin:26px 0 12px;color:var(--ink)}
+  ul{list-style:none;max-width:var(--measure)}
+  li{padding-left:22px;position:relative;color:var(--ink-soft);font-size:17.5px;margin-bottom:9px}
+  li::before{content:"—";position:absolute;left:0;color:var(--sage)}
+
+  p{color:var(--ink-soft);font-size:17.5px;max-width:var(--measure);margin:16px 0 0}
+  p strong{color:var(--ink);font-weight:600}
+  a.tx{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+  a.tx:hover{color:var(--terra);border-color:var(--terra)}
+
+  .note{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--gold);padding:16px 22px;border-radius:0 6px 6px 0;margin-top:28px}
+  .note p{font-size:15.5px;margin:0}
+  .note strong{color:var(--ink)}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Simple Example of an Organizer / Counselling App</h1>
+  <p class="dek">A small, working taste of the community software this site describes: a <b>free AI counselor</b> and a <b>things-to-do list</b> whose notes land on a <b>"Profile for your organiser / counselor"</b> — the kind of board an organizer in a real community could see.</p>
+
+  <section class="try">
+    <p class="kick">Try it</p>
+    <h2>Press <b>c</b> when you're in.</h2>
+    <a href="https://lightsmithforge.linkpc.net/hub/index.html" rel="noopener" target="_blank">Try it here &rarr;</a>
+    <a href="https://freegames99.itch.io/arrivals-hall" rel="noopener" target="_blank">Mirror on itch.io &rarr;</a>
+  </section>
+
+  <h3>What it does</h3>
+  <ul>
+    <li>Counselling</li>
+    <li>Things to do</li>
+    <li>Community ideas share</li>
+    <li>Choose your neighbours</li>
+  </ul>
+
+  <p><strong>The profile</strong> — the AI gathers all of it into a <em>Profile for your organiser / counselor</em>. In a real community, this is what an organizer would see on their board: who wants to do what, who needs a hand, who belongs near whom, what ideas people have for the community — offered by each person, not extracted from them.</p>
+
+  <p>It's the smallest honest version of ideas from <a class="tx" href="/belonging/things-to-do.html">always something to do</a>, <a class="tx" href="/belonging/choose-your-neighbours.html">the living map</a>, and <a class="tx" href="/design-services">the design services</a> — one person, one profile, one imaginary organizer.</p>
+
+  <div class="note">
+    <p><strong>This is an example, not an organization</strong> — there is no real organizer reading these profiles (except me maybe sometimes).</p>
+  </div>
+
+</div>
+</body>
+</html>

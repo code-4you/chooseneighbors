@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why it works on people — Belonging</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;
+    --terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px}
+  .brand b{font-weight:900}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint);letter-spacing:0}
+  .crumbs{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14.5px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .crumbs a:hover{color:var(--terra)}
+
+  .hero{padding:74px 0 50px;max-width:var(--measure)}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(42px,7.4vw,78px);line-height:.98;letter-spacing:-.02em;margin-bottom:30px}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(20px,2.4vw,24px);line-height:1.5;color:var(--ink-soft);font-weight:300}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  .body-grid{display:grid;grid-template-columns:1fr;gap:0;padding-bottom:40px}
+  @media(min-width:940px){.body-grid{grid-template-columns:218px 1fr;gap:64px;align-items:start}}
+
+  .contents{position:sticky;top:34px;font-family:'Google Sans','Outfit',Arial,sans-serif;padding-top:8px}
+  .contents h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.22em;color:var(--ink-faint);font-weight:600;margin-bottom:18px}
+  .contents ol{list-style:none;counter-reset:c}
+  .contents li{counter-increment:c;margin-bottom:14px;line-height:1.3}
+  .contents a{text-decoration:none;color:var(--ink-soft);font-size:15px;display:flex;gap:10px;align-items:baseline;transition:color .2s}
+  .contents a::before{content:counter(c,decimal-leading-zero);font-size:11px;color:var(--terra);font-weight:600;letter-spacing:.05em;flex-shrink:0}
+  .contents a:hover{color:var(--terra)}
+  @media(max-width:939px){.contents{display:none}}
+
+  .lede{max-width:var(--measure);font-size:21px;line-height:1.6;margin-bottom:14px}
+  .lede:first-letter{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;float:left;font-size:74px;line-height:.74;padding:8px 12px 0 0;color:var(--terra-deep)}
+  .lede + .lede{font-size:19px}
+
+  .article{max-width:var(--measure);padding:56px 0;border-top:1px solid var(--line);margin-top:46px}
+  .article .num{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:64px;line-height:1;color:var(--line);margin-bottom:6px;display:block;font-variant-numeric:lining-nums}
+  .article h2{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(28px,4vw,38px);line-height:1.05;letter-spacing:-.015em;margin-bottom:24px}
+  .article p{margin-bottom:18px;color:var(--ink-soft)}
+  .article p strong{color:var(--ink);font-weight:600}
+
+  .prevents{display:inline-flex;align-items:center;gap:10px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;color:var(--sage);border:1px solid var(--sage);padding:7px 14px;border-radius:30px;margin-bottom:26px}
+  .prevents::before{content:"⚑";font-size:13px;line-height:1}
+
+  .how{background:var(--paper-2);border-left:3px solid var(--terra);padding:26px 28px;margin-top:28px;border-radius:0 6px 6px 0}
+  .how h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra-deep);margin-bottom:14px}
+  .how > p{margin-bottom:0;color:var(--ink)}
+  .how ol{margin:0;padding-left:0;list-style:none;counter-reset:step}
+  .how ol li{counter-increment:step;position:relative;padding-left:38px;margin-bottom:15px;color:var(--ink-soft);line-height:1.5}
+  .how ol li:last-child{margin-bottom:0}
+  .how ol li::before{content:counter(step);position:absolute;left:0;top:1px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:13px;width:23px;height:23px;border-radius:50%;background:var(--terra);color:var(--paper);display:flex;align-items:center;justify-content:center}
+  .how ol li strong{color:var(--ink)}
+
+  /* evidence stat band */
+  .stats{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:30px 0 6px}
+  @media(min-width:560px){.stats{grid-template-columns:repeat(3,1fr)}}
+  .stat{background:var(--paper);padding:24px 22px}
+  .stat .fig{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:40px;line-height:1;color:var(--terra-deep);letter-spacing:-.02em}
+  .stat .lab{font-size:15px;line-height:1.4;color:var(--ink-soft);margin-top:10px}
+  .src{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:14px;color:var(--ink-faint);margin-top:14px}
+
+  .closing{max-width:var(--measure);border-top:3px double var(--line);margin-top:50px;padding:48px 0 10px}
+  .closing p{font-size:21px;line-height:1.6;color:var(--ink)}
+  .closing .sig{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:16px;color:var(--ink-faint);margin-top:24px}
+
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:38px 0 70px;font-family:'Google Sans','Outfit',Arial,sans-serif;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+  footer a{color:var(--ink-soft);text-decoration:none;font-size:15px;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--terra)}
+  footer .meta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:46ch}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+  <meta name="description" content="Why living near friends works on people — the evidence behind community, belonging and health, from the Harvard Study of Adult Development and beyond.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/why-it-works-on-people.html">
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>Belonging</b> <span>choose your neighbours</span></a>
+    <div class="crumbs"><a href="what-makes-it-last.html">What makes it last</a> &nbsp;›&nbsp; Why it works on people</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">What makes it last · Part D</div>
+    <h1>Why it works<br><em>on people</em></h1>
+    <p class="dek">Belonging isn't a soft idea backed only by feeling. There's a clear mechanism for how strangers become neighbours, a design that produces it on purpose, and <b>decades of hard evidence that connection makes life longer and healthier.</b> This is the page to show a skeptic.</p>
+  </header>
+
+  <div class="body-grid">
+
+    <aside class="contents">
+      <h4>This part</h4>
+      <ol>
+        <li><a href="#one">Chosen, not forced</a></li>
+        <li><a href="#two">Designing the accidental hello</a></li>
+        <li><a href="#three">It isn't soft: connection lengthens life</a></li>
+      </ol>
+    </aside>
+
+    <main>
+      <p class="lede reveal">The book makes a claim that sounds sentimental but turns out to be one of the most robust findings in modern health science: the people around you shape not just your mood but your body, your illnesses, and how long you live. The instinct is right. What's been missing is the <em>how</em> — and the proof.</p>
+      <p class="lede reveal">This part does three things. It names the mechanism that actually turns proximity into friendship, shows the design choices that produce it deliberately, and lays out the evidence that makes the whole project defensible to a funder, a council, or a doubter.</p>
+
+      <!-- 1 -->
+      <article class="article reveal" id="one">
+        <span class="num">01</span>
+        <h2>Chosen, not forced</h2>
+        <span class="prevents">Prevents: assuming any proximity creates belonging</span>
+        <p>The book's sharpest insight is one it learned the hard way: being <em>near</em> people is not the same as belonging <em>with</em> them — and forced closeness with someone you dislike can be worse than being alone. Social psychology has a name for the upside of nearness. A classic study of friendship in a housing complex (Festinger, Schachter and Back) found that sheer repeated, incidental contact — whose door faces the path, who you pass on the stairs — was among the strongest predictors of who became friends. They called it <strong>functional distance.</strong></p>
+        <p>But there's a catch the book felt in its bones: <strong>repeated contact amplifies whatever is already there.</strong> With people you'd choose, proximity deepens warmth. With people you wouldn't, it deepens friction — and, unlike a stranger you never see again, it doesn't fade, it festers. This is exactly why "choose your neighbours" isn't a slogan; it's the active ingredient.</p>
+        <div class="how">
+          <h3>How it works here</h3>
+          <ol>
+            <li><strong>You choose the proximity.</strong> Choosing your neighbours is really choosing whose repeated, everyday contact you want amplifying in your life.</li>
+            <li><strong>Easy distance from friction.</strong> The freedom to move (Parts A and C) means contact that's gone sour need never be endured indefinitely.</li>
+            <li><strong>Low-stakes by default.</strong> A nod on the path, a meal you can skip — closeness builds gently, by choice, never by obligation.</li>
+            <li><strong>Real friends, not assigned ones.</strong> The goal isn't more people; it's daily contact with the people you'd have chosen anyway — the contact that actually becomes friendship.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="article reveal" id="two">
+        <span class="num">02</span>
+        <h2>Designing the accidental hello</h2>
+        <span class="prevents">Prevents: hoping people mingle, then designing it out</span>
+        <p>"We hope people will socialise" is not a plan — and most modern housing quietly designs <em>against</em> it, with private backyards, car-to-door routes, and nowhere to simply be. There's a whole body of work on what physically makes strangers talk. Ray Oldenburg's <strong>"third places"</strong> — the café, the stoop, the hall that's neither home nor work. Eric Klinenberg's <strong>"social infrastructure"</strong> — the libraries, benches and courtyards that determine whether community forms at all. William H. Whyte's <strong>"triangulation"</strong> — the way a shared feature gives two strangers a reason to speak.</p>
+        <p>Together they turn the book's meeting hall from a wish into a <strong>specification.</strong> You don't hope for encounters; you build the conditions that reliably produce them.</p>
+        <div class="how">
+          <h3>How it works here</h3>
+          <ol>
+            <li><strong>A true third place.</strong> The meeting hall, designed as somewhere you can drop into with no reason needed and no money required to stay.</li>
+            <li><strong>Paths that cross.</strong> Homes arranged so daily routes overlap — shared stairwells, a central walk everyone uses — manufacturing the incidental contact that breeds friendship.</li>
+            <li><strong>Eat together, often.</strong> Communal meals (the book's buffet idea) — the most dependable social infrastructure humans have ever invented.</li>
+            <li><strong>Triangulation on purpose.</strong> A performance, a fire pit, a shared project — things worth gathering around that hand people an easy reason to start talking.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="article reveal" id="three">
+        <span class="num">03</span>
+        <h2>It isn't soft: connection lengthens life</h2>
+        <span class="prevents">Prevents: belonging dismissed as a nice-to-have</span>
+        <p>The book argues from feeling that the people around you affect your health and lifespan. The evidence is overwhelmingly on its side. The <strong>Harvard Study of Adult Development</strong> — running for more than 85 years, one of the longest studies of human life ever conducted — found that good relationships, more than money, fame, or even cholesterol, are the clearest predictor of a healthy, happy life. Strikingly, how satisfied people were with their relationships at age 50 predicted their physical health at 80 better than their cholesterol did.</p>
+        <div class="stats">
+          <div class="stat"><div class="fig">+26%</div><div class="lab">higher risk of early death linked to loneliness</div></div>
+          <div class="stat"><div class="fig">+29%</div><div class="lab">higher risk linked to social isolation</div></div>
+          <div class="stat"><div class="fig">+32%</div><div class="lab">higher risk linked to living alone</div></div>
+        </div>
+        <p class="src">From Julianne Holt-Lunstad's meta-analyses pooling over 3.4 million people. Separately, those with the strongest social ties show roughly 50% higher odds of survival over a study period.</p>
+        <p>The US Surgeon General's 2023 advisory put the mortality impact of weak social connection on a par with <strong>smoking up to 15 cigarettes a day</strong> — a benchmark some epidemiologists argue may overstate the exact size, while agreeing the underlying risk is real, large, and rising. The honest version is more than strong enough: lack of connection is a serious, measurable health risk, comparable to the big behavioural ones.</p>
+        <div class="how">
+          <h3>What this means for Belonging</h3>
+          <ol>
+            <li><strong>This is preventive health infrastructure</strong>, not a lifestyle perk. A community built around connection plausibly does real, measurable good for the body, not just the mood.</li>
+            <li><strong>It strengthens the case to funders and councils.</strong> You're not selling a feeling — you're addressing a recognised public-health problem with a designed response.</li>
+            <li><strong>Quality beats quantity — which is the whole point.</strong> Both Harvard and Holt-Lunstad stress that it's the <em>warmth and trust</em> of relationships that protects health, not the headcount. That's precisely why "chosen, not forced" sits at the top of this page.</li>
+          </ol>
+        </div>
+      </article>
+
+      <section class="closing reveal">
+        <p>Put together: there's a known mechanism that turns nearness into friendship, a design that produces it on purpose, and a mountain of evidence that the result lengthens and improves life. Belonging's founder felt all of this before reading a single study. The research simply confirms it — and gives the project a backbone that holds up under hard questions.</p>
+        <p class="sig">Continued in Part E — <em>Keeping people safe:</em> safeguarding the vulnerable, privacy and the app, and choosing neighbours in a way that's lawful and about conduct, not identity.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <a href="what-makes-it-last.html">‹ Back to “What makes it last”</a>
+    <p class="meta">Design principles for Belonging — developed with AI, then checked, shaped, and owned by the people who'll live them. Figures: Harvard Study of Adult Development; Holt-Lunstad et al.; US Surgeon General (2023).</p>
+  </footer>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=(Math.min(i,4)*60)+'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

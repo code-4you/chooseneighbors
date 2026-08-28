@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homes you own, never rent — Belonging</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;
+    --terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px}
+  .brand b{font-weight:900}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint);letter-spacing:0}
+  .crumbs{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14.5px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .crumbs a:hover{color:var(--terra)}
+
+  .hero{padding:80px 0 30px;max-width:24ch}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(46px,9vw,98px);line-height:.93;letter-spacing:-.03em}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(20px,2.5vw,25px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:var(--measure);margin-top:30px}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  /* big insight band */
+  .insight{max-width:var(--measure);margin:48px 0 10px;border-top:1px solid var(--line);padding-top:46px}
+  .insight .kicker{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--sage);margin-bottom:18px}
+  .insight blockquote{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;font-size:clamp(26px,4.2vw,40px);line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin-bottom:24px}
+  .insight blockquote em{font-style:italic;color:var(--terra-deep)}
+  .insight p{color:var(--ink-soft);margin-bottom:18px}
+  .insight p strong{color:var(--ink);font-weight:600}
+
+  .section-label{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--terra);margin:60px 0 8px;display:flex;align-items:center;gap:14px;max-width:var(--measure)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  .section-intro{max-width:var(--measure);font-size:21px;line-height:1.55;color:var(--ink);margin-bottom:10px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;letter-spacing:-.01em}
+  .section-sub{max-width:var(--measure);color:var(--ink-soft);margin-bottom:8px}
+
+  /* the ladder */
+  .ladder{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:26px 0 6px}
+  @media(min-width:720px){.ladder{grid-template-columns:repeat(4,1fr)}}
+  .rung{background:var(--paper);padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+  .rung .t{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra-deep)}
+  .rung .h{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:21px;line-height:1.05;color:var(--ink)}
+  .rung .d{font-size:15px;line-height:1.45;color:var(--ink-soft)}
+  .ladder-note{max-width:var(--measure);font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:15.5px;color:var(--ink-faint);margin-top:14px}
+
+  /* mechanism steps */
+  .steps{max-width:var(--measure);margin-top:24px;counter-reset:m;list-style:none}
+  .steps > li{counter-increment:m;position:relative;padding:26px 0 26px 64px;border-top:1px solid var(--line)}
+  .steps > li:last-child{border-bottom:1px solid var(--line)}
+  .steps > li::before{
+    content:counter(m,decimal-leading-zero);position:absolute;left:0;top:26px;
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:32px;color:var(--terra);letter-spacing:-.02em;
+  }
+  .steps h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:22px;line-height:1.1;margin-bottom:8px;color:var(--ink)}
+  .steps p{color:var(--ink-soft);font-size:17.5px;line-height:1.55}
+  .steps p strong{color:var(--ink);font-weight:600}
+
+  /* funding free */
+  .fund{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--terra);padding:26px 28px;margin-top:26px;border-radius:0 6px 6px 0}
+  .fund h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra-deep);margin-bottom:14px}
+  .fund ol{margin:0;padding-left:0;list-style:none;counter-reset:f}
+  .fund ol li{counter-increment:f;position:relative;padding-left:38px;margin-bottom:15px;color:var(--ink-soft);line-height:1.5}
+  .fund ol li:last-child{margin-bottom:0}
+  .fund ol li::before{content:counter(f);position:absolute;left:0;top:1px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:13px;width:23px;height:23px;border-radius:50%;background:var(--terra);color:var(--paper);display:flex;align-items:center;justify-content:center}
+  .fund ol li strong{color:var(--ink)}
+  .fund p{color:var(--ink);margin-top:16px;margin-bottom:0;font-size:16px}
+
+  /* trade-off */
+  .tradeoff{max-width:var(--measure);border:1px solid var(--gold);border-radius:8px;padding:28px 30px;margin:40px 0 10px;background:linear-gradient(180deg,rgba(192,138,62,.06),transparent)}
+  .tradeoff h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:21px;color:var(--terra-deep);margin-bottom:12px}
+  .tradeoff p{color:var(--ink-soft);font-size:18px;line-height:1.55;margin-bottom:0}
+  .tradeoff p strong{color:var(--ink);font-weight:600}
+
+  .closing{max-width:var(--measure);border-top:3px double var(--line);margin-top:50px;padding:48px 0 10px}
+  .closing p{font-size:21px;line-height:1.6;color:var(--ink)}
+  .closing .sig{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:16px;color:var(--ink-faint);margin-top:24px}
+  .closing .sig a{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+
+  footer{border-top:1px solid var(--line);margin-top:54px;padding:38px 0 70px;font-family:'Google Sans','Outfit',Arial,sans-serif;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+  footer a{color:var(--ink-soft);text-decoration:none;font-size:15px;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--terra)}
+  footer .meta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:48ch}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+  <meta name="description" content="Homes you own, never rent: land held in trust, ownership from day one, your time as your deposit, and no profit from holding what others need.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/homes.html">
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>Belonging</b> <span>choose your neighbours</span></a>
+    <div class="crumbs"><a href="index.html">Home</a> &nbsp;›&nbsp; Homes</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Housing</div>
+    <h1>Homes you own,<br><em>never rent</em></h1>
+  </header>
+
+  <p class="dek reveal">Here, you own your home from the first day — paying off its value over time, never paying rent to anyone. No one is homeless, no one is forced to share, and <b>no one is locked out by their income.</b> A home stays affordable not just for you, but for whoever comes after you.</p>
+
+  <section class="insight reveal">
+    <div class="kicker">The one idea everything rests on</div>
+    <blockquote>The reason homes are unaffordable isn't the building. <em>It's the land.</em></blockquote>
+    <p>A building is like a car — it can be built cheaply, and it can even lose value over time. <strong>Land is the thing that balloons.</strong> When you buy an ordinary home, most of what you're really paying for, and almost all of what later makes it "unaffordable," is the land underneath it being treated as something to speculate on.</p>
+    <p>So nearly every way of making housing genuinely cheap works by doing one thing: <strong>taking the land out of the speculation game.</strong> Every mechanism below is a version of that single move.</p>
+  </section>
+
+  <div class="section-label reveal">A place for every budget</div>
+  <p class="section-intro reveal">There's a floor beneath which no one falls — and a ladder up from it you climb only if and when you want to.</p>
+  <p class="section-sub reveal">You're never priced out, and you're never pushed to climb. You can stay on any rung for the rest of your life.</p>
+
+  <div class="ladder reveal">
+    <div class="rung">
+      <div class="t">The floor</div>
+      <div class="h">A free shell</div>
+      <div class="d">No purchase price, no rent. You cover only the metered utilities you choose to connect. No one falls below this.</div>
+    </div>
+    <div class="rung">
+      <div class="t">Your time as deposit</div>
+      <div class="h">Sweat equity</div>
+      <div class="d">Finish and extend it with your own labour. The work you put in becomes the stake you own.</div>
+    </div>
+    <div class="rung">
+      <div class="t">Part-buy</div>
+      <div class="h">Own a share</div>
+      <div class="d">Buy a quarter or a third now, more later if you can — or stay a part-owner for life at a low fee.</div>
+    </div>
+    <div class="rung">
+      <div class="t">Full</div>
+      <div class="h">Own it outright</div>
+      <div class="d">Pay off the full value over time — around 30% of your income — then it's yours to keep or pass on.</div>
+    </div>
+  </div>
+  <p class="ladder-note reveal">Move up a rung whenever you're able. Stay where you are as long as you like. Neither choice carries any shame.</p>
+
+  <div class="section-label reveal">How it stays cheap</div>
+  <p class="section-intro reveal">…and stays cheap for the next person, too.</p>
+
+  <ol class="steps reveal">
+    <li>
+      <h3>The land is held in trust</h3>
+      <p>A non-profit community land trust owns the land permanently; you own the home that sits on it. This single step removes land speculation from the price — and it's a real, established model, from US and UK land trusts to Zurich's housing co-ops and Singapore's public flats.</p>
+    </li>
+    <li>
+      <h3>You own from day one, and never pay rent</h3>
+      <p>You pay off the value of your home over time instead of paying rent into someone else's pocket. When you leave, you sell back at a <strong>set formula</strong> — your original cost, plus the verified improvements you made, plus a modest adjustment — never an inflated market price. That formula is what keeps the home affordable for whoever comes next.</p>
+    </li>
+    <li>
+      <h3>Your time can be your deposit</h3>
+      <p>Homes arrive as modular shells with the pipes and wiring stubbed in. You finish the inside and connect the metered utilities yourself, at your own pace. For people who are time-rich and cash-poor — which is so many of us — <strong>labour becomes equity.</strong></p>
+    </li>
+    <li>
+      <h3>Building is paid work anyone can do</h3>
+      <p>The community supplies the parts, the plans, and the inspectors; anyone can build new space whenever they want, funded by a commission on the sale. This does two jobs at once — it creates the casual, do-it-anytime work the project cares about, and it keeps supply running ahead of demand, which is what holds prices down.</p>
+    </li>
+    <li>
+      <h3>You can't profit just by holding it</h3>
+      <p>You make money here by <strong>building something new or improving what's there</strong> — never by sitting on a home and waiting for its price to rise. Any attempt to hoard space for the rise is taxed away. It's an old, respectable idea (Henry George's land-value thinking), and it's the rule that stops a cheap community from slowly becoming the next unaffordable one.</p>
+    </li>
+  </ol>
+
+  <div class="section-label reveal">Where "free" is honest</div>
+  <p class="section-intro reveal">"Free" doesn't mean magic. It means free at the point of access — and paid for in a way you can defend in a pitch.</p>
+  <p class="section-sub reveal">A person with nothing gets a basic shell for no purchase price and no rent, covering only the utilities they choose to switch on. Here's where the money to make that real actually comes from:</p>
+
+  <div class="fund reveal">
+    <h3>Funding the floor</h3>
+    <ol>
+      <li><strong>Land-value uplift</strong> the trust captures as the area grows and becomes more desirable — value that, in an ordinary town, a private speculator would pocket.</li>
+      <li><strong>A slice of local-business profit</strong> routed into the community fund, exactly as the book proposes.</li>
+      <li><strong>The construction margin</strong> from the build-anytime programme.</li>
+    </ol>
+    <p>Put those three streams into one fund and "free or near-free homes" becomes a sentence you can defend to an investor, rather than one that gets you dismissed. For the initial capital, a portion of homes are sold at market rate on the "sell" side of the development to fund the affordable core — the east–west model from the book.</p>
+  </div>
+
+  <div class="tradeoff reveal">
+    <h3>The one honest trade-off</h3>
+    <p>Every version of cheap-or-free here trades away one thing: the owner's ability to cash in on rising prices. <strong>That's the deal — you give up speculative profit in exchange for security and a low cost of living.</strong> We say so plainly, because the people this is built for take that deal gladly — and being upfront about it makes the whole thing more credible, not less.</p>
+  </div>
+
+  <section class="closing reveal">
+    <p>Put together, this is a home you can get from nothing, shape with your own hands, own outright if you choose, and never be priced out of — in a place where the next person gets the same chance you did. It's the practical heart of Belonging: not a handout, and not a speculation, but a home that's genuinely yours.</p>
+    <p class="sig">The rule that stops all of this from quietly unravelling over the years lives in <a href="governing-ourselves.html">Governing ourselves</a> — the charter that keeps the land from ever being captured.</p>
+  </section>
+
+  <footer>
+    <a href="index.html">‹ Back to home</a>
+    <p class="meta">Belonging — choose your neighbours. This page describes design intent, not legal or financial advice; ownership structures must be confirmed with a qualified lawyer and accountant.</p>
+  </footer>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.1,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=(Math.min(i,6)*50)+'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

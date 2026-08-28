@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Based Community — analyse a community, get the changes that help most</title>
+<meta name="description" content="A system that analyses a community across every dimension that matters, then ranks the changes that would improve it most. Shown here as a worked example for a standard community.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3efe6;--paper-2:#e9e3d6;--ink:#1e2428;--ink-soft:#46504f;--ink-faint:#7b817c;
+    --accent:#2c7a8c;--accent-deep:#1f5b6a;--amber:#c47a3c;--gold:#c08a3e;--line:#d4ccbd;--measure:70ch;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.04;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 6vw}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 0 20px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif;gap:16px}
+  .brand{font-weight:600;font-size:20px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:10px}
+  .brand b{font-weight:900;color:var(--accent-deep)}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:13.5px;color:var(--ink-faint)}
+  .topnav{display:flex;gap:20px;font-size:14px}
+  .topnav a{color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--accent)}
+  @media(max-width:760px){.topnav{display:none}}
+
+  .hero{padding:62px 0 26px;max-width:34rem}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.26em;font-size:12px;color:var(--accent);margin-bottom:22px;display:flex;align-items:center;gap:13px}
+  .eyebrow::before{content:"";width:32px;height:2px;background:var(--accent);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(32px,6vw,64px);line-height:.98;letter-spacing:-.025em}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent-deep)}
+  .dek{font-size:clamp(19px,2.3vw,24px);line-height:1.45;color:var(--ink-soft);font-weight:300;max-width:var(--measure);margin-top:28px}
+  .dek b{color:var(--ink);font-weight:500}
+
+  .disclaimer{max-width:var(--measure);background:#f6ecdd;border:1px solid #e7d3b3;border-left:4px solid var(--amber);padding:18px 22px;border-radius:0 8px 8px 0;margin:30px 0 8px}
+  .disclaimer p{font-size:16px;color:#6a5536;line-height:1.5}
+  .disclaimer b{color:#5a4424}
+  .offer{max-width:var(--measure);background:var(--accent-deep);color:#eaf2f3;border-radius:10px;padding:26px 30px;margin:30px 0 12px;position:relative;overflow:hidden}
+  .offer::after{content:"";position:absolute;right:-50px;bottom:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(143,208,217,.28),transparent 70%);pointer-events:none}
+  .offer .tag{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:11.5px;color:#8fd0d9;margin-bottom:10px;position:relative;z-index:1}
+  .offer h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(20px,2.7vw,27px);line-height:1.14;color:#fff;margin-bottom:10px;max-width:30ch;position:relative;z-index:1}
+  .offer p{font-size:16px;color:#d6e6e8;line-height:1.5;margin-bottom:18px;max-width:60ch;position:relative;z-index:1}
+  .offer a{display:inline-block;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;color:var(--accent-deep);background:#eaf2f3;border-radius:30px;padding:12px 24px;text-decoration:none;transition:.2s;position:relative;z-index:1}
+  .offer a:hover{background:#fff}
+
+  h2{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(25px,3.6vw,34px);line-height:1.05;letter-spacing:-.015em;margin:60px 0 6px}
+  h2 .step{color:var(--accent);font-weight:300}
+  .sublede{max-width:var(--measure);color:var(--ink-soft);margin-bottom:22px;font-size:18px}
+  .sublede strong{color:var(--ink);font-weight:600}
+
+  /* dimensions grid */
+  .dims{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden;max-width:var(--measure);margin:6px 0}
+  @media(min-width:620px){.dims{grid-template-columns:1fr 1fr}}
+  .dim{background:var(--paper);padding:16px 20px}
+  .dim h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:3px}
+  .dim p{font-size:14px;color:var(--ink-soft);line-height:1.4}
+
+  /* how-steps */
+  .flow{max-width:var(--measure);counter-reset:f;list-style:none;margin:18px 0 6px}
+  .flow>li{counter-increment:f;position:relative;padding:16px 0 16px 52px;border-top:1px solid var(--line)}
+  .flow>li:last-child{border-bottom:1px solid var(--line)}
+  .flow>li::before{content:counter(f);position:absolute;left:0;top:15px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:14px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}
+  .flow h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:17px;color:var(--ink);margin-bottom:3px}
+  .flow p{font-size:16px;color:var(--ink-soft);line-height:1.5}
+
+  /* profile chart */
+  .profile{max-width:var(--measure);margin:8px 0}
+  .bar-row{display:grid;grid-template-columns:200px 1fr 42px;gap:12px;align-items:center;padding:7px 0}
+  @media(max-width:620px){.bar-row{grid-template-columns:130px 1fr 38px;gap:8px}}
+  .bar-lab{font-size:14.5px;color:var(--ink-soft);text-align:right;line-height:1.2}
+  .bar-track{background:var(--paper-2);border-radius:20px;height:16px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:20px}
+  .bar-val{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:14px;color:var(--ink-soft);text-align:center}
+  .f-gap{background:var(--amber)}.f-mid{background:#a9a06f}.f-ok{background:var(--accent)}
+  .profile-key{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:14px;color:var(--ink-faint);margin-top:12px}
+
+  /* recommendations */
+  .recs{margin:10px 0 6px;border-top:1px solid var(--line);max-width:var(--measure)}
+  .rec{display:grid;grid-template-columns:30px 1fr 56px;gap:13px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+  .rec .rk{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:17px;color:var(--ink-faint);text-align:right}
+  .rec .nm{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:17px;color:var(--ink);line-height:1.2}
+  .rec .tg{font-size:13.5px;color:var(--accent-deep);margin-top:2px}
+  .rec .sc{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;color:#fff;background:var(--accent);border-radius:7px;text-align:center;padding:7px 0}
+  .more{display:inline-block;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;color:#fff;background:var(--accent-deep);border-radius:30px;padding:13px 24px;text-decoration:none;margin-top:24px;transition:background .2s}
+  .more:hover{background:var(--accent)}
+
+  .honest{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--accent);padding:22px 26px;border-radius:0 6px 6px 0;margin:44px 0 6px}
+  .honest h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent-deep);margin-bottom:12px}
+  .honest p{font-size:16px;color:var(--ink-soft);line-height:1.55;margin-bottom:12px}
+  .honest p:last-child{margin-bottom:0}
+  .honest b{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);margin-top:48px;padding:34px 0 66px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14px;color:var(--ink-faint)}
+  footer a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+  <link rel="canonical" href="https://chooseneighbors.com/aibasedcommunity/index.html">
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>AI Based Community</b> <span>analyse, then improve</span></a>
+    <div class="topnav">
+      <a href="community-ideas-index.html">The 50 ideas</a>
+      <a href="#analysis">How it works</a>
+      <a href="#results">Sample results</a>
+      <a href="#fuller">Fuller system</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Analyse, then improve</div>
+    <h1>What would help your community <em>most?</em></h1>
+    <p class="dek reveal">A system that reads a community across every dimension that matters &mdash; then ranks the changes that would do it the most good. <b>Built to serve the people who live there, not to rule them.</b></p>
+  </header>
+
+  <div class="offer reveal">
+    <div class="tag">Available now</div>
+    <h3>We can analyse your community today &mdash; and build you a fuller system.</h3>
+    <p>A lot of this is possible right now: describe your community, or your own situation, and it can be assessed across these dimensions with a ranked set of recommendations for what would help most. From there, we can build a fuller, living system tailored to your place.</p>
+    <a href="mailto:contact@chooseneighbors.com">Ask us to analyse yours &rarr;</a>
+  </div>
+
+  <div class="disclaimer reveal">
+    <p>⚠ <b>Why the example below?</b> We don't have your community to analyse yet &mdash; so everything that follows is a <b>worked example for a &ldquo;standard&rdquo; community</b>, a typical average town or suburb. Give us a real place and real residents, and the profile and ranked suggestions would be specific to <em>them</em>.</p>
+  </div>
+
+  <!-- 1 — THE ANALYSIS SYSTEM -->
+  <h2 id="analysis" class="reveal"><span class="step">1 &middot;</span> A complete community analysis</h2>
+  <p class="sublede reveal">To know what would help most, you first have to see the whole picture. The system reads a community across <strong>eleven dimensions</strong> &mdash; the things that actually shape whether life there is good.</p>
+
+  <div class="dims reveal">
+    <div class="dim"><h4>Connection &amp; belonging</h4><p>How often people see others they care about; how alone they feel.</p></div>
+    <div class="dim"><h4>Housing</h4><p>Affordability, security, and whether people own or are stuck renting.</p></div>
+    <div class="dim"><h4>A say in the place</h4><p>Whether residents have real power over how the place is run.</p></div>
+    <div class="dim"><h4>Places to gather</h4><p>Third places and public spaces where people can simply be together.</p></div>
+    <div class="dim"><h4>Care</h4><p>How well the old, the young, the sick, and the struggling are held.</p></div>
+    <div class="dim"><h4>Things to do</h4><p>Events, activities, and reasons to leave the house locally.</p></div>
+    <div class="dim"><h4>Walkability &amp; access</h4><p>How much is reachable on foot; how car-dependent life is.</p></div>
+    <div class="dim"><h4>Local economy &amp; work</h4><p>Jobs, income, and how much is owned and earned locally.</p></div>
+    <div class="dim"><h4>Green space &amp; environment</h4><p>Trees, parks, clean air, and the daily quality of the surroundings.</p></div>
+    <div class="dim"><h4>Safety</h4><p>How safe people are, and how safe they feel.</p></div>
+    <div class="dim"><h4>Trust &amp; social capital</h4><p>Whether neighbours know, trust, and help one another.</p></div>
+    <div class="dim"><h4>Children &amp; young people</h4><p>Whether the young are safe, included, and have room to grow.</p></div>
+  </div>
+
+  <p class="sublede reveal" style="margin-top:30px"><strong>Where the picture comes from</strong> &mdash; and the order matters: people first, data second.</p>
+  <ol class="flow reveal">
+    <li><h4>Resident voice (the ground truth)</h4><p>An opt-in survey and ongoing input: how connected, safe, and heard people feel, and what they actually want. This leads, because a community is its people, not its statistics.</p></li>
+    <li><h4>Place data</h4><p>Open public data and maps &mdash; housing costs, walkability, green space, services, amenities, demographics &mdash; to fill in the measurable picture.</p></li>
+    <li><h4>Lived patterns, by consent</h4><p>With permission, what's actually used and needed. Always opt-in, never surveillance &mdash; the privacy rules come first.</p></li>
+    <li><h4>The score &amp; the gaps</h4><p>The system combines all of it into a profile, scores each of the eleven dimensions, and finds where the community is weakest.</p></li>
+    <li><h4>Matched, ranked suggestions</h4><p>It matches each gap to the highest-impact, most achievable fixes, and ranks them by how much they'd help <em>this</em> community &mdash; then people decide.</p></li>
+  </ol>
+
+  <!-- 2 — THE SUGGESTIONS -->
+  <h2 id="results" class="reveal"><span class="step">2 &middot;</span> The suggestions</h2>
+  <p class="sublede reveal">Here's what the system produces. Below is the example output for a <strong>standard community</strong> &mdash; first its profile, then the changes it recommends, in order.</p>
+
+  <p class="sublede reveal" style="font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:18px;color:var(--ink);margin-bottom:10px">The profile &mdash; a standard community</p>
+  <div class="profile reveal" id="profile"></div>
+  <p class="profile-key reveal">Lower bars are the gaps &mdash; where this community is being let down most. <span style="color:var(--amber)">●</span> needs work &nbsp; <span style="color:#a9a06f">●</span> middling &nbsp; <span style="color:var(--accent)">●</span> doing okay</p>
+
+  <p class="sublede reveal" style="font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:18px;color:var(--ink);margin:40px 0 8px">Recommended changes, in order</p>
+  <p class="sublede reveal" style="margin-bottom:14px">Ranked for this profile &mdash; the biggest gaps (a real say, affordable homes, places to connect) come first. The score is each idea's general improvement rating.</p>
+  <div class="recs reveal" id="recs"></div>
+  <a class="more reveal" href="community-ideas-index.html">See all 50 scored ideas &rarr;</a>
+
+  <!-- 3 — THE FULLER SYSTEM -->
+  <h2 id="fuller" class="reveal"><span class="step">3 &middot;</span> This is only the start</h2>
+  <p class="sublede reveal">A one-time read and a ranked list is useful &mdash; but the real prize is a <strong>living system</strong> that keeps a community well over time. Here's what a fuller AI-based community could grow into.</p>
+  <div class="dims reveal">
+    <div class="dim"><h4>Always-on, living analysis</h4><p>The picture updates continuously and catches problems early &mdash; rising isolation, an unmet need &mdash; instead of a one-time snapshot.</p></div>
+    <div class="dim"><h4>Personal to each resident</h4><p>Not just &ldquo;what helps the community&rdquo; but &ldquo;what would make <em>your</em> life here better&rdquo; &mdash; and connecting you to it.</p></div>
+    <div class="dim"><h4>A matchmaking engine</h4><p>People to friends, collaborators, and partners; ideas to the people and funding that can build them; needs to the neighbours who can help.</p></div>
+    <div class="dim"><h4>Predict &amp; prevent</h4><p>Gently flags &mdash; to a person, not a database &mdash; someone slipping into isolation or an elder at risk, early enough to help.</p></div>
+    <div class="dim"><h4>Coordinate &amp; run</h4><p>Handles the logistics &mdash; store, delivery, energy, build scheduling, allocating the open space &mdash; so people are freed for the human parts.</p></div>
+    <div class="dim"><h4>Fairer decisions</h4><p>Continuous consensus-finding, drafted proposals, the approval-and-importance-score system, and open books &mdash; so choices are shared and clear.</p></div>
+    <div class="dim"><h4>Simulate before you build</h4><p>Model a change's likely effect first: &ldquo;add a gathering place here &rarr; predicted lift in connection&rdquo; &mdash; a digital twin of the community.</p></div>
+    <div class="dim"><h4>A personal agent for everyone</h4><p>Your own AI that helps you navigate community life, advocates for your needs, and carries your preferences into the shared system &mdash; under your control.</p></div>
+  </div>
+  <p class="sublede reveal" style="margin-top:18px;font-style:italic;color:var(--ink-faint);font-size:15.5px">Every layer follows the same rule: the more powerful it becomes, the harder the guardrails. It serves the people; it never rules them.</p>
+  <a class="more reveal" href="personal-agent.html" style="background:var(--accent)">Explore the personal agent &rarr;</a>
+
+  <div class="honest reveal">
+    <h4>What this can and can't do</h4>
+    <p><b>It serves; it doesn't rule.</b> The analysis informs a human decision &mdash; it never makes one. Every suggestion can be questioned, reordered, or refused by the people who live there.</p>
+    <p><b>Consent, not surveillance.</b> It's built on what residents choose to share, with privacy first. A system that reads a community is powerful, and must be guarded as such.</p>
+    <p><b>A community is more than its metrics.</b> No score captures a place's history, character, or soul. This is a map to start from &mdash; not the territory, and not a verdict on anyone's home.</p>
+  </div>
+
+  <div class="offer reveal" style="margin-top:48px">
+    <div class="tag">Where to start</div>
+    <h3>Have a real community in mind?</h3>
+    <p>Tell us about it &mdash; a town, a suburb, a building, even your own situation &mdash; and we'll analyse it across these dimensions and recommend what would help most. Then we can talk about building the fuller, living system.</p>
+    <a href="mailto:contact@chooseneighbors.com">Get in touch &rarr;</a>
+  </div>
+
+  <footer>
+    <a href="community-ideas-index.html">The 50 scored ideas</a> &nbsp;&middot;&nbsp; AI Based Community &mdash; the best ideas for living well together, analysed and scored honestly. A worked example pending a real community to study.
+  </footer>
+</div>
+
+<script>
+  // standard-community profile (low = bigger gap)
+  const dims=[
+    ["A say in the place",30],["Housing",34],["Connection & belonging",38],
+    ["Places to gather",42],["Trust & social capital",44],["Care",45],
+    ["Children & young people",47],
+    ["Walkability & access",48],["Things to do",50],["Local economy & work",52],
+    ["Green space & environment",58],["Safety",65]
+  ];
+  const band=v=>v<50?"f-gap":(v<65?"f-mid":"f-ok");
+  const pf=document.getElementById('profile');
+  dims.forEach(d=>{
+    const r=document.createElement('div');r.className='bar-row';
+    r.innerHTML=`<div class="bar-lab">${d[0]}</div>
+      <div class="bar-track"><div class="bar-fill ${band(d[1])}" style="width:${d[1]}%"></div></div>
+      <div class="bar-val">${d[1]}</div>`;
+    pf.appendChild(r);
+  });
+
+  const recs=[
+    ["Affordable homes you own, not rent (land trust)","Lifts: Housing",91],
+    ["A true \u201Cthird place\u201D to gather","Lifts: Places to gather, Connection",90],
+    ["Participatory budgeting + a resident council","Lifts: A say in the place",84],
+    ["Regular shared communal meals","Lifts: Connection & belonging",87],
+    ["A check-in network for the isolated & elderly","Lifts: Connection, Care",86],
+    ["Walkable, car-light streets","Lifts: Walkability & access",92],
+    ["A mutual-aid network","Lifts: Trust, Care",83],
+    ["AI-assisted consensus tools (Pol.is-style)","Lifts: A say in the place",72],
+    ["A conflict-resolution / mediation service","Lifts: Trust & social capital",79],
+    ["Regular community events & festivals","Lifts: Connection, Things to do",77],
+  ];
+  const rc=document.getElementById('recs');
+  recs.forEach((d,i)=>{
+    const r=document.createElement('div');r.className='rec';
+    r.innerHTML=`<div class="rk">${i+1}</div>
+      <div><div class="nm">${d[0]}</div><div class="tg">${d[1]}</div></div>
+      <div class="sc">${d[2]}</div>`;
+    rc.appendChild(r);
+  });
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.05,rootMargin:"0px 0px -20px 0px"});
+  document.querySelectorAll('.reveal').forEach((el)=>io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulling our weight — Belonging</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ece0;
+    --paper-2:#efe5d6;
+    --ink:#24201c;
+    --ink-soft:#4a443d;
+    --ink-faint:#7c7468;
+    --terra:#b35238;
+    --terra-deep:#8f3f2b;
+    --sage:#5e6b50;
+    --gold:#c08a3e;
+    --line:#d9cdb9;
+    --measure:64ch;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Google Sans','Outfit',Arial,sans-serif;
+    font-weight:400;
+    font-size:19px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity:.045;
+    pointer-events:none;
+    z-index:9999;
+    mix-blend-mode:multiply;
+  }
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px 0 22px;
+    border-bottom:1px solid var(--line);
+    font-family:'Google Sans','Outfit',Arial,sans-serif;
+  }
+  .brand{
+    font-weight:600;font-size:21px;letter-spacing:.2px;
+    color:var(--ink);text-decoration:none;
+    display:flex;align-items:baseline;gap:11px;
+  }
+  .brand b{font-weight:900}
+  .brand span{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;
+    font-size:14px;color:var(--ink-faint);letter-spacing:0;
+  }
+  .crumbs{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14.5px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .crumbs a:hover{color:var(--terra)}
+
+  .hero{padding:74px 0 50px;max-width:var(--measure)}
+  .eyebrow{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;
+    text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;
+    color:var(--terra);margin-bottom:26px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;
+    font-weight:600;
+    font-size:clamp(44px,8vw,82px);
+    line-height:.98;
+    letter-spacing:-.02em;
+    margin-bottom:30px;
+  }
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{
+    font-size:clamp(20px,2.4vw,24px);
+    line-height:1.5;
+    color:var(--ink-soft);
+    font-weight:300;
+  }
+  .dek b{font-weight:500;color:var(--ink)}
+
+  .body-grid{display:grid;grid-template-columns:1fr;gap:0;padding-bottom:40px}
+  @media(min-width:940px){
+    .body-grid{grid-template-columns:218px 1fr;gap:64px;align-items:start}
+  }
+
+  .contents{position:sticky;top:34px;font-family:'Google Sans','Outfit',Arial,sans-serif;padding-top:8px}
+  .contents h4{
+    font-size:11.5px;text-transform:uppercase;letter-spacing:.22em;
+    color:var(--ink-faint);font-weight:600;margin-bottom:18px;
+  }
+  .contents ol{list-style:none;counter-reset:c}
+  .contents li{counter-increment:c;margin-bottom:14px;line-height:1.3}
+  .contents a{
+    text-decoration:none;color:var(--ink-soft);font-size:15px;
+    display:flex;gap:10px;align-items:baseline;transition:color .2s;
+  }
+  .contents a::before{
+    content:counter(c,decimal-leading-zero);
+    font-size:11px;color:var(--terra);font-weight:600;letter-spacing:.05em;flex-shrink:0;
+  }
+  .contents a:hover{color:var(--terra)}
+  @media(max-width:939px){.contents{display:none}}
+
+  .lede{max-width:var(--measure);font-size:21px;line-height:1.6;margin-bottom:14px}
+  .lede:first-letter{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;
+    float:left;font-size:74px;line-height:.74;
+    padding:8px 12px 0 0;color:var(--terra-deep);
+  }
+  .lede + .lede{font-size:19px}
+
+  .article{
+    max-width:var(--measure);
+    padding:56px 0;
+    border-top:1px solid var(--line);
+    margin-top:46px;
+  }
+  .article .num{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;
+    font-size:64px;line-height:1;color:var(--line);
+    margin-bottom:6px;display:block;font-variant-numeric:lining-nums;
+  }
+  .article h2{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;
+    font-size:clamp(28px,4vw,38px);line-height:1.05;
+    letter-spacing:-.015em;margin-bottom:24px;
+  }
+  .article p{margin-bottom:18px;color:var(--ink-soft)}
+  .article p strong{color:var(--ink);font-weight:600}
+
+  .prevents{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:12px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.16em;
+    color:var(--sage);border:1px solid var(--sage);
+    padding:7px 14px;border-radius:30px;margin-bottom:26px;
+  }
+  .prevents::before{content:"⚑";font-size:13px;line-height:1}
+
+  .how{
+    background:var(--paper-2);
+    border-left:3px solid var(--terra);
+    padding:26px 28px;margin-top:28px;border-radius:0 6px 6px 0;
+  }
+  .how h3{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--terra-deep);margin-bottom:14px;
+  }
+  .how > p{margin-bottom:0;color:var(--ink)}
+  .how ol{margin:0;padding-left:0;list-style:none;counter-reset:step}
+  .how ol li{
+    counter-increment:step;position:relative;
+    padding-left:38px;margin-bottom:15px;color:var(--ink-soft);line-height:1.5;
+  }
+  .how ol li:last-child{margin-bottom:0}
+  .how ol li::before{
+    content:counter(step);position:absolute;left:0;top:1px;
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:13px;
+    width:23px;height:23px;border-radius:50%;
+    background:var(--terra);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .how ol li strong{color:var(--ink)}
+
+  .closing{
+    max-width:var(--measure);
+    border-top:3px double var(--line);
+    margin-top:50px;padding:48px 0 10px;
+  }
+  .closing p{font-size:21px;line-height:1.6;color:var(--ink)}
+  .closing .sig{
+    font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:16px;
+    color:var(--ink-faint);margin-top:24px;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    margin-top:60px;padding:38px 0 70px;font-family:'Google Sans','Outfit',Arial,sans-serif;
+    display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;
+  }
+  footer a{color:var(--ink-soft);text-decoration:none;font-size:15px;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--terra)}
+  footer .meta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:46ch}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+  <meta name="description" content="Contribution without coercion: how a community shares work and care when homes are affordable and nobody is forced — care as infrastructure.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/pulling-our-weight.html">
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>Belonging</b> <span>choose your neighbours</span></a>
+    <div class="crumbs"><a href="what-makes-it-last.html">What makes it last</a> &nbsp;›&nbsp; Pulling our weight</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">What makes it last · Part B</div>
+    <h1>Pulling our<br><em>weight</em></h1>
+    <p class="dek">If homes are cheap or free and no one is forced to work, a fair question follows: <b>who does the necessary, unglamorous work — and who notices when someone is struggling?</b> The answer can't be "everyone's good will." It has to be designed, in a way that keeps every part of it free.</p>
+  </header>
+
+  <div class="body-grid">
+
+    <aside class="contents">
+      <h4>This part</h4>
+      <ol>
+        <li><a href="#one">Contribution without coercion</a></li>
+        <li><a href="#two">Care as infrastructure</a></li>
+        <li><a href="#three">Real support, not just good vibes</a></li>
+      </ol>
+    </aside>
+
+    <main>
+      <p class="lede reveal">A community that removes the pressure to work full-time has solved a real problem — and quietly created a new one. The bins still need emptying, the lonely still need company, the children still need minding. Left to good will alone, that load doesn't disappear; it lands on the same few people until they're exhausted and resentful.</p>
+      <p class="lede reveal">The aim here is not to bring obligation back in through the side door. It's to make contribution <em>visible, reciprocal, and dignified</em> — so that pulling your weight feels like belonging, not like a shift you can't quit.</p>
+
+      <!-- 1 -->
+      <article class="article reveal" id="one">
+        <span class="num">01</span>
+        <h2>Contribution without coercion</h2>
+        <span class="prevents">Prevents: a few people carrying everyone</span>
+        <p>The book is right that work should be optional, and right that it's better done with people you know than for strangers. But "optional" without structure has two failure modes, not one: the obvious <strong>free-rider</strong> who takes and never gives, and the quieter, more common <strong>over-giver</strong> who does everything until they burn out and leave. Both corrode a community.</p>
+        <p>There's a well-tested fix that fits the book's instincts almost exactly: <strong>time banking</strong>. You earn hours by helping others, and spend hours getting help — and crucially, <strong>every hour is worth the same</strong>. An hour spent fixing a tap, minding a child, teaching a skill, or simply sitting with someone who's lonely all bank equally. It turns reciprocity from a vague hope into something you can actually see.</p>
+        <div class="how">
+          <h3>How it works here</h3>
+          <ol>
+            <li><strong>Optional, but counted.</strong> No one is ever made to contribute — but what people give and receive is visible, so the load is shared rather than hidden.</li>
+            <li><strong>An hour is an hour.</strong> No task ranks above another. The person who listens is worth the person who plumbs.</li>
+            <li><strong>Spend what you give.</strong> Banked hours come back to you as help when you need it — childcare, a lift, a repair, a meal.</li>
+            <li><strong>A floor, not a debt.</strong> Anyone in a hard stretch can draw help without shame or balance. The bank is there to carry people through bad patches, not to punish them for having one.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="article reveal" id="two">
+        <span class="num">02</span>
+        <h2>Care as infrastructure</h2>
+        <span class="prevents">Prevents: the lonely death the book grieves</span>
+        <p>One of the most affecting threads in the book is the old person who dies alone after weeks with no one — the Japanese word <em>hikikomori</em>, the Western version that goes unnamed. Yet care, in the plan, is never actually designed. It's treated the way the wider world treats it: as a private problem your family either solves or doesn't.</p>
+        <p>Building care in as <strong>shared infrastructure</strong> does two things at once. It answers the book's deepest fear directly — and it creates exactly the meaningful local roles it keeps wishing for, especially for older and retired members who, as Durkheim observed, lose so much when a community stops needing them.</p>
+        <div class="how">
+          <h3>How it works here</h3>
+          <ol>
+            <li><strong>No one dies unnoticed.</strong> A light, opt-in daily check-in for anyone who wants one — a knock, a message, a face — so living alone never means being unseen.</li>
+            <li><strong>Shared care spaces.</strong> A childcare co-op where parents bank hours minding each other's kids; warm common rooms where caring for an elder isn't done in isolation.</li>
+            <li><strong>A local health role.</strong> A resident nurse or health worker as a real, paid, respected job — a first point of contact and a connector to the medical system, never a replacement for it.</li>
+            <li><strong>Roles that matter.</strong> Mentoring, organising, checking in — the kind of needed, wanted work that is itself protective against the isolation this whole project exists to end.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="article reveal" id="three">
+        <span class="num">03</span>
+        <h2>Real support, not just good vibes</h2>
+        <span class="prevents">Prevents: pretending community alone is enough</span>
+        <p>Belonging is built, openly, for people who are isolated and sometimes in real distress. That's not a side note — it's the heart of why it exists. Which means it has to take that seriously, with genuine pathways of support, and resist the comfortable lie that a warm neighbourhood and the right attitude will fix everything.</p>
+        <p>A community can hold people, and that holding is worth a great deal. But it works <strong>alongside</strong> professional care, never instead of it. Being honest and careful about that line isn't a weakness in the design — it's part of what makes the design trustworthy, and part of what keeps people safe.</p>
+        <div class="how">
+          <h3>How it works here</h3>
+          <ol>
+            <li><strong>People who notice.</strong> Organisers and volunteers encouraged and supported to gently reach out when someone seems to be struggling — to be present, not to diagnose or fix.</li>
+            <li><strong>Peer support, clearly bounded.</strong> Places to talk and be heard, with everyone clear that what's on offer is companionship and care, not treatment.</li>
+            <li><strong>Clear routes outward.</strong> Easy, well-signposted, up-to-date paths to professional help and crisis support. The community's job is to <em>connect</em> people to care, not to be the care.</li>
+            <li><strong>Dignity and discretion.</strong> Reaching out is done with respect and privacy. No one is monitored, labelled, or made a project.</li>
+          </ol>
+        </div>
+      </article>
+
+      <section class="closing reveal">
+        <p>Take these together and "you don't have to work" stops being a worry and becomes a promise the community can actually keep: that the necessary things get done, that no one is left uncared for, and that when life gets heavy there are real hands to reach for — without anyone being coerced into any of it.</p>
+        <p class="sig">Continued in Part C — <em>Built to last:</em> building for families and a real mix of generations, and belonging together without becoming a cult.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <a href="what-makes-it-last.html">‹ Back to “What makes it last”</a>
+    <p class="meta">Design principles for Belonging — developed with AI, then checked, shaped, and owned by the people who'll live them.</p>
+  </footer>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay=(Math.min(i,4)*60)+'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

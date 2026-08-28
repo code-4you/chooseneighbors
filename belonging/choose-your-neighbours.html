@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose your neighbours — Belonging</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px}
+  .brand b{font-weight:900}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
+  .crumbs{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14.5px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .crumbs a:hover{color:var(--terra)}
+  .hero{padding:80px 0 30px;max-width:22ch}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(46px,9vw,96px);line-height:.93;letter-spacing:-.03em}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(20px,2.5vw,25px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:var(--measure);margin-top:30px}
+  .dek b{font-weight:500;color:var(--ink)}
+  .insight{max-width:var(--measure);margin:48px 0 10px;border-top:1px solid var(--line);padding-top:46px}
+  .insight blockquote{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;font-size:clamp(26px,4.2vw,40px);line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin-bottom:24px}
+  .insight blockquote em{font-style:italic;color:var(--terra-deep)}
+  .insight p{color:var(--ink-soft);margin-bottom:18px}
+  .insight p strong{color:var(--ink);font-weight:600}
+  .section-label{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--terra);margin:60px 0 8px;display:flex;align-items:center;gap:14px;max-width:var(--measure)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  .section-intro{max-width:var(--measure);font-size:21px;line-height:1.55;color:var(--ink);margin-bottom:10px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;letter-spacing:-.01em}
+  .steps{max-width:var(--measure);margin-top:24px;counter-reset:m;list-style:none}
+  .steps>li{counter-increment:m;position:relative;padding:26px 0 26px 64px;border-top:1px solid var(--line)}
+  .steps>li:last-child{border-bottom:1px solid var(--line)}
+  .steps>li::before{content:counter(m,decimal-leading-zero);position:absolute;left:0;top:26px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:32px;color:var(--terra);letter-spacing:-.02em}
+  .steps h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:22px;line-height:1.1;margin-bottom:8px;color:var(--ink)}
+  .steps p{color:var(--ink-soft);font-size:17.5px;line-height:1.55}
+  .steps p strong{color:var(--ink);font-weight:600}
+  .compare{max-width:var(--measure);margin-top:24px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .compare .row{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line)}
+  @media(min-width:680px){.compare .row{grid-template-columns:1.1fr 1fr}}
+  .compare .row:first-child{border-top:none}
+  .compare .q{background:var(--paper-2);padding:18px 22px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:16px;color:var(--ink);line-height:1.3}
+  .compare .a{padding:18px 22px;color:var(--ink-soft);font-size:16px;line-height:1.5}
+  .compare .a strong{color:var(--terra-deep);font-weight:600}
+  .compare-note{max-width:var(--measure);font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:15.5px;color:var(--ink-faint);margin-top:14px}
+  .closing{max-width:var(--measure);border-top:3px double var(--line);margin-top:50px;padding:48px 0 10px}
+  .closing p{font-size:21px;line-height:1.6;color:var(--ink)}
+  .closing .sig{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:16px;color:var(--ink-faint);margin-top:24px}
+  .closing .sig a{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+  footer{border-top:1px solid var(--line);margin-top:54px;padding:38px 0 70px;font-family:'Google Sans','Outfit',Arial,sans-serif;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+  footer a{color:var(--ink-soft);text-decoration:none;font-size:15px;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--terra)}
+  footer .meta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:48ch}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+  <meta name="description" content="How choosing neighbours works: application by people who know you, rooms always kept free, and the freedom to move — without discrimination.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/choose-your-neighbours.html">
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>Belonging</b> <span>choose your neighbours</span></a>
+    <div class="crumbs"><a href="index.html">Home</a> &nbsp;›&nbsp; Choose your neighbours</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">The core idea</div>
+    <h1>Choose your<br><em>neighbours</em></h1>
+  </header>
+
+  <p class="dek reveal">Instead of finding a place and hoping about who's nearby, you choose the people you live around — and there's always open space kept free, so the friends you want can move in, and so you can move too, whenever you like. <b>You're not assigned a community. You build one.</b></p>
+
+  <section class="insight reveal">
+    <blockquote>The most important thing in life isn't the house. <em>It's the people around it.</em></blockquote>
+    <p>We choose almost everything in modern life — our work, our phone, our holidays — except the one thing that shapes us most: who we live beside. We pick a home for its kitchen and its price, and simply <strong>accept</strong> whoever happens to be next door. Then we wonder why a street full of people can feel so lonely.</p>
+    <p>Belonging turns that around. The home matters, but it comes second. <strong>First you choose your people</strong> — and the whole place is built to make that choice real and keep it possible for the rest of your life.</p>
+  </section>
+
+  <div class="section-label reveal">How it works</div>
+  <p class="section-intro reveal">Four moving parts, working together.</p>
+
+  <ol class="steps reveal">
+    <li>
+      <h3>You choose, by application</h3>
+      <p>Through a simple social app, you ask to live near the people you want around you — friends, or people whose ideas and energy you share. Groups can choose other groups. You're placed on a map close to the people you chose, rather than wherever a vacancy happens to be.</p>
+    </li>
+    <li>
+      <h3>There's always room kept free</h3>
+      <p>A share of space is deliberately held open — used flexibly in the meantime, but able to be made available quickly. So when a friend wants to join you, or when you want to move closer to someone, <strong>there's actually somewhere to go.</strong> This is the piece every other model is missing.</p>
+    </li>
+    <li>
+      <h3>You can move, freely</h3>
+      <p>Because you own your home and can sell it back at a fair formula price (see <a href="homes.html" style="color:var(--terra-deep)">Homes</a>), moving isn't a financial trap. You can shift to be near new friends, or away from friction, without losing your home or your savings.</p>
+    </li>
+    <li>
+      <h3>A map, placed by who you know</h3>
+      <p>A nearest-neighbours approach positions people near the friends and groups they chose. You see where people and groups are, and pick where you'd like to be — so the layout of the place reflects real bonds, not the accident of who signed a lease first.</p>
+    </li>
+  </ol>
+
+  <div class="section-label reveal">"Isn't this just cohousing?"</div>
+  <p class="section-intro reveal">It sounds similar. The difference is small to describe and enormous to live in.</p>
+
+  <div class="compare reveal">
+    <div class="row">
+      <div class="q">Cohousing &amp; co-ops</div>
+      <div class="a">Good models — but they fill vacancies as they come, and if there's friction someone is asked to leave. There's no open space kept free for the people <em>you</em> want to move <strong>in</strong>.</div>
+    </div>
+    <div class="row">
+      <div class="q">Eco-villages</div>
+      <div class="a">Often built around a lifestyle, and frequently just rentals or premium homes with solar attached. The "choose your people" mechanic isn't the point.</div>
+    </div>
+    <div class="row">
+      <div class="q">Religious &amp; intentional communities</div>
+      <div class="a">You join for a shared belief and can be removed for not keeping it. You don't really choose the people — and you can be bound to a creed. <strong>Belonging never binds your beliefs</strong> (see Governing ourselves).</div>
+    </div>
+    <div class="row">
+      <div class="q">Belonging</div>
+      <div class="a"><strong>You choose the people. Space stays open so friends can join. You can move when you want. No rent, no creed.</strong> That combination, as far as we can find, has not existed before.</div>
+    </div>
+  </div>
+  <p class="compare-note reveal">These other models are genuinely good. The point isn't that they're bad — it's that none of them keeps space open so you can gather the people you'd actually choose, and let everyone move freely. That single difference is what turns proximity into belonging.</p>
+
+  <section class="closing reveal">
+    <p>Seeing a friend once a month is a few good hours. Living among people you chose is a different thing entirely — they're there on the stairwell, in the shared meal, in the work you do together, woven into ordinary days. That's the quiet, durable kind of belonging this is built to make ordinary.</p>
+    <p class="sig">Why this works, and why "chosen" is the word that matters, is laid out in <a href="why-it-works-on-people.html">Why it works on people</a>. What keeps it fair and un-capturable over time is in <a href="governing-ourselves.html">Governing ourselves</a>.</p>
+  </section>
+
+  <footer>
+    <a href="index.html">‹ Back to home</a>
+    <p class="meta">Belonging — choose your neighbours. A community designed so that no one has to live, or grow old, in isolation.</p>
+  </footer>
+</div>
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*50)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>52 Tumbella Rd, Fisher SA — 2-Home Small-Scale Plan</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0b1220; color:#e8eef7;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .stage { position:fixed; inset:0; display:flex; flex-direction:column; justify-content:center;
+    padding: 8vh 10vw; opacity:0; transition: opacity .6s ease; pointer-events:none; }
+  .stage.active { opacity:1; }
+  .kicker { font-size: 1.5vw; letter-spacing:.25em; text-transform:uppercase;
+    color:#7aa7e8; margin-bottom:2vh; font-weight:600; }
+  h1 { font-size: 5vw; line-height:1.05; font-weight:800; margin-bottom:3vh;
+    background: linear-gradient(135deg,#fff 0%,#a5c4f3 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  h2 { font-size: 3.6vw; line-height:1.15; font-weight:700; margin-bottom:3vh; color:#fff; }
+  ul { list-style:none; }
+  li { font-size: 1.9vw; line-height:1.5; margin-bottom:1.6vh; padding-left:2.5vw;
+    position:relative; color:#cfdcef; }
+  li::before { content:""; position:absolute; left:0; top:.9vw; width:1.3vw; height:.25vw;
+    background:#4a8de0; border-radius:2px; }
+  .note { font-size: 1.4vw; color:#8aa0bd; margin-top:4vh; font-style:italic; }
+  .bigwarn { font-size: 2.2vw; padding:3vh 3vw; background:rgba(255,90,90,.08);
+    border-left:.4vw solid #ff5a5a; border-radius:.6vw; color:#ffd0d0; line-height:1.4; }
+  .biggood { font-size: 2.2vw; padding:3vh 3vw; background:rgba(74,224,141,.08);
+    border-left:.4vw solid #4ae08d; border-radius:.6vw; color:#d0ffd9; line-height:1.4; }
+  .numbers { display:flex; gap:3vw; margin-top:3vh; flex-wrap:wrap; }
+  .num-card { flex:1; min-width:18vw; background:rgba(74,141,224,.08); padding:3vh 2vw;
+    border-radius:1vw; border:1px solid rgba(74,141,224,.2); }
+  .num-card .label { font-size:1.1vw; color:#8aa0bd; letter-spacing:.15em;
+    text-transform:uppercase; margin-bottom:1vh; }
+  .num-card .value { font-size:3.5vw; font-weight:800; color:#fff; line-height:1; }
+  .num-card .sub { font-size:1.1vw; color:#7aa7e8; margin-top:.8vh; }
+
+  .progress { position:fixed; bottom:0; left:0; height:.5vh; background:#4a8de0;
+    width:0%; transition: width .3s linear; z-index:10; }
+  .counter { position:fixed; top:3vh; right:4vw; font-size:1.2vw; color:#6a7d97;
+    letter-spacing:.1em; z-index:5; }
+  .controls { position:fixed; bottom:3vh; right:4vw; display:flex; gap:1vw; z-index:10; }
+  .btn { background:#1a2740; border:1px solid #2c3f63; color:#cfdcef; padding:.8vh 1.5vw;
+    border-radius:.4vw; cursor:pointer; font-size:1.2vw; }
+  .btn:hover { background:#22324f; }
+
+  .start-overlay { position:fixed; inset:0; background:linear-gradient(135deg,#0b1220 0%,#142340 100%);
+    z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:4vh 6vw; }
+  .start-overlay .badge { font-size:1.4vw; letter-spacing:.3em; text-transform:uppercase;
+    color:#7aa7e8; margin-bottom:3vh; }
+  .start-overlay h1 { font-size:5.5vw; margin-bottom:4vh; max-width:80vw; }
+  .start-overlay p { font-size:1.5vw; color:#8aa0bd; margin-bottom:2vh; max-width:60vw; }
+  .play-btn { display:inline-flex; align-items:center; gap:1.5vw;
+    background:#4a8de0; color:#fff; border:none; padding:2.5vh 4vw; border-radius:1vw;
+    font-size:2.2vw; font-weight:700; cursor:pointer; margin:4vh 0 2vh;
+    box-shadow: 0 1vh 3vh rgba(74,141,224,.4); transition: transform .15s, box-shadow .15s; }
+  .play-btn:hover { transform:translateY(-2px); box-shadow:0 1.5vh 4vh rgba(74,141,224,.55); }
+  .play-btn .icon { font-size:2.6vw; }
+  .voice-picker { margin-top:3vh; }
+  .voice-picker label { font-size:1.2vw; color:#8aa0bd; margin-right:1vw; }
+  .voice-picker select { font-size:1.2vw; padding:.6vh 1vw; background:#1a2740;
+    color:#cfdcef; border:1px solid #2c3f63; border-radius:.4vw; max-width:40vw; }
+  .hint { font-size:1.1vw; color:#5a6d85; margin-top:1vh; }
+
+  .end-overlay { position:fixed; inset:0; background:rgba(11,18,32,.97); z-index:100;
+    display:none; flex-direction:column; align-items:center; justify-content:center; }
+  .end-overlay.show { display:flex; }
+  .end-overlay h2 { font-size:4vw; margin-bottom:3vh; }
+  .end-overlay p { font-size:1.5vw; color:#8aa0bd; margin-bottom:3vh; max-width:60vw; text-align:center; }
+</style>
+</head>
+<body>
+<!-- ===== cross-page nav (injected) ===== -->
+<style>
+.xnav{position:fixed;top:0;left:0;z-index:2147483600;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.xnav *{box-sizing:border-box;}
+.xnav-toggle{display:inline-flex;align-items:center;gap:.5em;margin:11px;padding:8px 14px;
+  background:rgba(15,22,38,.86);color:#e8eef7;border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;line-height:1;
+  letter-spacing:.02em;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 4px 14px rgba(0,0,0,.30);}
+.xnav-toggle:hover{background:rgba(28,40,66,.94);}
+.xnav-toggle .xnav-chev{font-size:10px;opacity:.8;transition:transform .2s ease;}
+.xnav.open .xnav-toggle .xnav-chev{transform:rotate(180deg);}
+.xnav-panel{display:none;margin:0 11px;min-width:250px;max-width:min(82vw,360px);
+  background:rgba(15,22,38,.97);border:1px solid rgba(255,255,255,.16);border-radius:13px;
+  overflow:hidden;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  box-shadow:0 12px 34px rgba(0,0,0,.45);}
+.xnav.open .xnav-panel{display:block;}
+.xnav-head{padding:10px 15px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7aa7e8;border-bottom:1px solid rgba(255,255,255,.10);}
+.xnav-item{display:flex;align-items:center;gap:9px;padding:11px 15px;color:#cfdcef;
+  text-decoration:none;font-size:13.5px;line-height:1.3;
+  border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.xnav-item:last-child{border-bottom:none;}
+.xnav-item:hover{background:rgba(74,141,224,.20);color:#fff;}
+.xnav-item.current{background:rgba(74,141,224,.15);color:#fff;font-weight:600;cursor:default;}
+.xnav-dot{width:6px;height:6px;border-radius:50%;background:#4a8de0;flex:none;opacity:.45;}
+.xnav-item.current .xnav-dot{opacity:1;}
+@media print{.xnav{display:none!important;}}
+</style>
+<nav class="xnav" id="xnav">
+  <button class="xnav-toggle" type="button"
+          onclick="document.getElementById('xnav').classList.toggle('open')">
+    <span>&#9776; Menu</span><span class="xnav-chev">&#9662;</span>
+  </button>
+  <div class="xnav-panel">
+    <div class="xnav-head">Project &middot; jump to</div>
+      <a class="xnav-item" href="index.html"><span class="xnav-dot"></span><span>Overview</span></a>
+      <a class="xnav-item current"><span class="xnav-dot"></span><span>52 Tumbella Rd — 2-Home Plan</span></a>
+      <a class="xnav-item" href="slides_4.html"><span class="xnav-dot"></span><span>SA Caravan Park Property Hunt</span></a>
+      <a class="xnav-item" href="building-plan-salvage-section_1.html"><span class="xnav-dot"></span><span>Building Plan — Salvaging Parts</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding Case</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding_1.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding (Plan 2144…)</span></a>
+      <a class="xnav-item" href="transportable-homes-about.html"><span class="xnav-dot"></span><span>Transportable Homes — Overview</span></a>
+      <a class="xnav-item" href="transportable-homes-prices.html"><span class="xnav-dot"></span><span>Cheapest Buildings — 2026 Prices</span></a>
+  </div>
+</nav>
+<script>
+document.addEventListener('click',function(e){
+  var n=document.getElementById('xnav');
+  if(n&&n.classList.contains('open')&&!n.contains(e.target))n.classList.remove('open');
+});
+</script>
+<!-- ===== end nav ===== -->
+
+
+<div class="start-overlay" id="start">
+  <div class="badge">Small-Scale Plan · $300k Property</div>
+  <h1>52 Tumbella Rd — 2 portable homes to start</h1>
+  <p>Residents bring their own movable dwellings · share existing services · scale up later if it works</p>
+  <button class="play-btn" id="playBtn">
+    <span class="icon">▶</span><span>Play with narration</span>
+  </button>
+  <div class="voice-picker">
+    <label for="voiceSelect">Voice:</label>
+    <select id="voiceSelect"></select>
+  </div>
+  <div class="hint">Plays in your browser using your computer's built-in voice · Use Chrome or Edge · Press F for fullscreen</div>
+</div>
+
+<div class="end-overlay" id="end">
+  <h2>End of briefing</h2>
+  <p>Talk to Mid Murray Council before you sign. Get the planner to put "subject to planning approval" in the contract of sale.</p>
+  <button class="play-btn" onclick="restart()"><span class="icon">↻</span><span>Replay</span></button>
+</div>
+
+<div class="counter" id="counter" style="display:none">1 / 14</div>
+<div class="progress" id="progress"></div>
+<div class="controls" id="controls" style="display:none">
+  <button class="btn" onclick="prev()">◀ Prev</button>
+  <button class="btn" onclick="togglePause()" id="pauseBtn">⏸ Pause</button>
+  <button class="btn" onclick="next()">Next ▶</button>
+</div>
+
+<div id="slides"></div>
+
+<script>
+const slides = [
+  {
+    vo: "The small-scale plan for 52 Tumbella Road. Buy the property for three hundred thousand dollars. Put two portable homes on it. Let the residents bring their own dwellings. Share power, water and waste with the existing house. Maybe expand later. Here is what that actually involves.",
+    html: `<div class="kicker">Small-scale plan</div>
+           <h1>$300k property · 2 portable homes · shared services</h1>
+           <p style="font-size:1.6vw; color:#8aa0bd; margin-top:2vh;">Residents bring their own homes. You provide the land, the connections, and the agreements.</p>`
+  },
+  {
+    vo: "First, the headline. This scale is much, much more achievable than a full caravan park. You do not need to rezone the land. You do not need a Code Amendment. You do not need to spend hundreds of thousands on consultants. But — and this is important — you still need planning approval from Mid Murray Council before you put a second or third permanent dwelling on the block. There is no version of this where you skip the Council.",
+    html: `<div class="kicker">The headline</div>
+           <h2>Two homes is a different planning question</h2>
+           <div class="biggood">✓ No rezoning. No Code Amendment. No $200k consultant bill.</div>
+           <div class="bigwarn" style="margin-top:3vh;">⚠ You still need Mid Murray Council planning approval. There's no version where you skip the Council.</div>`
+  },
+  {
+    vo: "What the land probably allows today. The site is on rural land, almost certainly zoned Primary Production. That zone usually permits one dwelling per allotment. Anything beyond the one existing house — even a caravan that someone is living in permanently — counts as an additional dwelling and needs a development application. Two extra homes means two extra dwellings.",
+    html: `<div class="kicker">What the land allows today</div>
+           <h2>Primary Production = one dwelling per allotment</h2>
+           <ul>
+             <li>The existing house = your one allowed dwelling</li>
+             <li>Each extra portable home = an "additional dwelling"</li>
+             <li>Permanent living in a caravan counts the same way</li>
+             <li>Each additional dwelling needs Council planning approval</li>
+           </ul>`
+  },
+  {
+    vo: "The good news on the legal side. Because you are only putting on two homes, you almost certainly do not need to operate as a residential park under the Residential Parks Act. That Act is designed for multi-site parks with shared amenities. With two private dwellings on a rural block, you are more likely just a landlord under the Residential Tenancies Act 2010. Simpler agreements. Simpler obligations. Confirm this with a SA tenancy lawyer.",
+    html: `<div class="kicker">The legal good news</div>
+           <h2>You're probably a landlord, not a park operator</h2>
+           <ul>
+             <li>Residential Parks Act 2007 is designed for multi-site parks with shared amenities</li>
+             <li>Two private homes on rural land is usually a regular landlord-tenant arrangement</li>
+             <li><b>Residential Tenancies Act 1995 (SA)</b> applies — simpler than the Parks Act</li>
+             <li>Confirm with a SA tenancy lawyer before signing anyone up</li>
+           </ul>`
+  },
+  {
+    vo: "Step one. Title search and zoning check. Same as before. Order a Section 7 search from Land Services SA. Look at the property on the SAPPA online map. Confirm the zone, every overlay, and any flood, bushfire, or vegetation constraints. Spend two hundred dollars before you spend three hundred thousand.",
+    html: `<div class="kicker">Step 1</div>
+           <h2>Title search + zoning check ($200 spend)</h2>
+           <ul>
+             <li>Section 7 search via <b>Land Services SA</b></li>
+             <li>Check the address on the <b>SAPPA</b> map</li>
+             <li>Note zone, overlays, flood/bushfire/vegetation constraints</li>
+             <li>$200 of homework before you spend $300,000</li>
+           </ul>`
+  },
+  {
+    vo: "Step two. Phone the Mid Murray Council planning team. Before signing any contract of sale. Tell them honestly what you want to do. Two additional movable dwellings, occupied permanently, sharing the existing services. Ask whether they would consider that under the current zoning. The answer will probably be: lodge a development application, we will assess it on merit. That is good news. It means the door is open.",
+    html: `<div class="kicker">Step 2</div>
+           <h2>Phone Mid Murray Council planning</h2>
+           <ul>
+             <li>Do this <b>before</b> signing any contract of sale</li>
+             <li>Describe it honestly: 2 extra movable dwellings, permanent occupation, shared services</li>
+             <li>Likely answer: lodge a DA, assessed on merit</li>
+             <li>That's the door being open — not slammed shut</li>
+           </ul>
+           <div class="note">Mid Murray Council — (08) 8569 0100 — mid-murray.sa.gov.au</div>`
+  },
+  {
+    vo: "Step three. The contract of sale. Make any offer on Tumbella Road conditional on planning approval. The clause should say: this contract is subject to the buyer obtaining Mid Murray Council development approval for two additional movable dwellings within a defined number of days. Get a SA conveyancer or solicitor to draft it. This single clause protects your three hundred thousand dollars if Council says no.",
+    html: `<div class="kicker">Step 3 — protects your $300k</div>
+           <h2>Conditional contract of sale</h2>
+           <ul>
+             <li>Make the offer <b>subject to planning approval</b></li>
+             <li>Define exactly what approval (2 additional movable dwellings)</li>
+             <li>Set a clear timeframe (60–90 days is typical)</li>
+             <li>SA conveyancer or solicitor drafts the clause</li>
+           </ul>
+           <div class="biggood">This one clause is the difference between a refundable deposit and a lost $300,000.</div>`
+  },
+  {
+    vo: "Step four. The real practical problem. Services. The existing house's water tank, septic system, and power connection are all sized for one household. Putting two extra households on the same connections will overload them. This is where most of your real spend will go. Let me break it down.",
+    html: `<div class="kicker">Step 4 — the real problem</div>
+           <h2>Services capacity is the practical limit</h2>
+           <ul>
+             <li>The existing house's services are sized for <b>one household</b></li>
+             <li>Three households on one system = overload</li>
+             <li>This is where most of the real money goes</li>
+             <li>Better to plan it now than rebuild later</li>
+           </ul>`
+  },
+  {
+    vo: "Water. Rural SA homes typically need ninety thousand litres of rainwater storage per household. Three households means roughly two hundred and seventy thousand litres of tanks plus collection roof area. A licensed bore is another option. Budget around fifteen to twenty-five thousand dollars for extra rainwater tanks, or up to forty thousand for a bore with pump and filtration.",
+    html: `<div class="kicker">Step 4a — Water</div>
+           <h2>Rainwater + bore options</h2>
+           <ul>
+             <li>Rural SA standard: ~90,000 L of rainwater storage per household</li>
+             <li>Three households = ~270,000 L total</li>
+             <li>Extra tanks: $15k–$25k</li>
+             <li>Licensed bore + pump + filtration: up to $40k</li>
+             <li>Bore needs a licence from Department for Environment & Water</li>
+           </ul>`
+  },
+  {
+    vo: "Wastewater. This is the big one. A standard septic system is rated by the number of bedrooms it serves. Adding two more dwellings means upsizing the system, or installing separate systems for each new dwelling. Either way, the Environment Protection Authority and SA Health must approve the design. Budget twelve to twenty-five thousand dollars per extra dwelling for a compliant aerobic treatment system, or more if soil conditions are poor.",
+    html: `<div class="kicker">Step 4b — Wastewater</div>
+           <h2>Septic capacity is the big constraint</h2>
+           <ul>
+             <li>Existing septic is sized for the existing house — full stop</li>
+             <li>Each additional dwelling needs its own approved system OR a major upgrade</li>
+             <li>EPA + SA Health approval required for any new system</li>
+             <li>Aerobic treatment system: $12k–$25k per dwelling installed</li>
+             <li>More if soil tests show heavy clay or rocky ground</li>
+           </ul>`
+  },
+  {
+    vo: "Power. The existing electrical connection from SA Power Networks has a maximum capacity, usually around sixty-three amps for a single-phase rural home. Two extra dwellings will push that. You will need a registered electrician to assess the load and possibly request a connection upgrade. Budget two to eight thousand for sub-metering and wiring per dwelling, plus possible upgrade fees from SA Power Networks.",
+    html: `<div class="kicker">Step 4c — Power</div>
+           <h2>Existing connection has limits</h2>
+           <ul>
+             <li>Standard rural single-phase: ~63 amps total</li>
+             <li>Two more dwellings will push or exceed that</li>
+             <li>Registered electrician assesses load</li>
+             <li>Sub-metering each site: $2k–$8k per dwelling</li>
+             <li>SA Power Networks connection upgrade if needed</li>
+             <li>Off-grid solar + battery per dwelling is a real alternative</li>
+           </ul>`
+  },
+  {
+    vo: "Step five. The development application itself. Lodge it through PlanSA. Include site plans showing where each portable home will sit, setbacks from boundaries, the wastewater design, the water supply plan, vehicle access, and a bushfire management plan if you are in a bushfire-prone area. Application fees are typically a thousand to three thousand dollars. A planning consultant to prepare it: another five to ten thousand. Council assessment takes six to twelve weeks for a straightforward case.",
+    html: `<div class="kicker">Step 5</div>
+           <h2>Lodge the Development Application</h2>
+           <ul>
+             <li>Submit through the <b>PlanSA</b> portal</li>
+             <li>Site plans, setbacks, wastewater, water, access, bushfire plan</li>
+             <li>Application fees: $1k–$3k</li>
+             <li>Planning consultant to prepare: $5k–$10k</li>
+             <li>Assessment time: 6–12 weeks for a straightforward case</li>
+           </ul>`
+  },
+  {
+    vo: "Step six. The residents and their homes. Each portable home brought onto site needs to comply with the relevant Australian Standards and, depending on size and type, may need its own Building Rules Consent. Make this the resident's problem in your tenancy agreement. They show you compliance paperwork before they move in. You inspect the connections before they hook up. No paperwork, no site.",
+    html: `<div class="kicker">Step 6</div>
+           <h2>The residents and their dwellings</h2>
+           <ul>
+             <li>Each portable home must meet relevant Australian Standards</li>
+             <li>Building Rules Consent may apply (size / type dependent)</li>
+             <li><b>Put compliance on the resident</b> in the tenancy agreement</li>
+             <li>No compliance paperwork = no site. Hold the line.</li>
+             <li>Inspect the dwelling and connections before move-in</li>
+           </ul>`
+  },
+  {
+    vo: "The realistic budget. Property: three hundred thousand. Stamp duty: about twelve thousand. Conveyancer and pre-purchase searches: two thousand. Planning consultant and DA: ten thousand. Two extra wastewater systems: thirty thousand. Extra water tanks and plumbing: twenty thousand. Electrical sub-metering: ten thousand. Site works, gravel pads, footings: fifteen thousand. Contingency: twenty thousand. All up — around four hundred thousand to get two paying sites operational.",
+    html: `<div class="kicker">Realistic budget</div>
+           <h2>All-up: around $400k to be operational</h2>
+           <div class="numbers">
+             <div class="num-card"><div class="label">Property + stamp duty</div><div class="value">$312k</div><div class="sub">$300k + ~$12k stamp duty</div></div>
+             <div class="num-card"><div class="label">Planning + searches</div><div class="value">$12k</div><div class="sub">DA, consultant, conveyancer</div></div>
+             <div class="num-card"><div class="label">Wastewater (2 sites)</div><div class="value">$30k</div><div class="sub">EPA-approved systems</div></div>
+           </div>
+           <div class="numbers" style="margin-top:2vh;">
+             <div class="num-card"><div class="label">Water tanks + plumbing</div><div class="value">$20k</div><div class="sub">~180,000L extra capacity</div></div>
+             <div class="num-card"><div class="label">Power + site works</div><div class="value">$25k</div><div class="sub">Metering, pads, footings</div></div>
+             <div class="num-card"><div class="label">Contingency</div><div class="value">$20k</div><div class="sub">Always have one</div></div>
+           </div>`
+  },
+  {
+    vo: "The income picture. Permanent caravan sites in rural SA typically rent for two hundred and fifty to three hundred and fifty dollars a week. Two sites at three hundred dollars a week is thirty-one thousand dollars a year gross. Minus council rates, insurance, water testing, system maintenance — say twenty-three thousand net. On four hundred thousand of capital, that is just under six percent yield. Plus capital growth on the land. Plus the option to add a third or fourth site later, once you know the system works and the council is comfortable.",
+    html: `<div class="kicker">The income picture</div>
+           <h2>~6% yield + land capital growth + room to scale</h2>
+           <div class="numbers">
+             <div class="num-card"><div class="label">Site rent (each)</div><div class="value">$300/wk</div><div class="sub">$250–$350 range for rural SA</div></div>
+             <div class="num-card"><div class="label">Gross income (2 sites)</div><div class="value">$31k/yr</div><div class="sub">Both sites occupied</div></div>
+             <div class="num-card"><div class="label">Net after costs</div><div class="value">~$23k/yr</div><div class="sub">~6% on $400k capital</div></div>
+           </div>
+           <div class="note" style="margin-top:3vh;">Plus capital growth on the land. Plus the option to add sites 3 and 4 later — once the Council is comfortable and the system works.</div>`
+  },
+  {
+    vo: "Bottom line. Two portable homes is a real, fundable, council-approvable plan at this price. The risks are: Council saying no in your particular zone, services costing more than expected because of soil or distance, and finding good long-term residents. Mitigate all three by phoning Mid Murray Council first, getting quotes for the wastewater and water work before you sign, and building a clear tenancy agreement. Good luck.",
+    html: `<div class="kicker">Bottom line</div>
+           <h2>This version is real, fundable, and approvable</h2>
+           <ul>
+             <li>Three biggest risks: Council "no", services blowout, bad tenants</li>
+             <li>Mitigation 1: phone Mid Murray Council <b>before</b> you sign</li>
+             <li>Mitigation 2: get wastewater + water quotes <b>before</b> you sign</li>
+             <li>Mitigation 3: tight tenancy agreement, screened residents</li>
+           </ul>
+           <div class="biggood">Start with 2 sites. Prove the model. Add sites 3 and 4 once the Council and the system have proven themselves.</div>`
+  }
+];
+
+const container = document.getElementById('slides');
+slides.forEach((s) => {
+  const div = document.createElement('div');
+  div.className = 'stage';
+  div.innerHTML = s.html;
+  container.appendChild(div);
+});
+
+const stages = document.querySelectorAll('.stage');
+const counterEl = document.getElementById('counter');
+const progressEl = document.getElementById('progress');
+let current = 0;
+let paused = false;
+let chosenVoice = null;
+
+function show(i) {
+  stages.forEach(s => s.classList.remove('active'));
+  stages[i].classList.add('active');
+  counterEl.textContent = (i+1) + ' / ' + stages.length;
+  progressEl.style.width = (((i+1)/stages.length) * 100) + '%';
+  current = i;
+}
+
+const voiceSelect = document.getElementById('voiceSelect');
+function populateVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  voiceSelect.innerHTML = '';
+  const auVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en-au'));
+  const gbVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en-gb'));
+  const otherEn = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en') && !v.lang.toLowerCase().startsWith('en-au') && !v.lang.toLowerCase().startsWith('en-gb'));
+  const nonEn = voices.filter(v => !v.lang || !v.lang.toLowerCase().startsWith('en'));
+  const sorted = [...auVoices, ...gbVoices, ...otherEn, ...nonEn];
+  sorted.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = voices.indexOf(v);
+    const star = auVoices.includes(v) ? ' ⭐' : '';
+    opt.textContent = v.name + ' (' + v.lang + ')' + star;
+    voiceSelect.appendChild(opt);
+  });
+  if (auVoices.length)      { voiceSelect.value = voices.indexOf(auVoices[0]); chosenVoice = auVoices[0]; }
+  else if (gbVoices.length) { voiceSelect.value = voices.indexOf(gbVoices[0]); chosenVoice = gbVoices[0]; }
+  else if (otherEn.length)  { voiceSelect.value = voices.indexOf(otherEn[0]);  chosenVoice = otherEn[0]; }
+  else if (voices.length)   { voiceSelect.value = 0; chosenVoice = voices[0]; }
+}
+voiceSelect.addEventListener('change', () => {
+  const voices = window.speechSynthesis.getVoices();
+  chosenVoice = voices[parseInt(voiceSelect.value)];
+});
+if ('speechSynthesis' in window) {
+  populateVoices();
+  speechSynthesis.onvoiceschanged = populateVoices;
+}
+
+function speakSlide(i) {
+  if (i >= slides.length) { finish(); return; }
+  show(i);
+  if (!('speechSynthesis' in window)) {
+    setTimeout(() => { if (!paused) speakSlide(i+1); }, 9000);
+    return;
+  }
+  const utter = new SpeechSynthesisUtterance(slides[i].vo);
+  if (chosenVoice) utter.voice = chosenVoice;
+  utter.rate = 0.95;
+  utter.pitch = 1.0;
+  utter.onend = () => {
+    if (paused) return;
+    setTimeout(() => { if (!paused) speakSlide(i+1); }, 500);
+  };
+  utter.onerror = () => {
+    setTimeout(() => { if (!paused) speakSlide(i+1); }, 1000);
+  };
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utter);
+}
+
+function start() {
+  document.getElementById('start').style.display = 'none';
+  document.getElementById('counter').style.display = '';
+  document.getElementById('controls').style.display = '';
+  paused = false;
+  speakSlide(0);
+}
+
+function finish() {
+  document.getElementById('end').classList.add('show');
+}
+
+function restart() {
+  document.getElementById('end').classList.remove('show');
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  paused = false;
+  document.getElementById('pauseBtn').textContent = '⏸ Pause';
+  speakSlide(0);
+}
+
+function togglePause() {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? '▶ Resume' : '⏸ Pause';
+  if (!('speechSynthesis' in window)) return;
+  if (paused) speechSynthesis.pause();
+  else {
+    if (speechSynthesis.paused) speechSynthesis.resume();
+    else speakSlide(current + 1);
+  }
+}
+
+function next() {
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  if (current < slides.length - 1) speakSlide(current + 1);
+}
+function prev() {
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  if (current > 0) speakSlide(current - 1);
+}
+
+document.getElementById('playBtn').addEventListener('click', start);
+
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('start').style.display !== 'none') {
+    if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); start(); }
+    return;
+  }
+  if (e.code === 'Space') { e.preventDefault(); togglePause(); }
+  if (e.code === 'ArrowRight') next();
+  if (e.code === 'ArrowLeft') prev();
+  if (e.code === 'KeyF') document.documentElement.requestFullscreen();
+});
+</script>
+</body>
+</html>

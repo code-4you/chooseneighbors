@@ -1,0 +1,26 @@
+# Choose Neighbors — extensionless URLs (/support -> support.php)
+Options -MultiViews -Indexes
+DirectoryIndex index.php index.html
+
+RewriteEngine On
+
+# Canonical host: force HTTPS and non-www (301)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://chooseneighbors.com%{REQUEST_URI} [R=301,L]
+
+# Serve /page as page.php when the file exists
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
+RewriteRule ^([^.]+?)/?$ $1.php [L]
+
+# Block direct access to the include templates
+<FilesMatch "^(header|footer)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Block internals
+<FilesMatch "^(config\.php|schema\.sql)$">
+    Require all denied
+</FilesMatch>

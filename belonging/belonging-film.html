@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belonging — the film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#1a1714;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;font-family:'Google Sans','Outfit',Arial,sans-serif;min-height:100%}
+
+  /* 16:9 stage that scales */
+  .stage{
+    position:relative;width:min(94vw,1280px);aspect-ratio:16/9;
+    background:var(--paper);overflow:hidden;border-radius:6px;
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+    container-type:size;
+  }
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:50;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity:.05;mix-blend-mode:multiply}
+  canvas.net{position:absolute;inset:0;z-index:1;opacity:.5}
+
+  .scene{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center;
+    padding:0 9cqw;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s}
+  .scene.active{opacity:1;visibility:visible}
+
+  /* animatable element */
+  .r{opacity:0;transform:translateY(2.4cqh)}
+  .scene.active .r{animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .scene.active .fade{animation:fade 1s ease forwards;animation-delay:var(--d,0s)}
+  .fade{opacity:0}
+  @keyframes fade{to{opacity:1}}
+
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.34em;font-size:1.5cqw;color:var(--terra)}
+  .big{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;line-height:.96;letter-spacing:-.02em;color:var(--ink)}
+  .big em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .sub{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;color:var(--ink-soft)}
+
+  /* brand scene */
+  .brand-x{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:900;font-size:13cqw;letter-spacing:-.03em;color:var(--terra);line-height:1}
+  .brand-tag{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:3cqw;color:var(--ink-faint);margin-top:1cqh}
+  .accent-line{height:.4cqh;background:var(--terra);width:0;border-radius:2px}
+  .scene.active .accent-line{animation:grow 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+  @keyframes grow{to{width:18cqw}}
+
+  /* data scene */
+  .stat{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15cqw;color:var(--terra-deep);line-height:.9;letter-spacing:-.03em}
+  .stat-l{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;font-size:4cqw;color:var(--ink);line-height:1.05;max-width:24ch;margin-top:1cqh}
+  .stat-s{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:2.3cqw;color:var(--ink-faint);margin-top:1.4cqh}
+
+  /* pillar list */
+  .pillar{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:5.4cqw;line-height:1.18;color:var(--ink);display:flex;align-items:baseline;gap:2cqw}
+  .pillar .n{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:2.6cqw;color:var(--terra);width:3cqw;flex-shrink:0}
+  .pillar em{font-style:normal;color:var(--terra-deep)}
+
+  .promise-line{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:7cqw;line-height:1.05;color:var(--ink)}
+  .promise-line em{font-style:italic;color:var(--terra-deep)}
+
+  .url{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:2.6cqw;color:var(--terra);letter-spacing:.02em;margin-top:2cqh}
+
+  /* progress */
+  .progress{position:absolute;left:0;bottom:0;height:.5cqh;background:var(--terra);width:0;z-index:60}
+
+  /* controls (outside stage, won't show in a cropped recording) */
+  .controls{display:flex;gap:14px;align-items:center;font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .controls button{background:#2a2521;color:#e9dfce;border:1px solid #463f37;border-radius:30px;padding:10px 20px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+  .controls button:hover{background:var(--terra);border-color:var(--terra);color:#fff}
+  .hint{color:#8a8073;font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13px}
+</style>
+  <meta name="description" content="Belonging — the film. A short animated introduction to communities where you choose your neighbours.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/belonging-film.html">
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+</head>
+<body>
+
+  <div class="stage" id="stage">
+    <canvas class="net" id="net"></canvas>
+
+    <!-- 0 — brand -->
+    <section class="scene" data-dur="4200">
+      <div class="brand-x r" style="--d:.1s">Belonging</div>
+      <div class="accent-line r" style="--d:.5s"></div>
+      <div class="brand-tag r" style="--d:.8s">choose your neighbours</div>
+    </section>
+
+    <!-- 1 — the choice we don't get -->
+    <section class="scene" data-dur="5600">
+      <div class="big r" style="--d:.1s;font-size:6.4cqw">We choose almost<br>everything in life.</div>
+      <div class="big r" style="--d:1.4s;font-size:6.4cqw;margin-top:2cqh"><em>Except who we live beside.</em></div>
+    </section>
+
+    <!-- 2 — affordability -->
+    <section class="scene" data-dur="6200">
+      <div class="eyebrow r" style="--d:.1s">Australia, 2026</div>
+      <div style="display:flex;align-items:baseline;gap:3cqw;margin-top:1cqh">
+        <div class="stat r" style="--d:.4s">1&#8202;in&#8202;7</div>
+      </div>
+      <div class="stat-l r" style="--d:.9s">households can afford a typical home today.</div>
+      <div class="stat-s r" style="--d:1.5s">Down from nearly half, just three years ago.</div>
+    </section>
+
+    <!-- 3 — isolation -->
+    <section class="scene" data-dur="6200">
+      <div class="big r" style="--d:.1s;font-size:6cqw">More of us live<br>alone than ever.</div>
+      <div class="sub r" style="--d:1.3s;font-size:2.7cqw;margin-top:2cqh;max-width:34ch;line-height:1.4">And isolation now harms health about as much as<br>smoking fifteen cigarettes a day.</div>
+    </section>
+
+    <!-- 4 — the turn -->
+    <section class="scene" data-dur="4400">
+      <div class="big r" style="--d:.1s;font-size:7cqw">It doesn't have to<br>be built <em>this way.</em></div>
+    </section>
+
+    <!-- 5 — reveal -->
+    <section class="scene" data-dur="4600">
+      <div class="brand-x r" style="--d:.1s;font-size:11cqw">Belonging</div>
+      <div class="big r" style="--d:.7s;font-size:4cqw;margin-top:1cqh">A community you choose.</div>
+    </section>
+
+    <!-- 6 — pillars -->
+    <section class="scene" data-dur="8800">
+      <div class="eyebrow r" style="--d:.1s">What it gives you</div>
+      <div style="display:flex;flex-direction:column;gap:1.4cqh;margin-top:2cqh">
+        <div class="pillar r" style="--d:.5s"><span class="n">01</span><span>Choose your <em>neighbours</em></span></div>
+        <div class="pillar r" style="--d:1.2s"><span class="n">02</span><span>Own your home — <em>never rent</em></span></div>
+        <div class="pillar r" style="--d:1.9s"><span class="n">03</span><span>Always <em>something to do</em></span></div>
+        <div class="pillar r" style="--d:2.6s"><span class="n">04</span><span>Design the place <em>yourself</em></span></div>
+      </div>
+    </section>
+
+    <!-- 7 — promise -->
+    <section class="scene" data-dur="6000">
+      <div class="promise-line r" style="--d:.1s">No one homeless.</div>
+      <div class="promise-line r" style="--d:.9s">No forced renting.</div>
+      <div class="promise-line r" style="--d:1.7s"><em>No one alone.</em></div>
+    </section>
+
+    <!-- 8 — close -->
+    <section class="scene" data-dur="7000">
+      <div class="brand-x r" style="--d:.1s;font-size:11cqw">Belonging</div>
+      <div class="accent-line r" style="--d:.6s"></div>
+      <div class="brand-tag r" style="--d:.9s">choose your neighbours</div>
+      <div class="url r" style="--d:1.4s">chooseneighbors.com</div>
+    </section>
+
+    <div class="progress" id="prog"></div>
+  </div>
+
+  <div class="controls">
+    <button id="replay">↻ Replay</button>
+    <button id="full">⛶ Fullscreen</button>
+    <span class="hint">Plays automatically · press R to replay · fullscreen + screen-record to export</span>
+  </div>
+
+<script>
+  const stage=document.getElementById('stage');
+  const scenes=[...stage.querySelectorAll('.scene')];
+  const prog=document.getElementById('prog');
+  const durs=scenes.map(s=>+s.dataset.dur);
+  const total=durs.reduce((a,b)=>a+b,0);
+  let timers=[],progRAF=null,startT=0;
+
+  function clearAll(){timers.forEach(clearTimeout);timers=[];if(progRAF)cancelAnimationFrame(progRAF);scenes.forEach(s=>s.classList.remove('active'))}
+
+  function play(){
+    clearAll();
+    let t=0;
+    scenes.forEach((s,i)=>{
+      timers.push(setTimeout(()=>{
+        scenes.forEach(x=>x.classList.remove('active'));
+        s.classList.add('active');
+      },t));
+      t+=durs[i];
+    });
+    startT=performance.now();
+    const tick=(now)=>{
+      const p=Math.min((now-startT)/total,1);
+      prog.style.width=(p*100)+'%';
+      if(p<1)progRAF=requestAnimationFrame(tick);
+    };
+    progRAF=requestAnimationFrame(tick);
+  }
+
+  document.getElementById('replay').onclick=play;
+  document.getElementById('full').onclick=()=>{ (stage.requestFullscreen?stage.requestFullscreen():null); };
+  document.addEventListener('keydown',e=>{
+    if(e.key==='r'||e.key==='R')play();
+    if(e.key==='f'||e.key==='F'){stage.requestFullscreen&&stage.requestFullscreen();}
+  });
+
+  // ---- connection network background ----
+  const cv=document.getElementById('net'),ctx=cv.getContext('2d');
+  let W,H,nodes=[];
+  function resize(){const r=stage.getBoundingClientRect();W=cv.width=r.width;H=cv.height=r.height;
+    const count=Math.round(W/26);nodes=[];for(let i=0;i<count;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18});}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(const n of nodes){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;}
+    const maxD=W*0.085;
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<maxD){ctx.strokeStyle='rgba(179,82,56,'+(0.22*(1-d/maxD))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+      }
+    }
+    for(const n of nodes){ctx.fillStyle='rgba(143,63,43,.5)';ctx.beginPath();ctx.arc(n.x,n.y,2,0,7);ctx.fill();}
+    requestAnimationFrame(draw);
+  }
+  const ro=new ResizeObserver(resize);ro.observe(stage);
+  resize();draw();
+
+  // autoplay
+  window.addEventListener('load',()=>setTimeout(play,400));
+  play();
+</script>
+</body>
+</html>

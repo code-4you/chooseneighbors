@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SA Caravan Park Property Hunt — Private Review</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#0b1220; color:#e8eef7;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+
+  .stage { position:fixed; inset:0; display:flex; opacity:0; transition: opacity .6s ease;
+    pointer-events:none; }
+  .stage.active { opacity:1; }
+
+  /* Left column: text */
+  .text-col { flex: 1; display:flex; flex-direction:column; justify-content:center;
+    padding: 8vh 5vw 8vh 8vw; max-width: 55%; }
+  .image-col { flex: 1; background:#111c30; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; }
+  .image-col img { width:100%; height:100%; object-fit:cover; }
+  .image-col .caption { position:absolute; bottom:0; left:0; right:0;
+    padding:2vh 2vw; background:linear-gradient(to top, rgba(0,0,0,.85), transparent);
+    font-size:1.1vw; color:#cfdcef; }
+  .image-col .caption b { color:#7aa7e8; }
+
+  /* Full-width text slides */
+  .stage.full .text-col { max-width:100%; padding: 8vh 10vw; }
+  .stage.full .image-col { display:none; }
+
+  .kicker { font-size: 1.3vw; letter-spacing:.25em; text-transform:uppercase;
+    color:#7aa7e8; margin-bottom:2vh; font-weight:600; }
+  h1 { font-size: 4.5vw; line-height:1.05; font-weight:800; margin-bottom:3vh;
+    background: linear-gradient(135deg,#fff 0%,#a5c4f3 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  h2 { font-size: 3.2vw; line-height:1.15; font-weight:700; margin-bottom:3vh; color:#fff; }
+  p.lead { font-size: 1.5vw; color:#8aa0bd; margin-bottom:2vh; }
+  ul { list-style:none; }
+  li { font-size: 1.5vw; line-height:1.5; margin-bottom:1.4vh; padding-left:2.5vw;
+    position:relative; color:#cfdcef; }
+  li::before { content:""; position:absolute; left:0; top:.85vw; width:1.3vw; height:.25vw;
+    background:#4a8de0; border-radius:2px; }
+  .note { font-size: 1.2vw; color:#8aa0bd; margin-top:3vh; font-style:italic; }
+  .bigwarn { font-size: 1.8vw; padding:2.5vh 2.5vw; background:rgba(255,90,90,.08);
+    border-left:.4vw solid #ff5a5a; border-radius:.6vw; color:#ffd0d0; line-height:1.4;
+    margin-top:2vh; }
+  .biggood { font-size: 1.8vw; padding:2.5vh 2.5vw; background:rgba(74,224,141,.08);
+    border-left:.4vw solid #4ae08d; border-radius:.6vw; color:#d0ffd9; line-height:1.4;
+    margin-top:2vh; }
+  .price-tag { display:inline-block; background:linear-gradient(135deg,#4ae08d,#3ab877);
+    color:#0b1220; font-size:2.5vw; font-weight:800; padding:1vh 2vw;
+    border-radius:.6vw; margin-bottom:2vh; }
+  .status-tag { display:inline-block; background:rgba(255,180,80,.15);
+    color:#ffc06b; font-size:1.2vw; padding:.6vh 1.5vw; border-radius:.4vw;
+    border:1px solid rgba(255,180,80,.3); font-weight:600; letter-spacing:.1em; margin-left:1vw; }
+  .feature-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5vh 2vw;
+    margin-top:1vh; }
+  .feature { font-size:1.3vw; color:#cfdcef; padding-left:2vw; position:relative; }
+  .feature::before { content:"✓"; position:absolute; left:0; color:#4ae08d; font-weight:700; }
+  .meta-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5vh 3vw; margin-top:2vh; }
+  .meta-item { }
+  .meta-label { font-size:1vw; color:#7aa7e8; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.4vh; }
+  .meta-value { font-size:1.6vw; color:#fff; font-weight:600; }
+
+  /* Comparison table */
+  table.compare { width:100%; border-collapse:collapse; margin-top:2vh; font-size:1.2vw; }
+  table.compare th, table.compare td { padding:1.5vh 1vw; text-align:left;
+    border-bottom:1px solid rgba(122,167,232,.15); }
+  table.compare th { color:#7aa7e8; font-weight:600; letter-spacing:.1em; text-transform:uppercase; font-size:1vw; }
+  table.compare td { color:#cfdcef; }
+  table.compare .ok { color:#4ae08d; }
+  table.compare .bad { color:#ff7a7a; }
+
+  /* Action list */
+  .action { background:rgba(74,141,224,.06); border:1px solid rgba(74,141,224,.2);
+    padding:2.5vh 2.5vw; border-radius:.8vw; margin-bottom:2vh; }
+  .action .num { display:inline-block; background:#4a8de0; color:#fff; width:3vw; height:3vw;
+    line-height:3vw; text-align:center; border-radius:50%; font-weight:700; font-size:1.5vw;
+    margin-right:1.5vw; vertical-align:middle; }
+  .action .label { font-size:1.7vw; font-weight:700; color:#fff; }
+  .action .body { font-size:1.3vw; color:#cfdcef; margin-top:1vh; padding-left:4.5vw; line-height:1.5; }
+
+  /* Progress, counter, controls */
+  .progress { position:fixed; bottom:0; left:0; height:.5vh; background:#4a8de0;
+    width:0%; transition: width .3s linear; z-index:10; }
+  .counter { position:fixed; top:3vh; right:4vw; font-size:1.1vw; color:#6a7d97;
+    letter-spacing:.1em; z-index:5; background:rgba(11,18,32,.6);
+    padding:.5vh 1.5vw; border-radius:.4vw; }
+  .controls { position:fixed; bottom:3vh; right:4vw; display:flex; gap:1vw; z-index:10; }
+  .btn { background:rgba(26,39,64,.85); border:1px solid #2c3f63; color:#cfdcef;
+    padding:.8vh 1.5vw; border-radius:.4vw; cursor:pointer; font-size:1.1vw;
+    backdrop-filter: blur(8px); }
+  .btn:hover { background:#22324f; }
+
+  /* Start / End overlays */
+  .start-overlay { position:fixed; inset:0; background:linear-gradient(135deg,#0b1220 0%,#142340 100%);
+    z-index:100; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:4vh 6vw; }
+  .start-overlay .badge { font-size:1.3vw; letter-spacing:.3em; text-transform:uppercase;
+    color:#7aa7e8; margin-bottom:3vh; }
+  .start-overlay h1 { font-size:5vw; margin-bottom:3vh; max-width:80vw; }
+  .start-overlay p { font-size:1.4vw; color:#8aa0bd; margin-bottom:2vh; max-width:60vw; }
+  .play-btn { display:inline-flex; align-items:center; gap:1.5vw;
+    background:#4a8de0; color:#fff; border:none; padding:2.5vh 4vw; border-radius:1vw;
+    font-size:2.2vw; font-weight:700; cursor:pointer; margin:4vh 0 2vh;
+    box-shadow: 0 1vh 3vh rgba(74,141,224,.4); transition: transform .15s, box-shadow .15s; }
+  .play-btn:hover { transform:translateY(-2px); box-shadow:0 1.5vh 4vh rgba(74,141,224,.55); }
+  .play-btn .icon { font-size:2.6vw; }
+  .voice-picker { margin-top:3vh; }
+  .voice-picker label { font-size:1.2vw; color:#8aa0bd; margin-right:1vw; }
+  .voice-picker select { font-size:1.2vw; padding:.6vh 1vw; background:#1a2740;
+    color:#cfdcef; border:1px solid #2c3f63; border-radius:.4vw; max-width:40vw; }
+  .hint { font-size:1.1vw; color:#5a6d85; margin-top:1vh; max-width:60vw; }
+
+  .end-overlay { position:fixed; inset:0; background:rgba(11,18,32,.97); z-index:100;
+    display:none; flex-direction:column; align-items:center; justify-content:center; }
+  .end-overlay.show { display:flex; }
+  .end-overlay h2 { font-size:4vw; margin-bottom:3vh; }
+  .end-overlay p { font-size:1.5vw; color:#8aa0bd; margin-bottom:3vh; max-width:60vw; text-align:center; }
+</style>
+</head>
+<body>
+<!-- ===== cross-page nav (injected) ===== -->
+<style>
+.xnav{position:fixed;top:0;left:0;z-index:2147483600;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.xnav *{box-sizing:border-box;}
+.xnav-toggle{display:inline-flex;align-items:center;gap:.5em;margin:11px;padding:8px 14px;
+  background:rgba(15,22,38,.86);color:#e8eef7;border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;line-height:1;
+  letter-spacing:.02em;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 4px 14px rgba(0,0,0,.30);}
+.xnav-toggle:hover{background:rgba(28,40,66,.94);}
+.xnav-toggle .xnav-chev{font-size:10px;opacity:.8;transition:transform .2s ease;}
+.xnav.open .xnav-toggle .xnav-chev{transform:rotate(180deg);}
+.xnav-panel{display:none;margin:0 11px;min-width:250px;max-width:min(82vw,360px);
+  background:rgba(15,22,38,.97);border:1px solid rgba(255,255,255,.16);border-radius:13px;
+  overflow:hidden;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  box-shadow:0 12px 34px rgba(0,0,0,.45);}
+.xnav.open .xnav-panel{display:block;}
+.xnav-head{padding:10px 15px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7aa7e8;border-bottom:1px solid rgba(255,255,255,.10);}
+.xnav-item{display:flex;align-items:center;gap:9px;padding:11px 15px;color:#cfdcef;
+  text-decoration:none;font-size:13.5px;line-height:1.3;
+  border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.xnav-item:last-child{border-bottom:none;}
+.xnav-item:hover{background:rgba(74,141,224,.20);color:#fff;}
+.xnav-item.current{background:rgba(74,141,224,.15);color:#fff;font-weight:600;cursor:default;}
+.xnav-dot{width:6px;height:6px;border-radius:50%;background:#4a8de0;flex:none;opacity:.45;}
+.xnav-item.current .xnav-dot{opacity:1;}
+@media print{.xnav{display:none!important;}}
+</style>
+<nav class="xnav" id="xnav">
+  <button class="xnav-toggle" type="button"
+          onclick="document.getElementById('xnav').classList.toggle('open')">
+    <span>&#9776; Menu</span><span class="xnav-chev">&#9662;</span>
+  </button>
+  <div class="xnav-panel">
+    <div class="xnav-head">Project &middot; jump to</div>
+      <a class="xnav-item" href="index.html"><span class="xnav-dot"></span><span>Overview</span></a>
+      <a class="xnav-item" href="slides_2.html"><span class="xnav-dot"></span><span>52 Tumbella Rd — 2-Home Plan</span></a>
+      <a class="xnav-item current"><span class="xnav-dot"></span><span>SA Caravan Park Property Hunt</span></a>
+      <a class="xnav-item" href="building-plan-salvage-section_1.html"><span class="xnav-dot"></span><span>Building Plan — Salvaging Parts</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding Case</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding_1.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding (Plan 2144…)</span></a>
+      <a class="xnav-item" href="transportable-homes-about.html"><span class="xnav-dot"></span><span>Transportable Homes — Overview</span></a>
+      <a class="xnav-item" href="transportable-homes-prices.html"><span class="xnav-dot"></span><span>Cheapest Buildings — 2026 Prices</span></a>
+  </div>
+</nav>
+<script>
+document.addEventListener('click',function(e){
+  var n=document.getElementById('xnav');
+  if(n&&n.classList.contains('open')&&!n.contains(e.target))n.classList.remove('open');
+});
+</script>
+<!-- ===== end nav ===== -->
+
+
+<div class="start-overlay" id="start">
+  <div class="badge">Private property review · South Australia</div>
+  <h1>Caravan Park Property Hunt — Under $350k</h1>
+  <p>What's actually on the market in SA right now — the perfect-match property, why it matters, and what to do next.</p>
+  <button class="play-btn" id="playBtn">
+    <span class="icon">▶</span><span>Play with narration</span>
+  </button>
+  <div class="voice-picker">
+    <label for="voiceSelect">Voice:</label>
+    <select id="voiceSelect"></select>
+  </div>
+  <div class="hint">Plays in your browser using your computer's built-in voice · Use Chrome or Edge for best results · Press F for fullscreen</div>
+</div>
+
+<div class="end-overlay" id="end">
+  <h2>End of review</h2>
+  <p>The Caloote-style property exists at your price. Get on Ali Bolt's call list at Elders Murray Bridge — 0437 290 698.</p>
+  <button class="play-btn" onclick="restart()"><span class="icon">↻</span><span>Replay</span></button>
+</div>
+
+<div class="counter" id="counter" style="display:none">1 / 12</div>
+<div class="progress" id="progress"></div>
+<div class="controls" id="controls" style="display:none">
+  <button class="btn" onclick="prev()">◀ Prev</button>
+  <button class="btn" onclick="togglePause()" id="pauseBtn">⏸ Pause</button>
+  <button class="btn" onclick="next()">Next ▶</button>
+</div>
+
+<div id="slides"></div>
+
+<script>
+const slides = [
+  // 1. Title / overview
+  {
+    vo: "Private property review. SA caravan park hunt under three hundred and fifty thousand dollars. Here is what is actually on the market right now, what to look for, and what to do this week.",
+    full: true,
+    html: `<div class="kicker">Private review · ${new Date().toLocaleDateString('en-AU', {year:'numeric',month:'long'})}</div>
+           <h1>SA Caravan Park Property Hunt</h1>
+           <p class="lead">Two portable homes · share existing services · under $350k · Mid Murray area · what's on the market today</p>`
+  },
+
+  // 2. The magic word - zoning
+  {
+    vo: "The single most important thing learned from this search. Zoning is the magic word. Forget price, forget land size, forget location — none of it matters if the zoning is wrong. Primary Production zoning, like the original Fisher property, is the hardest zone for what you want. Rural Settlement, Rural Living, or Township zones are dramatically easier. This one factor matters more than anything else.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P196700/177880221056946235-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "<b>Rural Settlement zoning</b> on 2.8 acres at 31 Needles Rd, Caloote — the goldilocks zone",
+    html: `<div class="kicker">Lesson #1</div>
+           <h2>Zoning is the magic word</h2>
+           <p class="lead">Matters more than price, location, or land size.</p>
+           <table class="compare">
+             <tr><th>Zone</th><th>For 2 caravans?</th></tr>
+             <tr><td>Primary Production</td><td class="bad">Very hard — full DA, often refused</td></tr>
+             <tr><td>Rural Living</td><td class="ok">Workable with DA</td></tr>
+             <tr><td><b>Rural Settlement</b></td><td class="ok">Designed for this</td></tr>
+             <tr><td>Township</td><td class="ok">Easiest, but usually small lots</td></tr>
+           </table>`
+  },
+
+  // 3. THE FIND
+  {
+    vo: "The perfect-match property that proves your budget is realistic. 31 Needles Road, Caloote, in the Mid Murray Council area. Listed at two hundred and eighty to three hundred thousand dollars. One point one four hectares — that is two point eight acres of fully fenced land. Zoning, rural settlement. Old three bedroom farmhouse on site, two big sheds, and one hundred and forty thousand litres of rainwater storage already installed. Twenty minutes from Murray Bridge, five minutes from the Murray River at Caloote Landing.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P196700/177880221085785840-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "<b>31 Needles Road, Caloote SA 5254</b> · Elders Real Estate Murraylands · listing 300P196700",
+    html: `<div class="kicker">The find</div>
+           <div><span class="price-tag">$280,000 – $300,000</span><span class="status-tag">UNDER CONTRACT</span></div>
+           <h2>31 Needles Rd, Caloote SA</h2>
+           <div class="meta-grid">
+             <div class="meta-item"><div class="meta-label">Land</div><div class="meta-value">1.14 ha (2.8 acres)</div></div>
+             <div class="meta-item"><div class="meta-label">Zoning</div><div class="meta-value">Rural Settlement</div></div>
+             <div class="meta-item"><div class="meta-label">Council</div><div class="meta-value">Mid Murray</div></div>
+             <div class="meta-item"><div class="meta-label">Rates</div><div class="meta-value">$1,063 / yr</div></div>
+           </div>`
+  },
+
+  // 4. Caloote features
+  {
+    vo: "What made it nearly perfect. Fully fenced, ready to subdivide use. A twenty by eleven metre machinery shed plus a second shed — these could easily become your shared amenities block, laundry, and office. The old farmhouse is described as basic but solid — usable as a secure lockup if you do not restore it. One hundred and forty thousand litres of rainwater storage already in place. And the title number is volume five seven three four, folio eight two zero — you can verify this through Land Services SA.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P196700/177880221038608124-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "<b>The sheds at Caloote</b> — could become your amenities block and laundry",
+    html: `<div class="kicker">Caloote features</div>
+           <h2>Why it ticked nearly every box</h2>
+           <div class="feature-grid">
+             <div class="feature">Fully fenced 2.8 acres</div>
+             <div class="feature">20m × 11m machinery shed</div>
+             <div class="feature">12m × 4.5m second shed</div>
+             <div class="feature">140,000 L rainwater stored</div>
+             <div class="feature">3-bed old farmhouse</div>
+             <div class="feature">Orchard + raised beds</div>
+             <div class="feature">5 min to Murray River</div>
+             <div class="feature">20 min to Murray Bridge</div>
+           </div>`
+  },
+
+  // 5. The catch
+  {
+    vo: "The two reasons this one is not the answer for you. Number one, it is already under contract. Someone else was watching this market and acted faster. Number two, and this is the important lesson — the listing says no water or power currently connected. Your original plan to share services from the existing house would not have worked here. When you buy at this price point, the services are often disconnected or non-existent. Budget another fifteen to forty thousand for connections regardless.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P196700/177880221119673385-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "The old farmhouse — listed as basic and solid, no power or water connected",
+    html: `<div class="kicker">The two catches</div>
+           <h2>Why even the perfect one had problems</h2>
+           <div class="bigwarn">⚠ It's already under contract — sold faster than you could buy it. Properties this good in this price band move in days.</div>
+           <div class="bigwarn">⚠ "No water or power currently connected" — services nearby but not hooked up. Your "share the house's services" plan needs rethinking.</div>
+           <p class="note">Lesson: at this price point, expect $15k–$40k of services work on top of purchase price.</p>`
+  },
+
+  // 6. Current alternatives
+  {
+    vo: "What else is on the market right now from the same agent. Three properties are currently for sale in the Murraylands area but none are a clean match. Twenty Green Street Mypolonga is on a small block. Three thousand three hundred and fifty five Jervois Road Wellington is riverfront but only two thousand square metres — that is half an acre, far too small for two extra dwellings. One ninety six Princes Highway Tailem Bend is a five bedroom on a small lot with no price displayed, likely over budget.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P193808/177328079938144984-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "3355 Jervois Rd, Wellington — riverfront but only 2,000 m². Township zoning, no caravan room",
+    html: `<div class="kicker">Currently available</div>
+           <h2>Other live listings — none a clean match</h2>
+           <table class="compare">
+             <tr><th>Address</th><th>Land</th><th>Verdict</th></tr>
+             <tr><td>20 Green St, Mypolonga</td><td>Small</td><td class="bad">Too small for 2 sites</td></tr>
+             <tr><td>3355 Jervois Rd, Wellington</td><td>2,000 m²</td><td class="bad">Half an acre — no room</td></tr>
+             <tr><td>196 Princes Hwy, Tailem Bend</td><td>Modest</td><td class="bad">Price hidden, likely over budget</td></tr>
+           </table>
+           <p class="note">The Caloote-class property comes up every 4–8 weeks in this area. You just need to be on the alerts when it does.</p>`
+  },
+
+  // 7. What "right" looks like
+  {
+    vo: "What the next 'right' property looks like, so you know it when you see it. Two to five acres of land. Rural Settlement, Rural Living, or Township zoning. Mid Murray District Council area, or neighbouring councils. An existing dwelling — even an old one — keeps a lot of doors open. Existing rainwater storage is a big plus. Power and water at the boundary, even if not connected. Fenced. Reasonable distance from a town for groceries and services.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P196700/177880221172019076-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "What right looks like — rural land with existing buildings, good zoning, services nearby",
+    html: `<div class="kicker">Your shopping list</div>
+           <h2>What "right" looks like</h2>
+           <ul>
+             <li>2–5 acres of land</li>
+             <li>Zoning: <b>Rural Settlement, Rural Living, or Township</b></li>
+             <li>Mid Murray Council (or neighbouring councils)</li>
+             <li>An existing dwelling — even an old one</li>
+             <li>Rainwater storage already installed</li>
+             <li>Power and water at the boundary</li>
+             <li>Fenced; reasonable access to a town</li>
+           </ul>`
+  },
+
+  // 8. Where to look (suburbs)
+  {
+    vo: "The geography. Stay on the Murray River corridor between Mannum and Wellington. The towns to set up alerts on are Caloote, Mypolonga, Mannum, Cowirra, Cambrai, Bowhill, Walker Flat, Swan Reach, Nildottie, Wellington East, and Tailem Bend. The councils to watch are Mid Murray, Rural City of Murray Bridge, and the Coorong District Council. All within ninety minutes of Adelaide. All with the kind of rural settlement zoning that makes this plan work.",
+    image: "https://elders-re-ab-cdn.imgix.net/clients-data/22359/public_html/media/lt/300/300P196508/177862904575477303-rsd.jpg?w=1200&h=900&fit=crop",
+    caption: "Murraylands countryside — the corridor from Mannum to Wellington is the sweet spot",
+    html: `<div class="kicker">Geography</div>
+           <h2>The Murray corridor — Mannum to Wellington</h2>
+           <p class="lead"><b>Suburbs to alert on:</b></p>
+           <p style="font-size:1.4vw; color:#cfdcef; line-height:1.7;">Caloote · Mypolonga · Mannum · Cowirra · Cambrai · Bowhill · Walker Flat · Swan Reach · Nildottie · Wellington East · Tailem Bend</p>
+           <p class="lead" style="margin-top:2vh;"><b>Councils to watch:</b></p>
+           <p style="font-size:1.4vw; color:#cfdcef;">Mid Murray · Rural City of Murray Bridge · Coorong District</p>
+           <p class="note">All within 90 min of Adelaide. All carry the right zoning pockets.</p>`
+  },
+
+  // 9. The action plan part 1
+  {
+    vo: "Action plan, part one. Call Ali Bolt at Elders Real Estate Murraylands. She had the Caloote listing. She knows the local stock, including off-market deals. Tell her exactly what you are after: two acres or more, rural settlement zoning, under three hundred and fifty thousand. Her number is oh four three seven, two nine zero, six nine eight. Email, ali dot bolt at elders dot com dot au.",
+    full: true,
+    html: `<div class="kicker">Action plan</div>
+           <h2>Three things to do this week</h2>
+           <div class="action">
+             <div><span class="num">1</span><span class="label">Call Ali Bolt at Elders Murraylands</span></div>
+             <div class="body">
+               She listed the Caloote property and will know what's coming up next — including off-market deals.<br><br>
+               <b>Phone:</b> 0437 290 698<br>
+               <b>Email:</b> ali.bolt@elders.com.au<br>
+               <b>Office:</b> Shop 3, 7 Seventh Street, Murray Bridge SA 5253
+             </div>
+           </div>`
+  },
+
+  // 10. Action plan part 2
+  {
+    vo: "Action plan, part two and three. Set up automated alerts on realestate dot com dot au and Domain. Filter for South Australia, maximum three fifty, minimum two acres, property type acreage or house. Add the suburbs list. The alerts will email you within minutes of a new listing going live. And third, check SAPPA — the SA Property and Planning Atlas — for every property you consider. Type the address, see the zone. If it says Primary Production, walk away. If it says Rural Settlement, Rural Living, or Township, you are in the game.",
+    full: true,
+    html: `<div class="kicker">Action plan continued</div>
+           <h2>And two more</h2>
+           <div class="action">
+             <div><span class="num">2</span><span class="label">Auto-alerts on realestate.com.au + Domain</span></div>
+             <div class="body">
+               Filters: SA · max $350k · min 8,000 m² (2 acres) · Acreage or House<br>
+               Add the suburb list from the previous slide. Save as alert. Email-on-new.
+             </div>
+           </div>
+           <div class="action">
+             <div><span class="num">3</span><span class="label">Check zoning on SAPPA before every offer</span></div>
+             <div class="body">
+               <b>sappa.plan.sa.gov.au</b> — enter address, read the zone instantly.<br>
+               Primary Production → walk away. Rural Settlement / Rural Living / Township → proceed.
+             </div>
+           </div>`
+  },
+
+  // 11. The contract clause
+  {
+    vo: "One more critical thing. Any offer you make on a property must be conditional on planning approval. The clause should say: this contract is subject to the buyer obtaining Mid Murray Council, or the relevant council, development approval for two additional movable dwellings within sixty to ninety days. Without that clause, if council says no, you lose the deposit and the property. With it, you walk away with your deposit. One sentence from a conveyancer protects the whole three hundred thousand dollars.",
+    full: true,
+    html: `<div class="kicker">Critical</div>
+           <h2>The contract clause that saves $300,000</h2>
+           <div class="biggood">Every offer you make: <b>"Subject to the buyer obtaining Mid Murray Council development approval for two additional movable dwellings within 90 days."</b></div>
+           <ul style="margin-top:3vh;">
+             <li>Without it: Council says no → you lose the deposit AND the property</li>
+             <li>With it: Council says no → you walk away with deposit refunded</li>
+             <li>Cost: $200 to a SA conveyancer to draft it properly</li>
+             <li>Worth: the entire $300k purchase price</li>
+           </ul>`
+  },
+
+  // 12. Bottom line
+  {
+    vo: "Bottom line. The Caloote property at two hundred and eighty thousand on two point eight acres with rural settlement zoning proves the market exists for your plan and your budget. The challenge is not affordability — it is patience and speed. Patience to wait four to eight weeks for the next match, and speed to move within forty-eight hours when it lists. Get on Ali's call list, set up your alerts, get the contract clause ready, and stay calm when the right one appears. Good hunting.",
+    full: true,
+    html: `<div class="kicker">Bottom line</div>
+           <h2>The market exists. You just need to be ready.</h2>
+           <div class="biggood">The Caloote sale at $280k on 2.8 acres with Rural Settlement zoning proves the price point is real for the plan.</div>
+           <ul style="margin-top:3vh;">
+             <li>Affordability: <b>not the problem</b></li>
+             <li>Patience: 4–8 weeks for the next match</li>
+             <li>Speed: act within 48 hours of listing</li>
+             <li>Preparation: alerts up · agent on call · clause drafted</li>
+             <li>Mindset: stay calm when the right one appears</li>
+           </ul>
+           <p class="note" style="margin-top:3vh;">Good hunting.</p>`
+  }
+];
+
+const container = document.getElementById('slides');
+slides.forEach((s) => {
+  const div = document.createElement('div');
+  div.className = 'stage' + (s.full ? ' full' : '');
+  let inner = `<div class="text-col">${s.html}</div>`;
+  if (!s.full) {
+    inner += `<div class="image-col">
+      <img src="${s.image}" alt="" loading="lazy" onerror="this.style.display='none'">
+      ${s.caption ? `<div class="caption">${s.caption}</div>` : ''}
+    </div>`;
+  }
+  div.innerHTML = inner;
+  container.appendChild(div);
+});
+
+const stages = document.querySelectorAll('.stage');
+const counterEl = document.getElementById('counter');
+const progressEl = document.getElementById('progress');
+let current = 0;
+let paused = false;
+let chosenVoice = null;
+
+document.getElementById('counter').textContent = '1 / ' + stages.length;
+
+function show(i) {
+  stages.forEach(s => s.classList.remove('active'));
+  stages[i].classList.add('active');
+  counterEl.textContent = (i+1) + ' / ' + stages.length;
+  progressEl.style.width = (((i+1)/stages.length) * 100) + '%';
+  current = i;
+}
+
+const voiceSelect = document.getElementById('voiceSelect');
+function populateVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices.length) return;
+  voiceSelect.innerHTML = '';
+  const auVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en-au'));
+  const gbVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en-gb'));
+  const otherEn = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('en') && !v.lang.toLowerCase().startsWith('en-au') && !v.lang.toLowerCase().startsWith('en-gb'));
+  const nonEn = voices.filter(v => !v.lang || !v.lang.toLowerCase().startsWith('en'));
+  const sorted = [...auVoices, ...gbVoices, ...otherEn, ...nonEn];
+  sorted.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = voices.indexOf(v);
+    const star = auVoices.includes(v) ? ' ⭐' : '';
+    opt.textContent = v.name + ' (' + v.lang + ')' + star;
+    voiceSelect.appendChild(opt);
+  });
+  if (auVoices.length)      { voiceSelect.value = voices.indexOf(auVoices[0]); chosenVoice = auVoices[0]; }
+  else if (gbVoices.length) { voiceSelect.value = voices.indexOf(gbVoices[0]); chosenVoice = gbVoices[0]; }
+  else if (otherEn.length)  { voiceSelect.value = voices.indexOf(otherEn[0]);  chosenVoice = otherEn[0]; }
+  else if (voices.length)   { voiceSelect.value = 0; chosenVoice = voices[0]; }
+}
+voiceSelect.addEventListener('change', () => {
+  const voices = window.speechSynthesis.getVoices();
+  chosenVoice = voices[parseInt(voiceSelect.value)];
+});
+if ('speechSynthesis' in window) {
+  populateVoices();
+  speechSynthesis.onvoiceschanged = populateVoices;
+}
+
+function speakSlide(i) {
+  if (i >= slides.length) { finish(); return; }
+  show(i);
+  if (!('speechSynthesis' in window)) {
+    setTimeout(() => { if (!paused) speakSlide(i+1); }, 12000);
+    return;
+  }
+  const utter = new SpeechSynthesisUtterance(slides[i].vo);
+  if (chosenVoice) utter.voice = chosenVoice;
+  utter.rate = 0.95;
+  utter.pitch = 1.0;
+  utter.onend = () => {
+    if (paused) return;
+    setTimeout(() => { if (!paused) speakSlide(i+1); }, 600);
+  };
+  utter.onerror = () => {
+    setTimeout(() => { if (!paused) speakSlide(i+1); }, 1000);
+  };
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utter);
+}
+
+function start() {
+  document.getElementById('start').style.display = 'none';
+  document.getElementById('counter').style.display = '';
+  document.getElementById('controls').style.display = '';
+  paused = false;
+  speakSlide(0);
+}
+
+function finish() {
+  document.getElementById('end').classList.add('show');
+}
+
+function restart() {
+  document.getElementById('end').classList.remove('show');
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  paused = false;
+  document.getElementById('pauseBtn').textContent = '⏸ Pause';
+  speakSlide(0);
+}
+
+function togglePause() {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? '▶ Resume' : '⏸ Pause';
+  if (!('speechSynthesis' in window)) return;
+  if (paused) speechSynthesis.pause();
+  else {
+    if (speechSynthesis.paused) speechSynthesis.resume();
+    else speakSlide(current + 1);
+  }
+}
+
+function next() {
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  if (current < slides.length - 1) speakSlide(current + 1);
+}
+function prev() {
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  if (current > 0) speakSlide(current - 1);
+}
+
+document.getElementById('playBtn').addEventListener('click', start);
+
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('start').style.display !== 'none') {
+    if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); start(); }
+    return;
+  }
+  if (e.code === 'Space') { e.preventDefault(); togglePause(); }
+  if (e.code === 'ArrowRight') next();
+  if (e.code === 'ArrowLeft') prev();
+  if (e.code === 'KeyF') document.documentElement.requestFullscreen();
+});
+</script>
+</body>
+</html>

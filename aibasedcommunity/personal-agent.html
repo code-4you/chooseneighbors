@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Someone in your corner — a personal agent for every resident | AI Based Community</title>
+<meta name="description" content="Give every resident their own AI agent — a private, loyal advocate that helps them navigate community life and carries their voice into shared decisions, so the quiet are heard too.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3efe6;--paper-2:#e9e3d6;--ink:#1e2428;--ink-soft:#46504f;--ink-faint:#7b817c;
+    --accent:#2c7a8c;--accent-deep:#1f5b6a;--sage:#6f8a72;--gold:#c08a3e;--line:#d4ccbd;--measure:64ch;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.04;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 6vw}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 0 20px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif;gap:16px}
+  .brand{font-weight:600;font-size:20px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:10px}
+  .brand b{font-weight:900;color:var(--accent-deep)}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:13.5px;color:var(--ink-faint)}
+  .crumbs{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14px;color:var(--ink-faint)}
+  .crumbs a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line)}
+  .crumbs a:hover{color:var(--accent)}
+
+  .hero{padding:78px 0 28px;max-width:20ch}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--accent);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--accent);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(46px,8.5vw,96px);line-height:.92;letter-spacing:-.03em}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent-deep)}
+  .dek{font-size:clamp(20px,2.5vw,25px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:var(--measure);margin-top:30px}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  .insight{max-width:var(--measure);margin:48px 0 10px;border-top:1px solid var(--line);padding-top:46px}
+  .insight blockquote{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;font-size:clamp(25px,4vw,38px);line-height:1.12;letter-spacing:-.015em;color:var(--ink);margin-bottom:24px}
+  .insight blockquote em{font-style:italic;color:var(--accent-deep)}
+  .insight p{color:var(--ink-soft);margin-bottom:18px}
+  .insight p strong{color:var(--ink);font-weight:600}
+
+  .section-label{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--accent);margin:60px 0 8px;display:flex;align-items:center;gap:14px;max-width:var(--measure)}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--accent);display:inline-block}
+  .section-intro{max-width:var(--measure);font-size:21px;line-height:1.55;color:var(--ink);margin-bottom:10px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:500;letter-spacing:-.01em}
+
+  .steps{max-width:var(--measure);margin-top:24px;counter-reset:m;list-style:none}
+  .steps>li{counter-increment:m;position:relative;padding:26px 0 26px 64px;border-top:1px solid var(--line)}
+  .steps>li:last-child{border-bottom:1px solid var(--line)}
+  .steps>li::before{content:counter(m,decimal-leading-zero);position:absolute;left:0;top:26px;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:32px;color:var(--accent);letter-spacing:-.02em}
+  .steps h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:22px;line-height:1.1;margin-bottom:8px;color:var(--ink)}
+  .steps p{color:var(--ink-soft);font-size:17.5px;line-height:1.55}
+  .steps p strong{color:var(--ink);font-weight:600}
+  .steps p a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+
+  .features{max-width:var(--measure);display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:8px 0}
+  @media(min-width:600px){.features{grid-template-columns:1fr 1fr}}
+  .feature{background:var(--paper);padding:20px 22px}
+  .feature h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:17px;color:var(--ink);margin-bottom:6px}
+  .feature p{font-size:15.5px;line-height:1.45;color:var(--ink-soft)}
+
+  .principle{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--sage);padding:26px 28px;margin:24px 0 6px;border-radius:0 6px 6px 0}
+  .principle h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.12em;color:var(--sage);margin-bottom:16px}
+  .principle .pl{margin-bottom:16px}
+  .principle .pl:last-child{margin-bottom:0}
+  .principle .pl b{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;color:var(--ink);font-size:17px;display:block;margin-bottom:3px}
+  .principle .pl span{color:var(--ink-soft);font-size:16px;line-height:1.5}
+
+  .closing{max-width:var(--measure);border-top:3px double var(--line);margin-top:50px;padding:48px 0 10px}
+  .closing p{font-size:21px;line-height:1.6;color:var(--ink)}
+  .closing .sig{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:16px;color:var(--ink-faint);margin-top:24px}
+  .closing .sig a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+
+  footer{border-top:1px solid var(--line);margin-top:54px;padding:38px 0 70px;font-family:'Google Sans','Outfit',Arial,sans-serif;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+  footer a{color:var(--ink-soft);text-decoration:none;font-size:15px;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--accent)}
+  footer .meta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:50ch}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+  <link rel="canonical" href="https://chooseneighbors.com/aibasedcommunity/personal-agent.html">
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a class="brand" href="ai-community-home.html"><b>AI Based Community</b> <span>analyse, then improve</span></a>
+    <div class="crumbs"><a href="ai-community-home.html">Home</a> &nbsp;›&nbsp; The personal agent</div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">The personal agent</div>
+    <h1>Someone in your <em>corner.</em></h1>
+  </header>
+
+  <p class="dek reveal">In most communities the people who get heard are the loudest, the most confident, and the ones with time to show up. A personal AI agent changes that: <b>everyone &mdash; the shy, the busy, the overlooked &mdash; gets a tireless advocate</b> that knows what they want and carries it into the life of the place.</p>
+
+  <section class="insight reveal">
+    <blockquote>Most places run on who shows up and who shouts. <em>Give everyone an agent, and the quiet get a voice too.</em></blockquote>
+    <p>The community-wide analysis is one half of the system &mdash; it sees the whole place. This is the other half, and the more human one: <strong>a private AI that belongs to you</strong>, works only for you, and makes sure that being quiet, or busy, or unwell never means being left out of the place you live.</p>
+  </section>
+
+  <div class="section-label reveal">What your agent does for you</div>
+  <p class="section-intro reveal">Five things, all on your terms.</p>
+
+  <ol class="steps reveal">
+    <li>
+      <h3>It knows you &mdash; only what you choose</h3>
+      <p>Your preferences, needs, and goals, held privately and working for you alone. You decide what it knows, and you can change or delete it whenever you like.</p>
+    </li>
+    <li>
+      <h3>It helps you navigate</h3>
+      <p>What's on that you'd actually enjoy, people worth meeting, how to get something done, work and activities that fit you. The 3am <em>&ldquo;is there anything here for me?&rdquo;</em> finally has an answer.</p>
+    </li>
+    <li>
+      <h3>It speaks for you</h3>
+      <p>It carries your views into community decisions and consensus even when you can't attend the meeting &mdash; so <strong>being quiet or busy no longer means being unheard.</strong></p>
+    </li>
+    <li>
+      <h3>It acts on your say-so</h3>
+      <p>It does the legwork and queues actions for your approval, each with a plain recommendation, any warnings, and an importance score &mdash; so you're <a href="ai-community-home.html#fuller">never buried in decisions</a>, only asked about what matters.</p>
+    </li>
+    <li>
+      <h3>It looks out for you</h3>
+      <p>With your consent, it notices if you're slipping into isolation or trouble and gently connects you to people or help &mdash; quietly, and on your side.</p>
+    </li>
+  </ol>
+
+  <div class="section-label reveal">What changes when everyone has one</div>
+  <p class="section-intro reveal">It isn't a gadget. It quietly rebalances who gets heard.</p>
+
+  <div class="features reveal">
+    <div class="feature"><h4>A voice for the quiet</h4><p>The shy and the overlooked get equal footing with the confident and the well-connected.</p></div>
+    <div class="feature"><h4>Time given back</h4><p>It handles the chores of community life so your hours go to living it.</p></div>
+    <div class="feature"><h4>The vulnerable included</h4><p>Those who struggle to speak up are represented, not quietly left behind.</p></div>
+    <div class="feature"><h4>Negotiated for you</h4><p>When wants compete, your agent argues your corner toward a fair outcome.</p></div>
+    <div class="feature"><h4>Always there</h4><p>It doesn't tire, forget, or miss the meeting on your behalf.</p></div>
+    <div class="feature"><h4>Yours alone</h4><p>Loyal to you &mdash; not to the system, a company, or the powerful.</p></div>
+  </div>
+
+  <div class="section-label reveal">Whose side it's on</div>
+  <p class="section-intro reveal">An agent this close to you is only good if its loyalty is beyond doubt.</p>
+
+  <div class="principle reveal">
+    <h3>Four hard limits</h3>
+    <div class="pl"><b>Loyal to you, not the system.</b><span>Your agent works for you alone. It is never a back door for the community, a company, or the powerful to influence you, nudge you, or watch you.</span></div>
+    <div class="pl"><b>Private and under your control.</b><span>It knows only what you choose, shares only what you allow, and acts only with your say-so. You can see everything it holds, and wipe it.</span></div>
+    <div class="pl"><b>Equal for everyone.</b><span>Everyone gets one, equally capable &mdash; so it levels the field instead of handing yet another advantage to whoever can pay for the best.</span></div>
+    <div class="pl"><b>It advises; you decide.</b><span>It never manipulates you or anyone else, and a human is always the one who chooses. A tool in your hand, not a hand on your shoulder.</span></div>
+  </div>
+
+  <section class="closing reveal">
+    <p>Together the two halves make the whole: a system that understands the community, and an agent that stands up for each person inside it. The place gets wiser; no one gets smaller. That's the difference between technology that runs people and technology that finally works for them.</p>
+    <p class="sig">Part of <a href="ai-community-home.html">AI Based Community</a> &mdash; see also <a href="community-ideas-index.html">the 50 scored ideas</a> and the <a href="ai-community-home.html#fuller">fuller living system</a>.</p>
+  </section>
+
+  <footer>
+    <a href="ai-community-home.html">‹ Back to AI Based Community</a>
+    <p class="meta">A personal agent serves the person who holds it &mdash; no one else.</p>
+  </footer>
+</div>
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*50)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

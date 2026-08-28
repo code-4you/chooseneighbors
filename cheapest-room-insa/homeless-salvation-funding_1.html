@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homeless Salvation — funding case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f1e9;--ink:#1f1c17;--muted:#5e574b;--rule:#c8c0ad;
+    --blueprint:#1d4e63;--tag:#9a3b1b;--box:#ebe6d8;--gold:#c08a4a;--good:#3f6b3f;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Spectral',Georgia,serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .sheet{max-width:780px;margin:0 auto;padding:0 28px 80px;}
+  .hero{position:relative;margin:0 -28px 0;background:var(--blueprint);color:#eef3f4;overflow:hidden;border-bottom:3px solid var(--ink);}
+  .hero .grid{position:absolute;inset:0;opacity:.5;}
+  .hero-inner{position:relative;max-width:780px;margin:0 auto;padding:40px 28px 36px;}
+  .hero .kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#9fd0e0;margin:0 0 14px;}
+  .hero h1{font-weight:700;font-size:33px;line-height:1.14;margin:0;letter-spacing:-.015em;max-width:20ch;}
+  .hero h1 em{font-style:italic;color:#e7c9a0;font-weight:600;}
+  .hero .sub{margin:14px 0 0;font-size:16px;color:#cfe4ec;max-width:48ch;}
+  h2{font-weight:600;font-size:22px;margin:46px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--rule);}
+  h2 .num{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--blueprint);margin-right:10px;font-weight:600;}
+  p{margin:0 0 16px;}
+  .ask{background:var(--ink);color:var(--paper);padding:30px 30px 26px;margin-top:34px;text-align:center;}
+  .ask .lbl{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#d8b48c;margin:0 0 10px;}
+  .ask .fig{font-family:'IBM Plex Mono',monospace;font-size:52px;font-weight:600;line-height:1;margin:0;letter-spacing:-.01em;}
+  .ask .cap{margin:14px auto 0;font-size:15.5px;color:#cdc6b8;max-width:52ch;font-style:italic;}
+  .breakdown{border:1px solid var(--rule);background:var(--box);padding:24px 26px 18px;margin:14px 0 8px;}
+  .breakdown h3,.buckets h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blueprint);margin:0 0 18px;font-weight:600;}
+  .br{margin:14px 0;}
+  .br .bl{display:flex;justify-content:space-between;gap:14px;font-size:15.5px;margin-bottom:5px;align-items:baseline;}
+  .br .bl .amt{font-family:'IBM Plex Mono',monospace;font-weight:600;white-space:nowrap;}
+  .br .bar{height:22px;background:rgba(0,0,0,.06);overflow:hidden;}
+  .br .bar span{display:block;height:100%;}
+  .br .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:1px 7px;margin-left:8px;border-radius:2px;vertical-align:middle;}
+  .t-perm{background:var(--blueprint);color:#fff;}.t-rev{background:var(--good);color:#fff;}.t-con{background:var(--gold);color:#fff;}
+  .c-perm span{background:var(--blueprint);}.c-rev span{background:var(--good);}.c-con span{background:var(--gold);}
+  .br .note{font-size:13.5px;color:var(--muted);font-style:italic;margin:3px 0 0;}
+  .total-row{display:flex;justify-content:space-between;border-top:2px solid var(--ink);margin-top:16px;padding-top:12px;font-weight:600;font-size:17px;}
+  .total-row .amt{font-family:'IBM Plex Mono',monospace;color:var(--blueprint);}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;margin:14px 2px 0;color:var(--muted);}
+  .legend span b{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:middle;}
+  /* rooms */
+  .rooms{background:var(--ink);color:var(--paper);padding:28px 30px 22px;margin:14px 0 8px;}
+  .rooms .lbl{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#d8b48c;margin:0 0 6px;}
+  .rooms .fig{font-family:'IBM Plex Mono',monospace;font-size:46px;font-weight:600;line-height:1;margin:0;}
+  .rooms .fig small{font-size:18px;color:#cdc6b8;font-weight:400;}
+  .rooms .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0 6px;}
+  @media(max-width:600px){.rooms .split{grid-template-columns:1fr;}}
+  .rooms .rb{border:1px solid rgba(255,255,255,.25);padding:14px 16px;}
+  .rooms .rb .n{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:#e7c9a0;}
+  .rooms .rb h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:6px 0 4px;color:#9fd0e0;}
+  .rooms .rb p{font-size:13.5px;color:#cdc6b8;margin:0;line-height:1.45;}
+  .rooms .foot{font-size:14px;color:#cdc6b8;font-style:italic;border-top:1px solid rgba(255,255,255,.2);padding-top:14px;margin:16px 0 0;line-height:1.5;}
+  /* buckets */
+  .buckets{margin:14px 0 8px;}
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  @media(max-width:640px){.three{grid-template-columns:1fr;}}
+  .bk{border:1px solid var(--rule);padding:18px 18px 14px;background:var(--paper);}
+  .bk.perm{border-top:4px solid var(--blueprint);}.bk.rev{border-top:4px solid var(--good);}.bk.con{border-top:4px solid var(--gold);}
+  .bk h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px;}
+  .bk.perm h4{color:var(--blueprint);}.bk.rev h4{color:var(--good);}.bk.con h4{color:var(--gold);}
+  .bk .big{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;margin:0 0 8px;}
+  .bk p{font-size:14.5px;color:var(--muted);margin:0;line-height:1.5;}
+  .flow{margin:26px 0;}.flow svg{width:100%;height:auto;display:block;}
+  .mult{background:rgba(63,107,63,.07);border:1px solid var(--rule);border-left:4px solid var(--good);padding:20px 24px;margin:14px 0;}
+  .mult h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--good);margin:0 0 10px;font-weight:600;}
+  .mult .cycle{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:14px;margin:8px 0 4px;}
+  .mult .cycle b{color:var(--good);}.mult .arrow{color:var(--tag);}
+  /* recommendation */
+  .rec{border:2px solid var(--good);margin:14px 0 8px;background:rgba(63,107,63,.05);}
+  .rec .head{background:var(--good);color:#fff;padding:13px 22px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+  .rec .body{padding:20px 24px 10px;}
+  .rec h4{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--good);margin:18px 0 6px;}
+  .rec h4:first-child{margin-top:0;}
+  .rec p{margin:0 0 12px;}.rec p b{color:var(--ink);}
+  .rec .phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:6px 0 8px;}
+  @media(max-width:640px){.rec .phases{grid-template-columns:1fr;}}
+  .rec .ph{border:1px solid var(--rule);border-top:3px solid var(--good);padding:14px 14px 12px;background:var(--paper);}
+  .rec .ph .n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--good);letter-spacing:.08em;}
+  .rec .ph h5{margin:5px 0 5px;font-size:15px;font-weight:600;}
+  .rec .ph p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.45;}
+  .notes{border:1px solid var(--rule);padding:20px 24px 8px;margin:14px 0;}
+  .notes h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tag);margin:0 0 12px;font-weight:600;}
+  .notes ul{margin:0;padding-left:20px;}
+  .notes li{margin-bottom:12px;font-size:15.5px;}.notes li b{color:var(--ink);}
+  .disclaimer{font-size:14px;color:var(--muted);font-style:italic;border-top:1px solid var(--rule);padding-top:14px;margin-top:18px;line-height:1.55;}
+  .refs{margin-top:46px;border-top:3px solid var(--ink);padding-top:16px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.7;color:var(--muted);}
+  .refs .found{color:var(--ink);font-weight:600;}
+  @media print{
+    body{background:#fff;color:#000;}
+    .hero{background:#fff;color:#000;border-bottom:2pt solid #000;margin:0;}.hero .grid{display:none;}.hero .kicker,.hero .sub,.hero h1 em{color:#000;}
+    .ask,.rooms{background:#fff!important;color:#000!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border:2pt solid #000;}
+    .ask .lbl,.ask .fig,.ask .cap,.rooms .lbl,.rooms .fig,.rooms .rb .n,.rooms .rb h4,.rooms .rb p,.rooms .foot{color:#000;}
+    .breakdown,.bk,.notes,.mult,.rec,.rooms .rb{background:#fff!important;border-color:#000;}
+    h2,.buckets,.breakdown,.flow,.mult,.rooms,.rec{break-inside:avoid;}
+  }
+  @media(max-width:520px){body{font-size:17px;}.hero h1{font-size:25px;}.ask .fig,.rooms .fig{font-size:38px;}.br .bl{flex-direction:column;gap:2px;}}
+</style>
+</head>
+<body>
+<!-- ===== cross-page nav (injected) ===== -->
+<style>
+.xnav{position:fixed;top:0;left:0;z-index:2147483600;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+.xnav *{box-sizing:border-box;}
+.xnav-toggle{display:inline-flex;align-items:center;gap:.5em;margin:11px;padding:8px 14px;
+  background:rgba(15,22,38,.86);color:#e8eef7;border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;line-height:1;
+  letter-spacing:.02em;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:0 4px 14px rgba(0,0,0,.30);}
+.xnav-toggle:hover{background:rgba(28,40,66,.94);}
+.xnav-toggle .xnav-chev{font-size:10px;opacity:.8;transition:transform .2s ease;}
+.xnav.open .xnav-toggle .xnav-chev{transform:rotate(180deg);}
+.xnav-panel{display:none;margin:0 11px;min-width:250px;max-width:min(82vw,360px);
+  background:rgba(15,22,38,.97);border:1px solid rgba(255,255,255,.16);border-radius:13px;
+  overflow:hidden;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  box-shadow:0 12px 34px rgba(0,0,0,.45);}
+.xnav.open .xnav-panel{display:block;}
+.xnav-head{padding:10px 15px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#7aa7e8;border-bottom:1px solid rgba(255,255,255,.10);}
+.xnav-item{display:flex;align-items:center;gap:9px;padding:11px 15px;color:#cfdcef;
+  text-decoration:none;font-size:13.5px;line-height:1.3;
+  border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.xnav-item:last-child{border-bottom:none;}
+.xnav-item:hover{background:rgba(74,141,224,.20);color:#fff;}
+.xnav-item.current{background:rgba(74,141,224,.15);color:#fff;font-weight:600;cursor:default;}
+.xnav-dot{width:6px;height:6px;border-radius:50%;background:#4a8de0;flex:none;opacity:.45;}
+.xnav-item.current .xnav-dot{opacity:1;}
+@media print{.xnav{display:none!important;}}
+</style>
+<nav class="xnav" id="xnav">
+  <button class="xnav-toggle" type="button"
+          onclick="document.getElementById('xnav').classList.toggle('open')">
+    <span>&#9776; Menu</span><span class="xnav-chev">&#9662;</span>
+  </button>
+  <div class="xnav-panel">
+    <div class="xnav-head">Project &middot; jump to</div>
+      <a class="xnav-item" href="index.html"><span class="xnav-dot"></span><span>Overview</span></a>
+      <a class="xnav-item" href="slides_2.html"><span class="xnav-dot"></span><span>52 Tumbella Rd — 2-Home Plan</span></a>
+      <a class="xnav-item" href="slides_4.html"><span class="xnav-dot"></span><span>SA Caravan Park Property Hunt</span></a>
+      <a class="xnav-item" href="building-plan-salvage-section_1.html"><span class="xnav-dot"></span><span>Building Plan — Salvaging Parts</span></a>
+      <a class="xnav-item" href="homeless-salvation-funding.html"><span class="xnav-dot"></span><span>Homeless Salvation — Funding Case</span></a>
+      <a class="xnav-item current"><span class="xnav-dot"></span><span>Homeless Salvation — Funding (Plan 2144…)</span></a>
+      <a class="xnav-item" href="transportable-homes-about.html"><span class="xnav-dot"></span><span>Transportable Homes — Overview</span></a>
+      <a class="xnav-item" href="transportable-homes-prices.html"><span class="xnav-dot"></span><span>Cheapest Buildings — 2026 Prices</span></a>
+  </div>
+</nav>
+<script>
+document.addEventListener('click',function(e){
+  var n=document.getElementById('xnav');
+  if(n&&n.classList.contains('open')&&!n.contains(e.target))n.classList.remove('open');
+});
+</script>
+<!-- ===== end nav ===== -->
+
+<article class="sheet">
+
+  <header class="hero">
+    <svg class="grid" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 800 200" aria-hidden="true">
+      <defs><pattern id="g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#fff" stroke-width="0.5" opacity="0.25"/></pattern></defs>
+      <rect width="800" height="200" fill="url(#g)"/>
+    </svg>
+    <div class="hero-inner">
+      <p class="kicker">Homeless Salvation · funding case · Building Plan 2144109247</p>
+      <h1>How the money works — and where it <em>comes back</em></h1>
+      <p class="sub">A charitable land trust: the charity holds the land forever, people build their own rooms on it with salvaged parts, and pay them off over time. This is what $5,000,000 builds in the Riverland, and how it keeps working long after.</p>
+    </div>
+  </header>
+
+  <!-- THE ASK -->
+  <section class="ask">
+    <p class="lbl">Recommended raise</p>
+    <p class="fig">$5,000,000</p>
+    <p class="cap">Enough to build a real community from day one — not a token pilot. Revive a cluster of existing houses, fund the first wave of self-build rooms on land the trust holds forever, and start a recoverable fund that keeps building more.</p>
+  </section>
+
+  <!-- RECOMMENDATION -->
+  <section class="rec">
+    <div class="head">Recommendation</div>
+    <div class="body">
+      <h4>Location — the Riverland, not Aldinga</h4>
+      <p>Aldinga Arts Eco Village proves South Australians want this — 350 people, shared common land, private homes — but it is built out, expensive, and on community title you would <b>join</b>, not found, and could not put the land into your own trust. The <b>Riverland</b> (Loxton, Berri, Barmera, Waikerie, Renmark) is where it can actually be built: cheap land, towns that already have power/water/sewer, schools, shops and hospitals, and real work in citrus, almonds, wine and tourism. That work is what makes people stay — the thing a remote Mallee block can't offer. Target a town that still has a school, a shop, a hospital and jobs, with cheap existing housing — Barmera, Waikerie or Loxton are strong starting candidates (confirm prices with local agents: Ray White Riverland, Elders Waikerie, First National Marschall).</p>
+
+      <h4>Budget — raise $5,000,000</h4>
+      <p>Aim high enough to build a genuine community in one go. $5M funds the <b>blended</b> strategy at real scale, built to <b>two storeys</b> (the realistic township limit): a small cluster of revived houses occupied in year one, plus a large wave of two-storey self-build rooms — together roughly <b>150 rooms</b> for 140+ people, with a $2.2M recoverable fund already turning.</p>
+
+      <h4>Strategy — revive a cluster, then self-build alongside</h4>
+      <p>Buy and renovate a cluster of <b>cheap existing houses</b> (often under $200k in shrinking river/Mallee towns) so people move in almost immediately — instant, visible community that attracts the next residents. Hold <b>self-build land</b> beside it where people build their own rooms with salvaged parts (the work sheet). Both sit in the trust; residents pay off at 30% of income. Fast proof of concept + the long-term model, together — your own "buy a run-down area, fix it, draw people" start-plan, made real.</p>
+
+      <h4>Phasing</h4>
+      <div class="phases">
+        <div class="ph"><div class="n">PHASE 1 · YR 1</div><h5>Land, houses &amp; setup</h5><p>Register the trust, buy the house cluster + self-build land, lay/confirm services, lodge approvals, revive the first homes.</p></div>
+        <div class="ph"><div class="n">PHASE 2 · YR 2–3</div><h5>Self-build rooms + recoverable fund</h5><p>First self-build rooms go up; residents repay at 30%; repayments start cycling into the next rooms.</p></div>
+        <div class="ph"><div class="n">PHASE 3 · YR 3+</div><h5>Scale / next town</h5><p>Recoverable fund + new grant rounds fund more rooms here, or seed a second town.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHERE THE MONEY GOES -->
+  <h2><span class="num">1</span>Where the $5,000,000 goes</h2>
+  <p>Each line is tagged by how it behaves afterwards — <b>permanent</b> (a lasting asset, never sold), <b>recoverable</b> (repaid at 30% of income and re-used to build the next rooms), or <b>consumed</b> (ongoing running cost).</p>
+  <div class="breakdown">
+    <h3>Recommended budget · $5M · blended (revive + two-storey self-build)</h3>
+    <div class="br">
+      <div class="bl"><span>Cluster of existing houses (≈6), held in trust<span class="tag t-perm">permanent</span></span><span class="amt">$1,100,000</span></div>
+      <div class="bar c-perm"><span style="width:22%"></span></div>
+      <p class="note">A small instant core. ≈6 houses (often under $200k each) ≈ 25 existing rooms, occupied fast. Kept deliberately small so more money goes to cheaper self-build rooms.</p>
+    </div>
+    <div class="br">
+      <div class="bl"><span>Renovation fronted on those houses<span class="tag t-rev">recoverable</span></span><span class="amt">$250,000</span></div>
+      <div class="bar c-rev"><span style="width:5%"></span></div>
+      <p class="note">Residents repay at 30% of income → recycles into more rooms.</p>
+    </div>
+    <div class="br">
+      <div class="bl"><span>Self-build land + shared services / utilities main<span class="tag t-perm">permanent</span></span><span class="amt">$700,000</span></div>
+      <div class="bar c-perm"><span style="width:14%"></span></div>
+      <p class="note">Land beside the cluster, plus the power/water/sewage main every two-storey block taps into.</p>
+    </div>
+    <div class="br">
+      <div class="bl"><span>Fronted two-storey self-build rooms (slab + trades + permits)<span class="tag t-rev">recoverable</span></span><span class="amt">$1,950,000</span></div>
+      <div class="bar c-rev"><span style="width:39%"></span></div>
+      <p class="note">≈$14–15k fronted per room (cheaper than single-storey — slab, roof &amp; services shared across two levels) × ≈125 rooms. Residents add salvage + labour on top.</p>
+    </div>
+    <div class="br">
+      <div class="bl"><span>Setup &amp; legal — trust, ACNC, planner, insurance, DA<span class="tag t-con">consumed</span></span><span class="amt">$150,000</span></div>
+      <div class="bar c-con"><span style="width:3%"></span></div>
+    </div>
+    <div class="br">
+      <div class="bl"><span>Operating runway — coordination, build supervision (≈3 yrs)<span class="tag t-con">consumed</span></span><span class="amt">$600,000</span></div>
+      <div class="bar c-con"><span style="width:12%"></span></div>
+      <p class="note">More self-build rooms means more paid supervision — that's what this funds.</p>
+    </div>
+    <div class="br">
+      <div class="bl"><span>Contingency<span class="tag t-con">consumed</span></span><span class="amt">$250,000</span></div>
+      <div class="bar c-con"><span style="width:5%"></span></div>
+    </div>
+    <div class="total-row"><span>Total</span><span class="amt">$5,000,000</span></div>
+    <div class="legend">
+      <span><b style="background:var(--blueprint)"></b>Permanent — lasting asset ($1.8M)</span>
+      <span><b style="background:var(--good)"></b>Recoverable — comes back ($2.2M)</span>
+      <span><b style="background:var(--gold)"></b>Consumed — running cost ($1.0M)</span>
+    </div>
+  </div>
+
+  <!-- HOW MANY ROOMS -->
+  <h2><span class="num">2</span>How many rooms that builds</h2>
+  <p>The room is the unit in Building Plan 2144109247 — it's what a person lives in and pays off. Here is what $5M puts on the ground in the Riverland:</p>
+  <section class="rooms">
+    <p class="lbl">Rooms delivered at $5M · two-storey</p>
+    <p class="fig">≈ 150 rooms <small>· housing 140+ people</small></p>
+    <div class="split">
+      <div class="rb">
+        <div class="n">≈ 25</div>
+        <h4>Revived rooms — fast</h4>
+        <p>≈6 cheap houses bought &amp; renovated. Occupied in year one. ~$44k per room all-in (buy + reno) — instant and visible, kept small on purpose.</p>
+      </div>
+      <div class="rb">
+        <div class="n">≈ 125</div>
+        <h4>Two-storey self-build rooms — cheap</h4>
+        <p>Modular rooms on trust land, two levels. The charity fronts ≈$14–15k each (slab, trades, permit, shared across both floors); residents add salvaged parts + labour. Far cheaper per room, slower to build.</p>
+      </div>
+    </div>
+    <p class="foot">Built to <b>two storeys</b> — the realistic limit in a Riverland township zone (typically ~9m / 2 storeys). That alone roughly doubles rooms per slab and shares roof and services, with no rezoning needed; a third storey would need a specific zone or council support. And 150 isn't the ceiling — the $2.2M recoverable portion is repaid at 30% of income and re-lent, so the same money keeps fronting more rooms year after year. The 150 is just the first wave.</p>
+  </section>
+
+  <!-- THE THREE BUCKETS -->
+  <h2><span class="num">3</span>What happens to each dollar</h2>
+  <div class="buckets">
+    <h3>Three behaviours</h3>
+    <div class="three">
+      <div class="bk perm">
+        <h4>Permanent</h4>
+        <p class="big">$1.8M</p>
+        <p>Houses, land + shared infrastructure. Held in trust, never sold. It doesn't return as cash — it <em>becomes</em> the lasting asset that serves every room now and forever, and stops prices ever drifting up.</p>
+      </div>
+      <div class="bk rev">
+        <h4>Recoverable</h4>
+        <p class="big">$2.2M</p>
+        <p>Renovation + fronted two-storey self-build rooms. Residents repay it — at 30% of income, or when they sell their room on at determined value. The repayments flow back in and front the next rooms, again and again.</p>
+      </div>
+      <div class="bk con">
+        <h4>Consumed</h4>
+        <p class="big">$1.0M</p>
+        <p>Setup, legal, wages, build supervision, contingency. Genuine running cost, funded by donations and grants. A founder/coordinator can draw a fair wage here — but no one pockets profit on the homes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOW DIAGRAM -->
+  <h2><span class="num">4</span>The money cycle</h2>
+  <div class="flow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img" aria-label="Money cycle from donations through the fund to rooms and back via repayments">
+      <style>
+        .bx{fill:#ebe6d8;stroke:#1d4e63;stroke-width:1.5;}.bxk{fill:#1f1c17;stroke:#1f1c17;}.bxg{fill:#3f6b3f;stroke:#3f6b3f;}
+        .tt{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:#1f1c17;}.ttw{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:#f4f1e9;}
+        .ar{stroke:#9a3b1b;stroke-width:1.6;fill:none;}.ah{fill:#9a3b1b;}.lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:#5e574b;}
+      </style>
+      <defs><marker id="a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" class="ah"/></marker></defs>
+      <rect class="bx" x="10" y="20" width="150" height="50" rx="2"/><text class="tt" x="85" y="40" text-anchor="middle">Donations, grants,</text><text class="tt" x="85" y="56" text-anchor="middle">no-profit loans</text>
+      <rect class="bxk" x="300" y="18" width="160" height="54" rx="2"/><text class="ttw" x="380" y="42" text-anchor="middle">THE FUND</text><text class="ttw" x="380" y="58" text-anchor="middle">$5,000,000</text>
+      <line class="ar" x1="162" y1="45" x2="296" y2="45" marker-end="url(#a)"/>
+      <rect class="bx" x="40" y="125" width="180" height="50" rx="2" style="stroke:#1d4e63"/><text class="tt" x="130" y="145" text-anchor="middle">Permanent $1.8M</text><text class="tt" x="130" y="161" text-anchor="middle">houses + land</text>
+      <rect class="bxg" x="290" y="125" width="180" height="50" rx="2"/><text class="ttw" x="380" y="145" text-anchor="middle">Recoverable $2.2M</text><text class="ttw" x="380" y="161" text-anchor="middle">fronts ≈150 rooms</text>
+      <rect class="bx" x="540" y="125" width="180" height="50" rx="2" style="stroke:#c08a4a"/><text class="tt" x="630" y="145" text-anchor="middle">Consumed $1.0M</text><text class="tt" x="630" y="161" text-anchor="middle">setup + running</text>
+      <path class="ar" d="M340 74 L130 74 L130 123" marker-end="url(#a)"/>
+      <line class="ar" x1="380" y1="74" x2="380" y2="123" marker-end="url(#a)"/>
+      <path class="ar" d="M420 74 L630 74 L630 123" marker-end="url(#a)"/>
+      <rect class="bx" x="290" y="205" width="180" height="40" rx="2"/><text class="tt" x="380" y="229" text-anchor="middle">Rooms built &amp; lived in</text>
+      <line class="ar" x1="380" y1="177" x2="380" y2="203" marker-end="url(#a)"/>
+      <path class="ar" d="M470 225 L560 225 L560 150 L472 150" marker-end="url(#a)"/>
+      <text class="lbl" x="566" y="195">repay 30% / resale</text>
+      <text class="lbl" x="566" y="209">→ recycles to next rooms</text>
+    </svg>
+  </div>
+
+  <!-- MULTIPLIER -->
+  <div class="mult">
+    <h3>Why it compounds</h3>
+    <p>The $2.2M recoverable pool isn't spent once — it's recovered and re-lent. As the first rooms are paid off, the same money fronts the next:</p>
+    <div class="cycle"><b>$2.2M → ≈150 rooms</b> <span class="arrow">→ repaid →</span> <b>≈150 more</b> <span class="arrow">→ repaid →</span> <b>≈150 more…</b></div>
+    <p style="margin:6px 0 0;font-size:14.5px;color:var(--muted);font-style:italic;">Repayment is slow (set by income), so this plays out over years — but every dollar of build cost works many times over. The $1.8M of houses and land bought once carries all of them.</p>
+  </div>
+
+  <!-- HONEST NOTES -->
+  <h2><span class="num">5</span>The honest parts</h2>
+  <div class="notes">
+    <h3>Read before committing money</h3>
+    <ul>
+      <li><b>$5M builds the first wave, then keeps going.</b> It delivers ≈150 rooms (two storeys) and a turning recoverable fund. Bigger still is possible — each new land/house round is a one-time buy that then serves people permanently.</li>
+      <li><b>Charity money can't become private profit.</b> Under ACNC rules a registered charity's surplus must serve its purpose. A founder/coordinator can be paid a fair wage for real work; no one takes the profit on the houses.</li>
+      <li><b>Investors who want a return need a different structure.</b> A charity can accept donations, grants, and repayable no-profit loans. Profit-seeking money needs a separate social-enterprise/impact vehicle alongside the charity — get legal advice first.</li>
+      <li><b>The land held in trust is the safeguard.</b> Because the charity keeps the land off the market, the rooms can't be bought up or flipped — fixing the "watering down" that has undone open communes before.</li>
+      <li><b>Who actually builds matters.</b> People in deep crisis often can't self-build, which is why the budget funds revived move-in-ready houses first, plus skilled supervision and licensed trades for the self-builds.</li>
+    </ul>
+    <p class="disclaimer">This document lays out a funding structure and indicative figures only. It is not legal, accounting, or financial advice. Room counts assume two-storey building (the typical ~9m / 2-storey township limit), ≈4 rooms per revived house, and ≈$14–15k fronted per two-storey self-build room, and will move with the actual town, zone, houses, and site chosen. Three-plus storeys would need a specific zone or council support. Before raising or spending money, have the structure reviewed by a community-housing lawyer and a charity accountant, and confirm zoning, height, land, house, services, and approval costs with a town planner.</p>
+  </div>
+
+  <footer class="refs">
+    <p><span class="found">Prepared 5 June 2026.</span> Indicative figures, South Australia (Riverland).</p>
+    <p>Cost references: rural/farm land values SA (farmbuy.com, Rural Bank Farmland Values Report); land, house &amp; services listings (gumtree.com.au, soho.com.au, Ray White Riverland, Elders Waikerie, First National Marschall); utility connection ranges and per-room fronted costs from the Australian build-cost guides used in the work sheet. Charity structure per ACNC (acnc.gov.au) and Community Land Trust models. Verify all figures before use.</p>
+  </footer>
+
+</article>
+</body>
+</html>

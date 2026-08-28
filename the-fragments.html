@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fragments — pieces of the living map that already exist</title>
+<meta name="description" content="Every fragment of the Choose Neighbors dynamic map exists somewhere — friend-matching startups, allocation algorithms, algorithmic urbanism, MIT's city simulations, proven affordable-ownership models. Nobody has assembled them. This page collects the evidence.">
+<link rel="canonical" href="https://chooseneighbors.com/the-fragments.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  .wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding:4px 7vw 46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);gap:20px}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px;flex-shrink:0}
+  .brand b{font-weight:900}
+  .brand span{font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
+  .topnav{display:flex;gap:22px;font-size:14.5px}
+  .topnav a{color:var(--ink-soft);text-decoration:none}
+  .topnav a:hover{color:var(--terra)}
+  @media(max-width:860px){.topnav{display:none}}
+
+  .hero{padding:60px 0 24px}
+  .eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-weight:600;font-size:clamp(38px,7vw,80px);line-height:.96;letter-spacing:-.03em;max-width:16ch}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(19px,2.4vw,24px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:58ch;margin-top:26px}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  .frag{max-width:var(--measure);margin:0 0 8px;padding-top:46px}
+  .frag .kick{font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--terra);margin-bottom:10px;display:flex;align-items:center;gap:12px}
+  .frag .kick::before{content:"";width:28px;height:2px;background:var(--terra)}
+  .frag h2{font-weight:600;font-size:clamp(23px,3.2vw,30px);letter-spacing:-.015em;line-height:1.1;margin-bottom:12px}
+  .frag p{color:var(--ink-soft);font-size:17.5px;margin-bottom:13px}
+  .frag p strong{color:var(--ink);font-weight:600}
+  .frag a{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+  .frag a:hover{color:var(--terra);border-color:var(--terra)}
+  .verdict{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .verdict span{font-size:13px;font-weight:600;border-radius:30px;padding:7px 14px;border:1px solid var(--line)}
+  .verdict .has{color:var(--sage);border-color:#c5cdb9;background:#f2f4ec}
+  .verdict .missing{color:var(--terra-deep);border-color:#e2c4b8;background:#f8efe9}
+
+  .caution{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--gold);padding:20px 26px;border-radius:0 6px 6px 0;margin:18px 0 6px}
+  .caution h4{font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:8px}
+  .caution p{font-size:15.5px;color:var(--ink-soft);line-height:1.55;margin:0}
+
+  .lasting{margin:60px 0 6px;background:var(--ink);color:var(--paper);border-radius:12px;padding:42px 40px;position:relative;overflow:hidden}
+  .lasting::after{content:"";position:absolute;right:-40px;bottom:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(179,82,56,.5),transparent 70%)}
+  .lasting .kick{font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--gold);margin-bottom:14px}
+  .lasting h2{font-weight:600;font-size:clamp(26px,3.6vw,36px);line-height:1.06;letter-spacing:-.015em;max-width:24ch;margin-bottom:14px}
+  .lasting p{color:#e4d8c6;max-width:58ch;font-size:17px;line-height:1.55;margin-bottom:22px}
+  .lasting a{display:inline-block;font-weight:600;font-size:15px;color:var(--paper);text-decoration:none;border:1px solid rgba(244,236,224,.4);border-radius:30px;padding:11px 22px;transition:.25s;position:relative;z-index:1;margin:0 10px 10px 0}
+  .lasting a:hover{background:var(--terra);border-color:var(--terra)}
+
+  footer{border-top:1px solid var(--line);margin-top:54px;padding:36px 0 20px}
+  .fmeta{font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:56ch}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topbar">
+    <a class="brand" href="/"><b>Choose Neighbors</b> <span>homes designed around friendship</span></a>
+    <div class="topnav">
+      <a href="/belonging/choose-your-neighbours.html">The core idea</a>
+      <a href="/start-a-community">Start a community</a>
+      <a href="/find-a-community">Find a community</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">Working notes &middot; evidence file</p>
+    <h1>The fragments <em>already exist.</em></h1>
+    <p class="dek">The <a href="/belonging/choose-your-neighbours.html" style="color:var(--terra-deep)">living map</a> — choose your people, space held open, move freely, placed by real bonds — doesn't exist anywhere we can find. But <b>every fragment of it does</b>, proven separately, somewhere in the world. This page collects them: what each fragment proves, and what it's missing.</p>
+  </header>
+
+  <article class="frag">
+    <p class="kick">Fragment 01 &middot; the matching</p>
+    <h2>Friend groups matched into housing</h2>
+    <p><a href="https://livenearfriends.com/">Live Near Friends</a> and its <a href="https://sfstandard.com/2024/09/22/hot-friend-compounds/">"Hot Friend Compounds"</a> product (founded by Phil Levin of Supernuclear) match friend groups to properties they can buy together — the closest existing cousin to the living map, and proof that the demand is real enough to build a company on.</p>
+    <div class="verdict"><span class="has">Proves: people will use an app to live near friends</span><span class="missing">Missing: it's a one-time purchase — no ongoing map, no held-open space, no movement after</span></div>
+  </article>
+
+  <article class="frag">
+    <p class="kick">Fragment 02 &middot; the app mechanics</p>
+    <h2>Residential matching apps at scale</h2>
+    <p>Roommate and neighbourhood matchers — <a href="https://www.diggz.co/">Diggz</a>, Roomie, <a href="https://www.citytwinapp.com/">CityTwin</a> — run swipe-and-match interfaces over housing every day. The interaction pattern the living map needs is commodity software.</p>
+    <div class="verdict"><span class="has">Proves: the matching UX is ordinary, working technology</span><span class="missing">Missing: they match strangers to rooms, not chosen bonds to a persistent place</span></div>
+  </article>
+
+  <article class="frag">
+    <p class="kick">Fragment 03 &middot; the computation</p>
+    <h2>Housing-allocation algorithms</h2>
+    <p>Economists and computer scientists already run the math the map needs, at city scale: <a href="https://www.econometricsociety.org/regional-activities/conference-papers/view/269/63">dynamic allocation of public housing</a>, <a href="https://arxiv.org/abs/2511.07022">fair house-allocation algorithms</a>, and — closest of all — <a href="https://arxiv.org/pdf/2301.02876">assigning residents on a neighbourhood graph to shape who lives near whom</a>. That last paper places people on a map of residences by a social objective; it just optimises for <em>diversity</em> among strangers rather than <em>bonds</em> among people who chose each other.</p>
+    <div class="verdict"><span class="has">Proves: the computation is tractable and studied</span><span class="missing">Missing: applied to need and diversity — never to chosen bonds, reserved space, or voluntary movement</span></div>
+  </article>
+
+  <article class="frag">
+    <p class="kick">Fragment 04 &middot; the theory</p>
+    <h2>Algorithmic urbanism</h2>
+    <p>Urban studies now treats the algorithmic reorganisation of cities as a serious research field. The <em>Urban Geography</em> research agenda <a href="https://www.tandfonline.com/doi/full/10.1080/02723638.2019.1698868">"Robotics and automation in the city"</a> (Macrorie, Marvin &amp; While, 2019) maps how automation is beginning to restructure urban space and daily life — the intellectual frame in which a program shaping physical neighbourhoods stops sounding like science fiction. And the core spatial tool — <a href="https://www.espatial.com/blog/nearest-neighbor-map">nearest-neighbour mapping</a> — is standard GIS, available off the shelf.</p>
+    <div class="verdict"><span class="has">Proves: the idea has an academic home and ordinary tooling</span><span class="missing">Missing: theory about cities in general — housing by relational data is not its subject</span></div>
+  </article>
+
+  <article class="frag">
+    <p class="kick">Fragment 05 &middot; the simulation</p>
+    <h2>MIT City Science — dynamic cities in software</h2>
+    <p>Kent Larson's <a href="https://www.media.mit.edu/groups/city-science/projects/">City Science group at the MIT Media Lab</a> built <a href="https://www.media.mit.edu/publications/cityscope/">CityScope</a>, a simulation platform where stakeholders reshape a district and watch the impact in real time; their <em>algorithmic zoning</em> project explores <strong>dynamically reconfigurable urban policies</strong>, and their <a href="https://arxiv.org/pdf/2106.14572">agent-based Kendall Square model</a> couples where people choose to live with how they move. This is the nearest thing to the living map running anywhere — as a simulation.</p>
+    <div class="verdict"><span class="has">Proves: dynamic, program-driven reallocation of a district works in simulation</span><span class="missing">Missing: it simulates policy for planners — no real residents, no chosen bonds, no held-open space</span></div>
+    <div class="caution">
+      <h4>A note on accuracy</h4>
+      <p>Summaries circulating online attribute papers called "Reconfigurable Urban Skins" and "Dynamic Spatial Allocation" to this group, describing unassigned housing blocks shuffled by social bonds with buffer zones left open. We could not verify those titles or that mechanism in the published record — the verified work is what's linked above. If those papers exist, we'd love the citation.</p>
+    </div>
+  </article>
+
+  <article class="frag">
+    <p class="kick">Fragment 06 &middot; the ownership</p>
+    <h2>Choose each other + own it affordably</h2>
+    <p>The tenure half is proven too. <a href="https://cohousing.org.uk/case-study/lilac-low-impact-living-affordable-community/">LILAC in Leeds</a> combines mutual member selection with a <a href="https://www.housinginternational.coop/resources/lilac-mutual-home-ownership-community-in-leeds-england/">Mutual Home Ownership Society</a> — members pay 35% of net income, equity tracks wages not property prices. German <em>Baugruppen</em> form the group first and build at cost, roughly 15–25% below market. Australia's Nightingale builds at cost with capped resale (though allocated by ballot, not by choice).</p>
+    <div class="verdict"><span class="has">Proves: chosen membership and affordable ownership can legally coexist</span><span class="missing">Missing: all are fixed at move-in — nobody keeps space open or lets the map keep moving</span></div>
+  </article>
+
+  <section class="lasting">
+    <p class="kick">The conclusion</p>
+    <h2>Every fragment is proven. The assembly is the invention.</h2>
+    <p>Demand: proven. Matching UX: commodity. Allocation math: published. Theory: established. Dynamic simulation: running at MIT. Affordable chosen ownership: award-winning in Leeds. What does not exist anywhere is the assembly — a living map with space held open, placed by real bonds, that people own affordably and move across freely. That is the whole project.</p>
+    <a href="/belonging/choose-your-neighbours.html">The core idea</a>
+    <a href="/start-a-community">Start a community</a>
+    <a href="/support">Help build it</a>
+  </section>
+
+  <footer>
+    <p class="fmeta">An evidence file for the Choose Neighbors project, August 2026. Every link above was checked when written; corrections welcome at contact@chooseneighbors.com.</p>
+  </footer>
+
+</div>
+</body>
+</html>

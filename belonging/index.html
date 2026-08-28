@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belonging — choose your neighbours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif;gap:20px}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px;flex-shrink:0}
+  .brand b{font-weight:900}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
+  .topnav{display:flex;gap:22px;font-size:14.5px}
+  .topnav a{color:var(--ink-soft);text-decoration:none;transition:color .2s}
+  .topnav a:hover{color:var(--terra)}
+  @media(max-width:860px){.topnav{display:none}}
+
+  /* hero */
+  .hero{padding:94px 0 44px}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:30px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(54px,12vw,150px);line-height:.9;letter-spacing:-.035em;max-width:14ch}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(21px,2.7vw,28px);line-height:1.45;color:var(--ink-soft);font-weight:300;max-width:54ch;margin-top:36px}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  /* lead */
+  .lead{max-width:var(--measure);margin:46px 0 6px;border-top:1px solid var(--line);padding-top:44px}
+  .lead p{margin-bottom:20px;color:var(--ink-soft);font-size:20px;line-height:1.6}
+  .lead p strong{color:var(--ink);font-weight:600}
+  .lead .first:first-letter{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;float:left;font-size:74px;line-height:.74;padding:8px 12px 0 0;color:var(--terra-deep)}
+
+  /* promise strip */
+  .promise{max-width:var(--measure);margin:34px 0 6px;display:flex;flex-wrap:wrap;gap:10px}
+  .promise span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-size:14.5px;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:30px;padding:9px 16px}
+  .promise span b{color:var(--terra-deep);font-weight:600}
+
+  /* pillars */
+  .section-label{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--terra);margin:66px 0 22px;display:flex;align-items:center;gap:14px}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  .pillars{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:720px){.pillars{grid-template-columns:1fr 1fr}}
+  .pillar{display:block;text-decoration:none;color:inherit;background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:30px 30px 26px;transition:transform .3s cubic-bezier(.2,.7,.2,1),border-color .3s;position:relative}
+  .pillar:hover{transform:translateY(-4px);border-color:var(--terra)}
+  .pillar .pn{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:300;font-size:30px;color:var(--line);line-height:1}
+  .pillar h3{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:25px;line-height:1.05;letter-spacing:-.01em;margin:12px 0 10px;color:var(--ink);display:flex;align-items:baseline;gap:10px}
+  .pillar h3 .arr{color:var(--terra);font-size:18px;opacity:0;transform:translateX(-6px);transition:.3s}
+  .pillar:hover h3 .arr{opacity:1;transform:none}
+  .pillar p{color:var(--ink-soft);font-size:16.5px;line-height:1.5}
+
+  /* lasting band */
+  .lasting{margin:50px 0 6px;background:var(--ink);color:var(--paper);border-radius:12px;padding:46px 44px;position:relative;overflow:hidden}
+  .lasting::after{content:"";position:absolute;right:-40px;bottom:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(179,82,56,.5),transparent 70%)}
+  .lasting .kick{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--gold);margin-bottom:16px}
+  .lasting h2{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.05;letter-spacing:-.015em;max-width:20ch;margin-bottom:16px}
+  .lasting p{color:#e4d8c6;max-width:58ch;font-size:18px;line-height:1.55;margin-bottom:24px}
+  .lasting a{display:inline-block;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;color:var(--paper);text-decoration:none;border:1px solid rgba(244,236,224,.4);border-radius:30px;padding:12px 24px;transition:.25s;position:relative;z-index:1}
+  .lasting a:hover{background:var(--terra);border-color:var(--terra)}
+
+  /* two invitations */
+  .invite{display:grid;grid-template-columns:1fr;gap:30px;max-width:var(--measure);margin:54px 0 6px}
+  @media(min-width:640px){.invite{grid-template-columns:1fr 1fr;gap:48px}}
+  .invite .col h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:20px;color:var(--ink);margin-bottom:10px}
+  .invite .col p{color:var(--ink-soft);font-size:17px;line-height:1.55}
+
+  .honesty{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--gold);padding:22px 28px;border-radius:0 6px 6px 0;margin:48px 0 6px}
+  .honesty h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:10px}
+  .honesty p{font-size:16.5px;color:var(--ink-soft);line-height:1.55}
+
+  footer{border-top:1px solid var(--line);margin-top:54px;padding:46px 0 72px;font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .fnav{display:grid;grid-template-columns:1fr;gap:10px 40px;margin-bottom:30px}
+  @media(min-width:560px){.fnav{grid-template-columns:1fr 1fr}}
+  @media(min-width:860px){.fnav{grid-template-columns:repeat(3,1fr)}}
+  .fnav a{color:var(--ink-soft);text-decoration:none;font-size:15px;padding:4px 0;border-bottom:1px solid transparent;width:fit-content}
+  .fnav a:hover{color:var(--terra);border-color:var(--line)}
+  .fmeta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:54ch;border-top:1px solid var(--line);padding-top:24px}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+  <meta name="description" content="Belonging — choose your neighbours. A guide to homes, daily life, self-government and what makes a community of friends last.">
+  <link rel="canonical" href="https://chooseneighbors.com/belonging/index.html">
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topbar">
+    <a class="brand" href="index.html"><b>Belonging</b> <span>choose your neighbours</span></a>
+    <div class="topnav">
+      <a href="/start-a-community">How to start</a>
+      <a href="choose-your-neighbours.html">The idea</a>
+      <a href="homes.html">Homes</a>
+      <a href="things-to-do.html">Daily life</a>
+      <a href="you-design-it.html">Self-government</a>
+      <a href="what-makes-it-last.html">What makes it last</a>
+      <a href="explore.html">Explore</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">A different way to live</div>
+    <h1>Choose your <em>neighbours</em>.</h1>
+    <p class="dek reveal">A community where you choose the people you live beside, own your home instead of renting it, and help design the place itself — so that <b>no one has to live, or grow old, in isolation.</b></p>
+  </header>
+
+  <section class="lead reveal">
+    <p class="first">We choose almost everything in modern life — our work, our phone, where we go on holiday — except the things that shape us most: who lives next door, whether we can afford a home, and whether we have any say over the place we spend our days. We're left to find a box we can just about pay for, among strangers, in a town run by people who'll never know we existed.</p>
+    <p>It doesn't have to be built this way. <strong>Belonging is a community designed around the things that actually make a life good:</strong> people you chose, a home that's truly yours, work that means something, and a real hand in shaping where you live.</p>
+  </section>
+
+  <div class="promise reveal">
+    <span><b>Choose</b> your neighbours</span>
+    <span><b>Own</b> your home, never rent</span>
+    <span><b>No</b> homelessness</span>
+    <span><b>Always</b> something to do</span>
+    <span><b>Design</b> your own community</span>
+    <span><b>Work</b> when it suits you</span>
+  </div>
+
+  <div class="section-label reveal">Four things it gives you</div>
+  <nav class="pillars">
+    <a class="pillar reveal" href="choose-your-neighbours.html">
+      <div class="pn">01</div>
+      <h3>Choose your neighbours <span class="arr">→</span></h3>
+      <p>Apply to live near the people you want around you, with space always kept open so friends can join and so you can move freely. The mechanic the whole place is named for.</p>
+    </a>
+    <a class="pillar reveal" href="homes.html">
+      <div class="pn">02</div>
+      <h3>Homes you own, never rent <span class="arr">→</span></h3>
+      <p>Own your home from day one, from a free starter shell to full ownership — and never be priced out, because the land is held in trust and can't be speculated on.</p>
+    </a>
+    <a class="pillar reveal" href="things-to-do.html">
+      <div class="pn">03</div>
+      <h3>Always something to do <span class="arr">→</span></h3>
+      <p>A hall where life is always happening and an app that knows what's on and who's around — so a quiet night is a choice, never a sentence.</p>
+    </a>
+    <a class="pillar reveal" href="you-design-it.html">
+      <div class="pn">04</div>
+      <h3>You design it <span class="arr">→</span></h3>
+      <p>The most local layer of government is yours — propose ideas, solve local problems, organise the life of the place, and be backed to do it.</p>
+    </a>
+  </nav>
+
+  <section class="lasting reveal">
+    <div class="kick">The serious part</div>
+    <h2>Good communities don't fail by accident. They fail in known ways.</h2>
+    <p>So Belonging is designed against each of them — turning on its members, being captured from inside, ageing out, hardening into a creed, exposing the vulnerable, running out of money. Six design principles, grounded in real research and real communities, make up the backbone the whole vision stands on.</p>
+    <a href="what-makes-it-last.html">Read “What makes it last” →</a>
+  </section>
+
+  <div class="section-label reveal">Who this is for</div>
+  <div class="invite reveal">
+    <div class="col">
+      <h4>If you've felt the gap</h4>
+      <p>If you've spent too long isolated, or among people you didn't choose, paying rent toward someone else's future with little say over your own — this was written for you. You're not the only one, and it isn't only your fault. It's how the place was built. This is a different way to build it.</p>
+    </div>
+    <div class="col">
+      <h4>If you want to help build it</h4>
+      <p>Belonging is partly a not-for-profit venture: it aims to do real good <em>and</em> return investors' capital, by creating value in land, homes, work, and community. The plan is to find affordable land, build starter homes people can own, and grow a place worth migrating to. <a href="what-makes-it-last.html#" style="color:var(--terra-deep);border-bottom:1px solid var(--line);text-decoration:none">Read the design</a>, or get in touch.</p>
+    </div>
+  </div>
+
+  <div class="honesty reveal">
+    <h4>A note on how this was made</h4>
+    <p>This site grew from a book of ideas, developed further with AI working from established research and real-world models — then checked, shaped, and owned by the people who'll actually live them. The thinking is offered openly; the choices remain ours. Some of it is still a work in progress.</p>
+  </div>
+
+  <footer>
+    <div class="fnav">
+      <a href="choose-your-neighbours.html">Choose your neighbours</a>
+      <a href="homes.html">Homes you own, never rent</a>
+      <a href="things-to-do.html">Always something to do</a>
+      <a href="you-design-it.html">You design it</a>
+      <a href="what-makes-it-last.html">What makes it last</a>
+      <a href="explore.html">Explore — full site index</a>
+      <a href="governing-ourselves.html">— Governing ourselves</a>
+      <a href="pulling-our-weight.html">— Pulling our weight</a>
+      <a href="built-to-last.html">— Built to last</a>
+      <a href="why-it-works-on-people.html">— Why it works on people</a>
+      <a href="keeping-people-safe.html">— Keeping people safe</a>
+      <a href="practical-backbone.html">— The practical backbone</a>
+    </div>
+    <p class="fmeta">Belonging — choose your neighbours. A community designed so that no one has to live, or grow old, in isolation. This site describes design intent and is not legal or financial advice.</p>
+  </footer>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,6)*55)+'ms';io.observe(el)});
+</script>
+</body>
+</html>

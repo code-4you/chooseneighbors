@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohousing vs Coliving — and the ways to live near people you choose</title>
+<meta name="description" content="Cohousing, coliving, intentional community, commune — what's the difference? A plain-English comparison of the ways to live near the people you choose: privacy, cost, ownership, decisions, and how long each takes to start.">
+<link rel="canonical" href="https://chooseneighbors.com/cohousing-vs-coliving.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4ece0;--paper-2:#efe5d6;--ink:#24201c;--ink-soft:#4a443d;--ink-faint:#7c7468;--terra:#b35238;--terra-deep:#8f3f2b;--sage:#5e6b50;--gold:#c08a3e;--line:#d9cdb9;--measure:64ch}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif;gap:20px}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px;flex-shrink:0}
+  .brand b{font-weight:900}
+  .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
+  .topnav{display:flex;gap:22px;font-size:14.5px}
+  .topnav a{color:var(--ink-soft);text-decoration:none;transition:color .2s}
+  .topnav a:hover{color:var(--terra)}
+  @media(max-width:860px){.topnav{display:none}}
+
+  .hero{padding:80px 0 40px}
+  .eyebrow{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:30px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+  h1{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(40px,7.5vw,84px);line-height:.96;letter-spacing:-.03em;max-width:18ch}
+  h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
+  .dek{font-size:clamp(20px,2.5vw,26px);line-height:1.45;color:var(--ink-soft);font-weight:300;max-width:54ch;margin-top:32px}
+  .dek b{font-weight:500;color:var(--ink)}
+
+  .lead{max-width:var(--measure);margin:42px 0 6px;border-top:1px solid var(--line);padding-top:40px}
+  .lead p{margin-bottom:20px;color:var(--ink-soft);font-size:20px;line-height:1.6}
+  .lead p strong{color:var(--ink);font-weight:600}
+  .lead .first:first-letter{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;float:left;font-size:74px;line-height:.74;padding:8px 12px 0 0;color:var(--terra-deep)}
+
+  .section-label{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--terra);margin:66px 0 22px;display:flex;align-items:center;gap:14px}
+  .section-label::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
+
+  .model{max-width:var(--measure);margin:0 0 44px}
+  .model h2{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.015em;line-height:1.1;margin-bottom:6px}
+  .model .tagline{font-style:italic;color:var(--ink-faint);font-size:17px;margin-bottom:16px}
+  .model p{color:var(--ink-soft);font-size:18.5px;margin-bottom:14px}
+  .model p strong{color:var(--ink);font-weight:600}
+  .goodhard{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+  @media(min-width:640px){.goodhard{grid-template-columns:1fr 1fr}}
+  .goodhard div{background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:16px 20px}
+  .goodhard h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px}
+  .goodhard .good h4{color:var(--sage)}
+  .goodhard .hard h4{color:var(--terra-deep)}
+  .goodhard p{font-size:15.5px;line-height:1.5;color:var(--ink-soft);margin:0}
+
+  .tablewrap{overflow-x:auto;margin:8px 0 10px;border:1px solid var(--line);border-radius:10px;background:var(--paper-2)}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:15.5px}
+  caption{text-align:left;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:14px;padding:16px 20px 6px;color:var(--ink-faint)}
+  th,td{padding:13px 18px;text-align:left;vertical-align:top;border-top:1px solid var(--line);line-height:1.45}
+  thead th{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:14px;border-top:0;color:var(--ink)}
+  tbody th{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:14.5px;color:var(--terra-deep);white-space:nowrap}
+  td{color:var(--ink-soft)}
+
+  .lasting{margin:60px 0 6px;background:var(--ink);color:var(--paper);border-radius:12px;padding:46px 44px;position:relative;overflow:hidden}
+  .lasting::after{content:"";position:absolute;right:-40px;bottom:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(179,82,56,.5),transparent 70%)}
+  .lasting .kick{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--gold);margin-bottom:16px}
+  .lasting h2{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:clamp(28px,4vw,40px);line-height:1.05;letter-spacing:-.015em;max-width:22ch;margin-bottom:16px}
+  .lasting p{color:#e4d8c6;max-width:58ch;font-size:18px;line-height:1.55;margin-bottom:24px}
+  .lasting a{display:inline-block;font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:15px;color:var(--paper);text-decoration:none;border:1px solid rgba(244,236,224,.4);border-radius:30px;padding:12px 24px;transition:.25s;position:relative;z-index:1;margin-right:10px}
+  .lasting a:hover{background:var(--terra);border-color:var(--terra)}
+
+  .faq{max-width:var(--measure)}
+  .faq details{border-top:1px solid var(--line);padding:18px 0}
+  .faq details:last-child{border-bottom:1px solid var(--line)}
+  .faq summary{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:19px;cursor:pointer;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .faq summary::after{content:"+";color:var(--terra);font-size:22px;flex-shrink:0}
+  .faq details[open] summary::after{content:"–"}
+  .faq details p{color:var(--ink-soft);font-size:17px;line-height:1.6;margin-top:12px;max-width:60ch}
+
+  .honesty{max-width:var(--measure);background:var(--paper-2);border-left:3px solid var(--gold);padding:22px 28px;border-radius:0 6px 6px 0;margin:48px 0 6px}
+  .honesty h4{font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin-bottom:10px}
+  .honesty p{font-size:16.5px;color:var(--ink-soft);line-height:1.55}
+
+  footer{border-top:1px solid var(--line);margin-top:64px;padding:46px 0 72px;font-family:'Google Sans','Outfit',Arial,sans-serif}
+  .fnav{display:grid;grid-template-columns:1fr;gap:10px 40px;margin-bottom:30px}
+  @media(min-width:560px){.fnav{grid-template-columns:1fr 1fr}}
+  @media(min-width:860px){.fnav{grid-template-columns:repeat(3,1fr)}}
+  .fnav a{color:var(--ink-soft);text-decoration:none;font-size:15px;padding:4px 0;border-bottom:1px solid transparent;width:fit-content}
+  .fnav a:hover{color:var(--terra);border-color:var(--line)}
+  .fmeta{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-size:13.5px;color:var(--ink-faint);max-width:54ch;border-top:1px solid var(--line);padding-top:24px}
+</style>
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGETBRPSNS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RGETBRPSNS');
+</script>
+<!-- End, Global site tag (gtag.js) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between cohousing and coliving?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In cohousing, each household owns or rents a private, self-contained home, and the homes are clustered around shared spaces like a common house, gardens, and workshops. In coliving, people share one large home — private bedrooms, but shared kitchens and living areas. Cohousing suits households who want full privacy with community next door; coliving suits individuals who want daily shared life and lower costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is cohousing cheaper than buying a normal house?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not always. Cohousing homes are usually bought at market rates, though sharing land, walls, and common facilities can reduce the cost per household, and shared meals, tools, and childcare reduce living costs over time. Coliving is usually the cheapest way in, since you rent a room rather than a home. Models that build at cost — like the one Choose Neighbors proposes — aim to bring ownership itself down to what the home actually costs to create."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an intentional community?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Intentional community is the umbrella term for any residential community formed on purpose around shared values, rather than by accident of the housing market. Cohousing, coliving, ecovillages, and communes are all types of intentional community. They differ mainly in how much people share — space, money, meals, and decisions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you choose your neighbours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In ordinary housing, no — you buy or rent whatever you can afford and hope. In intentional communities, yes: members join on purpose, usually through a process of visits and conversations, so the people around you chose to be there and chose the same way of living. That single difference — neighbours by choice rather than by chance — is what the research on belonging and long-term health keeps pointing at."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to start a cohousing community?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Typically two to five years from a core group forming to people moving in, because it involves land, finance, planning permission, and building. Coliving can start in weeks — rent a large house together. Many groups start small and fast (a shared house, or friends moving onto the same street) while working toward something bigger."
+      }
+    }
+  ]
+}
+</script>
+<style>/* white sheet on brown */
+body{background:var(--ink)}
+.wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding-top:4px;padding-bottom:46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topbar">
+    <a class="brand" href="/"><b>Choose Neighbors</b> <span>homes designed around friendship</span></a>
+    <div class="topnav">
+      <a href="/start-a-community">Start a community</a>
+      <a href="/belonging/index.html">The Belonging guide</a>
+      <a href="/listings">Listings</a>
+      <a href="/groups">Groups</a>
+      <a href="/interest">Register interest</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">A plain-English comparison</p>
+    <h1>Cohousing, coliving, <em>or design your own?</em></h1>
+    <p class="dek">There are more ways than ever to live near people you actually chose. The words get used interchangeably — but the models are <b>very different</b> in privacy, cost, and how much of your life you share. Here's the honest map.</p>
+  </header>
+
+  <section class="lead">
+    <p class="first">Every one of these models is an answer to the same question: <strong>why should the most important people in your daily life be decided by accident?</strong> The housing market gives you neighbours by chance. Intentional communities — the umbrella term for all of the below — give you neighbours by choice. What separates the models is how much you share: space, money, meals, and decisions.</p>
+    <p>Use this page to find the model that fits how much sharing you actually want, not how much you think you should want. That mismatch is the most common reason communities don't last.</p>
+  </section>
+
+  <p class="section-label">The models</p>
+
+  <article class="model">
+    <h2>Cohousing</h2>
+    <p class="tagline">Private homes, shared everything-else.</p>
+    <p>Each household owns (or rents) a complete, self-contained home — your own kitchen, your own front door. The homes are clustered around shared space: a common house for meals and gatherings, gardens, workshops, laundry, guest rooms. Residents manage the community together, usually by consensus or sociocracy, and typically design it together before it's built.</p>
+    <div class="goodhard">
+      <div class="good"><h4>What it's good at</h4><p>Full privacy with community twenty steps away. Works for families, couples, and elders alike. The most proven model — hundreds exist worldwide.</p></div>
+      <div class="hard"><h4>What's hard</h4><p>Slow and capital-heavy to start: land, finance, planning, construction — typically 2–5 years. Homes usually sell at market prices, so it's not automatically affordable.</p></div>
+    </div>
+  </article>
+
+  <article class="model">
+    <h2>Coliving</h2>
+    <p class="tagline">One big home, shared daily life.</p>
+    <p>A group shares one large house or building: private bedrooms (sometimes small studios), shared kitchen, living rooms, and often shared groceries and meals. Sometimes it's friends renting together; increasingly it's run by companies renting furnished rooms with flexible leases.</p>
+    <div class="goodhard">
+      <div class="good"><h4>What it's good at</h4><p>The fastest, cheapest way into community — you can start next month with a lease. Daily companionship is built in. Great for singles and people testing what shared life feels like.</p></div>
+      <div class="hard"><h4>What's hard</h4><p>You're usually a tenant, building no equity, and turnover is high. Privacy is thin. Commercial coliving can feel like a product, not a community.</p></div>
+    </div>
+  </article>
+
+  <article class="model">
+    <h2>Ecovillages &amp; communes</h2>
+    <p class="tagline">Shared values first — sometimes shared income too.</p>
+    <p>Ecovillages organise around ecological living: growing food, natural building, shared infrastructure. Communes go furthest, pooling income or property. Both ask for the deepest commitment, and both can produce the strongest bonds — or the sharpest conflicts.</p>
+    <div class="goodhard">
+      <div class="good"><h4>What it's good at</h4><p>Living your values completely, not partially. Real self-sufficiency is possible at this depth of sharing.</p></div>
+      <div class="hard"><h4>What's hard</h4><p>The highest failure rate. Income-sharing and consensus-on-everything demand rare levels of trust and governance skill. Often rural and far from work.</p></div>
+    </div>
+  </article>
+
+  <article class="model">
+    <h2>Living near friends, informally</h2>
+    <p class="tagline">Same street, separate everything.</p>
+    <p>No legal structure at all — friends deliberately buy or rent within walking distance of each other. A duplex split between two families, three houses on one street, an apartment building where friends keep landing. Writers on this call it the most underrated option in housing.</p>
+    <div class="goodhard">
+      <div class="good"><h4>What it's good at</h4><p>Zero governance overhead, zero waiting. Each household keeps normal ownership and total privacy. You can start with one move.</p></div>
+      <div class="hard"><h4>What's hard</h4><p>Fragile — one job change or landlord decision can undo it. No shared spaces unless you create them. The market decides whether homes near each other are even available.</p></div>
+    </div>
+  </article>
+
+  <p class="section-label">Side by side</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>The models compared — broad strokes; every real community bends these rules.</caption>
+      <thead>
+        <tr><th>&nbsp;</th><th>Privacy</th><th>Cost to join</th><th>Ownership</th><th>Who decides</th><th>Time to start</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Cohousing</th><td>Full private home</td><td>Market price, minus shared savings</td><td>You own your home</td><td>Residents, by consensus</td><td>2–5 years to build; join existing faster</td></tr>
+        <tr><th>Coliving</th><td>Private room only</td><td>Lowest — rent a room</td><td>Usually none (tenant)</td><td>Housemates, or the operator</td><td>Weeks</td></tr>
+        <tr><th>Ecovillage / commune</th><td>Varies; least in communes</td><td>Low money, high commitment</td><td>Often collective</td><td>The whole community</td><td>Years, or join existing</td></tr>
+        <tr><th>Near friends, informal</th><td>Total</td><td>Normal market housing</td><td>Normal — each household</td><td>Nobody; it's informal</td><td>One move</td></tr>
+        <tr><th>Choose Neighbors model</th><td>Full private home</td><td>At cost, paid off affordably</td><td>You own, at cost + inflation</td><td>Residents design &amp; govern it</td><td>Starts at any scale — a street, a building, a town</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="honesty">
+    <h4>Honestly, though</h4>
+    <p>None of these models is best. Coliving people underestimate how much they'll want their own kitchen at 35; cohousing people underestimate how much governance meetings cost in evenings; commune people underestimate everything. Pick the model that matches the sharing you'll still want in ten years.</p>
+  </div>
+
+  <section class="lasting">
+    <p class="kick">Where we fit</p>
+    <h2>Choose Neighbors is a fifth option: own it, affordably, with people you chose.</h2>
+    <p>We're building toward communities with cohousing's privacy and ownership, priced at what homes actually cost rather than what the market will bear — where the residents choose each other and design the neighbourhood together, at any scale from a shared street to a new town. It's partly non-profit, and it starts with people simply finding each other.</p>
+    <a href="/belonging/index.html">Read the Belonging guide</a>
+    <a href="/interest">Register your interest</a>
+  </section>
+
+  <p class="section-label">Common questions</p>
+
+  <section class="faq">
+    <details>
+      <summary>What is the difference between cohousing and coliving?</summary>
+      <p>Cohousing gives every household a complete private home, with community in the shared spaces between them. Coliving puts everyone in one large home — private bedrooms, shared kitchen and living space. The practical test: do you want your own kitchen? If yes, you want cohousing (or to live near friends). If sharing one is fine, coliving is faster and cheaper.</p>
+    </details>
+    <details>
+      <summary>Is cohousing cheaper than buying a normal house?</summary>
+      <p>Not automatically — most cohousing sells at market rates. The savings come from sharing: land, walls, tools, meals, childcare, guest rooms. Coliving is the cheapest entry (you rent a room). Building at cost — our model — is the approach that tries to make ownership itself affordable, not just the living costs.</p>
+    </details>
+    <details>
+      <summary>What is an intentional community?</summary>
+      <p>The umbrella term for any residential community formed on purpose around shared values rather than by accident of the market. Everything on this page is a type of intentional community — they differ in how much is shared.</p>
+    </details>
+    <details>
+      <summary>Can you actually choose your neighbours?</summary>
+      <p>In ordinary housing, no — that's the accident this whole movement answers. In every model above, yes: people join on purpose and choose each other. The research on belonging — from the 85-year Harvard Study of Adult Development on — suggests this one difference matters more for long-term health and happiness than almost anything else about where you live. <a href="/belonging/why-it-works-on-people.html" style="color:var(--terra-deep)">We've collected the evidence here</a>.</p>
+    </details>
+    <details>
+      <summary>How long does it take to start?</summary>
+      <p>Coliving: weeks. Living near friends: one move. Cohousing or an ecovillage: usually 2–5 years for a new build, much faster if you join an existing one. The pattern that works: start small and fast now, build toward the bigger thing together. Picked your model? <a href="/start-a-community" style="color:var(--terra-deep)">Here's the complete guide to starting</a>.</p>
+    </details>
+  </section>
+
+  <footer>
+    <div class="fnav">
+      <a href="/">Choose Neighbors home</a>
+      <a href="/belonging/index.html">Belonging — the guide</a>
+      <a href="/belonging/why-it-works-on-people.html">Why it works on people</a>
+      <a href="/belonging/homes.html">Homes &amp; money</a>
+      <a href="/belonging/governing-ourselves.html">Governing ourselves</a>
+      <a href="/belonging/what-makes-it-last.html">What makes it last</a>
+      <a href="/listings">Listings</a>
+      <a href="/groups">Groups</a>
+      <a href="/interest">Register your interest</a>
+    </div>
+    <p class="fmeta">Written by the Choose Neighbors project, August 2026. We build toward communities where people choose their neighbours — this page tries to be a fair map of the whole territory, including the parts we're not.</p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /inc/
+Disallow: /includes/
+Disallow: /api/
+Disallow: /cgi-bin/
+Disallow: /error_log
+Disallow: /comment-post.php
+Disallow: /comment-edit.php
+Disallow: /google-auth.php
+Disallow: /logout
+
+Sitemap: https://chooseneighbors.com/sitemap.xml
