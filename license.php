@@ -61,6 +61,9 @@
     <p><strong>The ideas themselves are free.</strong> Nothing here restricts you from building a community where people choose their neighbours — that is the point of this site. This license covers reuse of the site's actual writing, designs, and code, not the ideas they describe.</p>
   </div>
 
+  <h2>Contributions &mdash; value may pay royalties</h2>
+  <p>Contributions are welcome under this same license &mdash; the project is open at <a class="tx" href="https://github.com/code-4you/chooseneighbors" rel="noopener" target="_blank">github.com/code-4you/chooseneighbors</a>. If a contribution of real value becomes part of what others pay royalties for, or meaningfully builds the project, the contributor <strong>may share in those royalties</strong> &mdash; a fair share agreed case by case, in writing, before it's owed.</p>
+
   <h2>Copyright</h2>
   <p>&copy; 2014&ndash;<?php echo date('Y'); ?> Michael van Diermen / Choose Neighbors. All rights reserved except as licensed above. Research and third-party works linked from this site belong to their authors.</p>
 
