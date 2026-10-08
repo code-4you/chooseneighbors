@@ -56,7 +56,7 @@ if (is_file(dirname(__DIR__) . '/config.php')) {
     <link href="/img/favicon.png?v=5" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Oswald:wght@600&display=swap" />
-    <link rel="stylesheet" href="/css/styles.css?x=7" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/styles.css?x=9" type="text/css" media="screen">
 <?php echo $head_extra; ?>
 
 <!-- Global site tag (gtag.js) -->
@@ -108,7 +108,7 @@ if (is_file(dirname(__DIR__) . '/config.php')) {
         <div class="top-header not-authorized">
             <div class="container">
 
-                <div class="d-flex">
+                <div class="d-flex cn-bar <?php echo $nav_user ? 'cn-bar-member' : 'cn-bar-guest'; ?>">
 
                     <div class="burger-icon d-block d-lg-none menu-toggle hidden">
                         <div class="burger-container">
@@ -123,7 +123,7 @@ if (is_file(dirname(__DIR__) . '/config.php')) {
                     </a>
 
 
-                    <div class="d-flex align-items-center order-lg-2 ml-auto">
+                    <div class="d-flex align-items-center order-lg-2 ml-auto cn-nav">
 
 <div class="nav-item">
                                 <a href="/interest" class="topbar-button" title="Register your interest">
@@ -134,6 +134,12 @@ if (is_file(dirname(__DIR__) . '/config.php')) {
 <div class="nav-item">
                                 <a href="/support" class="topbar-button" title="Invest">
                                     <span class="new-item d-sm-inline-block">Invest</span>
+                                </a>
+</div>
+
+<div class="nav-item nav-coffee<?php echo $nav_user ? ' nav-coffee-member' : ''; ?>">
+                                <a href="https://buymeacoffee.com/michaelvandiermen" class="topbar-button" title="Buy me a coffee" target="_blank" rel="noopener">
+                                    <span class="new-item d-sm-inline-block">Buy me a coffee</span>
                                 </a>
 </div>
 
@@ -159,7 +165,7 @@ if (is_file(dirname(__DIR__) . '/config.php')) {
                                 </a>
                             </div>
 
-                            <div class="nav-item p-0 cn-dd">
+                            <div class="nav-item p-0 cn-dd nav-acct">
                                 <a href="/profile" class="topbar-button" title="Account" aria-haspopup="true">
                                     <span class="new-item d-sm-inline-block"><?php echo htmlspecialchars(trim((string)($nav_user['display_name'] ?? '')) !== '' ? $nav_user['display_name'] : $nav_user['username']); ?> <i class="fa fa-caret-down"></i></span>
                                 </a>
@@ -174,13 +180,13 @@ if (is_file(dirname(__DIR__) . '/config.php')) {
 
 <?php else: ?>
 
-                            <div class="nav-item p-0">
+                            <div class="nav-item p-0 nav-acct">
                                 <a href="/login" class="topbar-button" title="Log in">
                                     <span class="new-item d-sm-inline-block">Log in</span>
                                 </a>
                             </div>
 
-                            <div class="nav-item p-0">
+                            <div class="nav-item p-0 nav-acct">
                                 <a href="/signup" class="topbar-button" title="Sign up">
                                     <span class="new-item d-sm-inline-block">Sign up</span>
                                 </a>

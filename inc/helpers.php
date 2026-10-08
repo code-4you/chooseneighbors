@@ -97,7 +97,7 @@ function require_login(): array
     $u = current_user();
     if (!$u) {
         flash_set('error', 'Please log in first.');
-        redirect('/#login');
+        redirect('/login');
     }
     return $u;
 }

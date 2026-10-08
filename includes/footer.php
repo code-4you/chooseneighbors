@@ -79,6 +79,7 @@ $footer_extra = isset($footer_extra) ? $footer_extra : '';
                 <li><a href="/privacy">privacy policy</a></li>
                 <li><a href="/gdpr">GDPR</a></li>
                 <li><a href="/support">support</a></li>
+                <li><a href="https://buymeacoffee.com/michaelvandiermen" target="_blank" rel="noopener">Buy me a coffee</a></li>
                 <li><a class="lang_link" href="javascript:void(0)"  data-toggle="modal" data-target="#langModal"><i class="fa fa-globe"></i> English</a></li>
 
 

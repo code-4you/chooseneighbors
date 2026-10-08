@@ -63,7 +63,7 @@ function comments_section(string $type, int $id, ?array $me, string $returnTo): 
             . '<textarea name="body" rows="3" maxlength="3000" required placeholder="Write a comment…"></textarea>'
             . '<button type="submit" class="button blue">Post comment</button></form>';
     } else {
-        $out .= '<p class="cn-muted"><a href="/#login">Log in</a> or <a href="/signup">sign up</a> to comment.</p>';
+        $out .= '<p class="cn-muted"><a href="/login">Log in</a> or <a href="/signup">sign up</a> to comment.</p>';
     }
     foreach (get_comments($type, $id) as $c) {
         $avatar = $c['avatar_url']

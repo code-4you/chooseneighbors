@@ -18,11 +18,11 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
 
   .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif;gap:20px}
-  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px;flex-shrink:0}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;gap:1px;line-height:1.25;flex-shrink:0}
   .brand b{font-weight:900}
   .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
-  .topnav{display:flex;gap:22px;font-size:14.5px}
-  .topnav a{color:var(--ink-soft);text-decoration:none;transition:color .2s}
+  .topnav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px;font-size:14.5px}
+  .topnav a{color:var(--ink-soft);text-decoration:none;transition:color .2s;white-space:nowrap}
   .topnav a:hover{color:var(--terra)}
   @media(max-width:860px){.topnav{display:none}}
 
@@ -156,6 +156,7 @@ body{background:var(--ink)}
       <a href="/belonging/index.html">The Belonging essays</a>
       <a href="/groups">Groups</a>
       <a href="/interest">Register interest</a>
+      <a href="https://buymeacoffee.com/michaelvandiermen" target="_blank" rel="noopener">Buy me a coffee</a>
     </div>
   </nav>
 
@@ -317,6 +318,7 @@ body{background:var(--ink)}
       <a href="/belonging/built-to-last.html">Built to last</a>
       <a href="/groups">Groups</a>
       <a href="/interest">Register your interest</a>
+      <a href="https://buymeacoffee.com/michaelvandiermen" target="_blank" rel="noopener">Buy me a coffee</a>
     </div>
     <p class="fmeta">Written by the Choose Neighbors project, August 2026. This guide organises the Belonging essay series into a path you can actually walk — start anywhere, but start.</p>
   </footer>

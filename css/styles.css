@@ -9892,3 +9892,66 @@ body.home .button.green,body.about .button.green{background:#5e6b50;border-color
 body.home .button.green:hover,body.about .button.green:hover{background:#6d7b5e;border-color:#6d7b5e}
 body.home .content-page h1,body.about .content-page h1,body.about .content-page .standard-page h1{color:#24201c}
 body.about .content-page h2,body.about .content-page h3{color:#24201c}
+
+/* header "Buy me a coffee" link: shown only where the bar has room for it
+   (768px and up; 992px and up when logged in, where the bar carries more items) */
+.top-header .nav-coffee{display:none}
+@media (min-width:768px){.top-header .nav-coffee{display:flex}}
+@media (max-width:991.98px){.top-header .nav-coffee-member{display:none}}
+
+/* ==== header: links stay whole and the bar fits the screen (2026-10) ====
+   Labels in the bar never break across lines. If the bar runs out of room only the account
+   name gives way (it is shortened with an ellipsis); the other links keep their size. */
+.top-header .cn-bar .topbar-button{white-space:nowrap}
+.top-header .cn-nav{min-width:0}
+.top-header .cn-nav>.nav-item{flex-shrink:0}
+.top-header .cn-nav>.cn-dd{flex-shrink:1;max-width:100%}
+.top-header .cn-dd .topbar-button{min-width:0}
+.top-header .cn-dd .new-item{min-width:0;overflow:hidden;text-overflow:ellipsis;padding:4px 0;margin:-4px 0}
+/* below desktop width: where one row is not enough, the links move onto a second row
+   instead of being squeezed or pushed off the side of the screen */
+@media (max-width:991.98px){
+.top-header.not-authorized .container{height:auto;min-height:39px}
+.top-header .cn-bar{flex-wrap:wrap;margin-bottom:-2px}
+.top-header .cn-nav{flex-wrap:wrap;justify-content:flex-end;max-width:100%}
+}
+/* phones: logo and account links on the first row, the other links on a second row
+   (logged out below 576px, logged in below 720px - the widths where one row stops fitting) */
+@media (max-width:575.98px){
+.top-header .cn-bar-guest::after{content:"";order:2;flex:0 0 100%;height:0}
+.top-header .cn-bar-guest .logo{margin-right:auto}
+.top-header .cn-bar-guest .cn-nav{display:contents !important}
+.top-header .cn-bar-guest .nav-item{order:3;padding-left:0;padding-right:0}
+.top-header .cn-bar-guest .nav-item:first-child{margin-left:-10px}
+.top-header .cn-bar-guest .nav-acct{order:1}
+}
+@media (max-width:719.98px){
+.top-header .cn-bar-member::after{content:"";order:2;flex:0 0 100%;height:0}
+.top-header .cn-bar-member .logo{margin-right:auto}
+.top-header .cn-bar-member .cn-nav{display:contents !important}
+.top-header .cn-bar-member .nav-item{order:3;padding-left:0;padding-right:0}
+.top-header .cn-bar-member .nav-item:first-child{margin-left:-10px}
+.top-header .cn-bar-member .nav-acct{order:1;max-width:calc(100% - 140px)}
+}
+/* narrow phones: slightly tighter spacing so the second row stays on one line */
+@media (max-width:380px){
+.top-header .cn-bar-member .topbar-button{padding-left:7px;padding-right:7px;letter-spacing:.6px}
+.top-header .cn-bar-member .nav-item:first-child{margin-left:-7px}
+}
+@media (max-width:340px){
+.top-header .cn-bar-member .topbar-button{padding-left:5px;padding-right:5px;letter-spacing:.2px}
+.top-header .cn-bar-member .nav-item:first-child{margin-left:-5px}
+}
+@media (max-width:300px){
+.top-header .cn-bar-guest .nav-acct .topbar-button{padding-left:6px;padding-right:6px}
+}
+
+/* ==== footer text on the dark page background (2026-10) ====
+   The footer has no panel of its own on the homepage and login page (any width) and on the app
+   pages above 768px, so its text sits on the dark brown page: light text there, as elsewhere on dark. */
+body.home #main-footer,body.home #main-footer a{color:#e4d8c6}
+body.home #footer-nav a:hover{color:#e3a564 !important}
+@media not all and (max-width:768px){
+body.about #main-footer,body.about #main-footer a{color:#e4d8c6}
+body.about #footer-nav a:hover{color:#e3a564 !important}
+}

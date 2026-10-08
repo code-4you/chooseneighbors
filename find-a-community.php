@@ -100,11 +100,11 @@ if ($region !== '') {
   body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");opacity:.045;pointer-events:none;z-index:9999;mix-blend-mode:multiply}
   .wrap{max-width:1120px;margin:0 auto;padding:0 7vw}
   .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);font-family:'Google Sans','Outfit',Arial,sans-serif;gap:20px}
-  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;align-items:baseline;gap:11px;flex-shrink:0}
+  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;gap:1px;line-height:1.25;flex-shrink:0}
   .brand b{font-weight:900}
   .brand span{font-family:'Google Sans','Outfit',Arial,sans-serif;font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
-  .topnav{display:flex;gap:22px;font-size:14.5px}
-  .topnav a{color:var(--ink-soft);text-decoration:none;transition:color .2s}
+  .topnav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px;font-size:14.5px}
+  .topnav a{color:var(--ink-soft);text-decoration:none;transition:color .2s;white-space:nowrap}
   .topnav a:hover{color:var(--terra)}
   @media(max-width:860px){.topnav{display:none}}
 
@@ -178,6 +178,7 @@ body{background:var(--ink)}
       <a href="/cohousing-vs-coliving.html">Cohousing vs coliving</a>
       <a href="/groups">Groups</a>
       <a href="/interest">Register interest</a>
+      <a href="https://buymeacoffee.com/michaelvandiermen" target="_blank" rel="noopener">Buy me a coffee</a>
     </div>
   </nav>
 
@@ -261,6 +262,7 @@ body{background:var(--ink)}
       <a href="/belonging/index.html">The Belonging essays</a>
       <a href="/belonging/why-it-works-on-people.html">Why community works on people</a>
       <a href="/listings">Listings</a>
+      <a href="https://buymeacoffee.com/michaelvandiermen" target="_blank" rel="noopener">Buy me a coffee</a>
     </div>
     <p class="fmeta">Each state's list is gathered once by AI when its first visitor arrives, then kept. Know a community that's missing or wrong? <a href="mailto:contact@chooseneighbors.com" style="color:var(--ink-soft)">Tell us</a> — this directory should end up human-checked, entry by entry.</p>
   </footer>
