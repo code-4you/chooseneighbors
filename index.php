@@ -594,6 +594,7 @@ include __DIR__ . '/includes/header.php';
     <li><a href="/the-journal.html">The original pitch &amp; the journal &rarr;</a></li>
     <li><a href="/pitch-letter-2023.html">Pitch letter 2023 &rarr;</a></li>
     <li><a href="/pitch-note-2026.html">Pitch note 2026 &mdash; regular social connection, mutual respect &rarr;</a></li>
+    <li><a href="/dhs-community-connections-submission-2026.html">Submission to the SA Community Connections Program consultation, October 2026 &rarr;</a></li>
     <li><a href="/design-services">Design services &mdash; I'll help you design community apps, places &amp; programs &rarr;</a></li>
   </ul>
 
