@@ -293,7 +293,7 @@ include __DIR__ . '/includes/header.php';
      "belonging/" in the button below if you put them somewhere else.
      ========================================================================= -->
 
-<section class="ev-section">
+<section class="ev-section" id="why">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
     .ev-section{

@@ -144,7 +144,7 @@
       <p>More people live alone than ever, and being lonely or isolated harms health on a par with smoking. A 2026 national report found half of Australians are lonely, isolated, or both. The usual answer is a visit, a class or a group you travel to. The default life most people are left with is being alone, without community where they live.</p>
       <h3>Community feeling</h3>
       <p>The feeling people are missing is being part of something with people they like: people who can deal with problems, make things and make things better, right where they live. Living around people you chose, with something to do because they are around, is what gives it. A place to go is a place to live.</p>
-      <p><a href="/">Read more &rarr;</a></p>
+      <p><a href="/#why">Read more &rarr;</a></p>
     </div>
   </details>
 
