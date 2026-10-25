@@ -17,19 +17,11 @@
   body{background:var(--ink);color:var(--ink);font-family:'Google Sans','Outfit',Arial,sans-serif;font-weight:400;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
   .wrap{background:#fff;border-radius:14px;width:min(1120px,calc(100% - 28px));margin:22px auto 44px;padding:4px 7vw 46px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
 
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid var(--line);gap:20px}
-  .brand{font-weight:600;font-size:21px;letter-spacing:.2px;color:var(--ink);text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;gap:1px;line-height:1.25;flex-shrink:0}
-  .brand b{font-weight:900}
-  .brand span{font-style:italic;font-weight:400;font-size:14px;color:var(--ink-faint)}
-  .topnav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px;font-size:14.5px}
-  .topnav a{color:var(--ink-soft);text-decoration:none;white-space:nowrap}
-  .topnav a:hover{color:var(--terra)}
-  @media(max-width:860px){.topnav{display:none}}
 
-  .hero{padding:60px 0 10px}
+  .hero{padding:44px 0 10px}
   .eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
   .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
-  h1{font-weight:600;font-size:clamp(38px,7vw,84px);line-height:.95;letter-spacing:-.03em;max-width:15ch}
+  h1{font-weight:600;font-size:clamp(28px,4.2vw,46px);line-height:1.05;letter-spacing:-.02em;max-width:20ch}
   h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
   .dek{font-size:clamp(19px,2.4vw,24px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:56ch;margin-top:26px}
   .dek b{font-weight:500;color:var(--ink)}
@@ -79,16 +71,6 @@
 <body>
 <div class="wrap">
 
-  <nav class="topbar">
-    <a class="brand" href="/"><b>Choose Neighbors</b> <span>homes designed around friendship</span></a>
-    <div class="topnav">
-      <a href="/start-a-community">Start a community</a>
-      <a href="/find-a-community">Find a community</a>
-      <a href="/interest">Join the list</a>
-      <a href="/support">Contact</a>
-      <a href="https://buymeacoffee.com/michaelvandiermen" target="_blank" rel="noopener">Buy me a coffee</a>
-    </div>
-  </nav>
 
   <header class="hero">
     <p class="eyebrow">The plan</p>
