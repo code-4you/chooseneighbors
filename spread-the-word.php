@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spread the word · Choose Neighbors</title>
 <meta name="description" content="Tell your friends about Choose Neighbors: ready-to-copy words, the link, and the logo, for people who want to live near their people.">
+<meta name="robots" content="noindex">
 <link rel="canonical" href="https://chooseneighbors.com/spread-the-word">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

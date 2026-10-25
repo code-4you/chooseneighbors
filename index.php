@@ -589,7 +589,6 @@ include __DIR__ . '/includes/header.php';
 
   <p class="aix-subhead">The plans</p>
   <ul class="aix-list" style="margin-bottom:28px">
-    <li><a href="/the-plan">The plan &mdash; people choose their neighbours, pay off a room or an apartment &rarr;</a></li>
     <li><a href="/business-plan-2026.html">The business plan &rarr;</a></li>
     <li><a href="/belonging/index.html">Belonging &mdash; the community design &rarr;</a></li>
     <li><a href="/the-journal.html">The original pitch &amp; the journal &rarr;</a></li>
