@@ -28,6 +28,12 @@
 
   .section-label{font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:12.5px;color:var(--terra);margin:56px 0 20px;display:flex;align-items:center;gap:14px}
   .section-label::before{content:"";width:34px;height:2px;background:var(--terra)}
+  details.fold summary{cursor:pointer;list-style:none;user-select:none}
+  details.fold summary::-webkit-details-marker{display:none}
+  details.fold summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--terra);border-bottom:2px solid var(--terra);transform:rotate(-45deg) translateY(2px);transition:transform .2s;margin-left:4px}
+  details.fold[open] summary::after{transform:rotate(45deg) translateY(-2px)}
+  details.fold summary:hover{color:var(--terra-deep)}
+  details.fold .body{margin-top:-4px}
   .section-label i{font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint)}
 
   .body{max-width:var(--measure)}
@@ -79,8 +85,9 @@
     <p class="dek">You pay off a room or an apartment, whichever your budget allows. Start with a room if that's what you can afford, and upgrade to an apartment later. Payments are a share of what you earn (about 30%), on the home's original value plus inflation &mdash; not a price that keeps climbing.</p>
   </header>
 
-  <p class="section-label">How moving works</p>
-  <div class="body">
+  <details class="fold">
+    <summary class="section-label">How moving works</summary>
+    <div class="body">
     <p>A custom AI system runs the neighbour map. It does the matching and the paperwork; the people make the choices.</p>
     <ul>
       <li><strong>You tell it who you want to live near</strong> &mdash; people, or a named group-area. It offers you a free room or apartment near them.</li>
@@ -90,7 +97,8 @@
       <li><strong>Block someone</strong> and the system moves you apart. If you share friends, your friends decide.</li>
       <li><strong>Nothing happens without your yes.</strong> Moving is always a choice; anyone can stay where they are.</li>
     </ul>
-  </div>
+    </div>
+  </details>
 
   <p class="section-label">Add-ons a community can choose <i>(recommended, optional)</i></p>
   <div class="body">
