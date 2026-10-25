@@ -149,8 +149,7 @@
   </details>
 
   <footer>
-    <p class="fmeta">Older plans, kept for the record: <a href="/business-plan-2026.html">Business plan 2026</a> &middot; <a href="/belonging/index.html">Belonging &mdash; the community design</a> &middot; <a href="/business-plan.html">The original plan</a> &middot; <a href="/pitch-letter-2023.html">Pitch letter 2023</a> &middot; <a href="/city-experiments.html">The journal</a><br>
-    Michael van Diermen &middot; <a href="/support">contact via the site</a> &middot; <a href="/license">License &amp; copyright</a></p>
+    <p class="fmeta">Michael van Diermen &middot; <a href="/support">contact via the site</a> &middot; <a href="/license">License &amp; copyright</a></p>
   </footer>
 
 </div>
