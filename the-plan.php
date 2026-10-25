@@ -34,6 +34,15 @@
   details.fold[open] summary::after{transform:rotate(45deg) translateY(-2px)}
   details.fold summary:hover{color:var(--terra-deep)}
   details.fold .body{margin-top:-4px}
+  details.item{margin:0 0 12px;max-width:var(--measure)}
+  details.item summary{cursor:pointer;list-style:none;position:relative;padding-left:26px;font-size:18px;font-weight:600;color:var(--ink);user-select:none;display:block}
+  details.item summary::-webkit-details-marker{display:none}
+  details.item summary::before{content:"";position:absolute;left:0;top:.72em;width:12px;height:2px;background:var(--terra)}
+  details.item summary::after{content:"";display:inline-block;width:8px;height:8px;border-right:2px solid var(--terra);border-bottom:2px solid var(--terra);transform:rotate(-45deg) translateY(1px);transition:transform .2s;margin-left:10px;vertical-align:middle}
+  details.item[open] summary::after{transform:rotate(45deg) translateY(-3px)}
+  details.item summary:hover{color:var(--terra-deep)}
+  details.item .text{padding:8px 0 2px 26px}
+  details.item .text p{font-size:17px;margin-bottom:8px}
   .section-label i{font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-faint)}
 
   .body{max-width:var(--measure)}
@@ -100,10 +109,16 @@
     </div>
   </details>
 
-  <p class="section-label">Add-ons a community can choose <i>(recommended, optional)</i></p>
+  <p class="section-label">Add-ons</p>
   <div class="body">
+    <details class="item">
+      <summary>&ldquo;Around me&rdquo; work opportunities.</summary>
+      <div class="text">
+        <p>Local work and casual jobs you can do with your friends, the upkeep of the place, a meeting area, a say in how the area runs &mdash; things to do because the people you chose are around.</p>
+        <p><a href="/">Read more &rarr;</a></p>
+      </div>
+    </details>
     <ul>
-      <li><strong>&ldquo;Around me&rdquo; work opportunities.</strong> Local work and casual jobs you can do with your friends, the upkeep of the place, a meeting area, a say in how the area runs &mdash; things to do because the people you chose are around.</li>
       <li>More to come.</li>
     </ul>
   </div>
