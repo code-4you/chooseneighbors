@@ -21,7 +21,7 @@
   .hero{padding:44px 0 10px}
   .eyebrow{font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12.5px;color:var(--terra);margin-bottom:26px;display:flex;align-items:center;gap:14px}
   .eyebrow::before{content:"";width:34px;height:2px;background:var(--terra);display:inline-block}
-  h1{font-weight:600;font-size:min(46px,calc((86vw - 28px) / 14.4));line-height:1.05;letter-spacing:-.02em;white-space:nowrap}
+  h1{font-weight:600;font-size:min(38px,calc((86vw - 28px) / 15.5));line-height:1.05;letter-spacing:-.02em;white-space:nowrap}
   h1 em{font-style:italic;font-weight:500;color:var(--terra-deep)}
   .dek{font-size:clamp(19px,2.4vw,24px);line-height:1.5;color:var(--ink-soft);font-weight:300;max-width:56ch;margin-top:26px}
   .dek b{font-weight:500;color:var(--ink)}
@@ -33,7 +33,9 @@
   details.fold summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--terra);border-bottom:2px solid var(--terra);transform:rotate(-45deg) translateY(2px);transition:transform .2s;margin-left:4px}
   details.fold[open] summary::after{transform:rotate(45deg) translateY(-2px)}
   details.fold summary:hover{color:var(--terra-deep)}
-  details.fold .body{margin-top:-4px}
+  details.fold summary.section-label{margin-bottom:6px}
+  details.fold .body{margin-top:0}
+  details.fold + .section-label{margin-top:36px}
   details.item{margin:0 0 12px;max-width:var(--measure)}
   details.item summary{cursor:pointer;list-style:none;position:relative;padding-left:26px;font-size:18px;font-weight:600;color:var(--ink);user-select:none;display:block}
   details.item summary::-webkit-details-marker{display:none}
