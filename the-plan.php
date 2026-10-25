@@ -53,6 +53,7 @@
   .body ul{list-style:none;padding:0;margin:0 0 10px}
   .body ul li{position:relative;padding-left:26px;margin:0 0 8px;color:var(--ink-soft);font-size:17px}
   .body ul li::before{content:"";position:absolute;left:0;top:.72em;width:12px;height:2px;background:var(--terra)}
+  .body h3{font-weight:600;font-size:17px;color:var(--ink);margin:12px 0 4px}
   .body a{color:var(--terra-deep);text-decoration:none;border-bottom:1px solid var(--line)}
   .body a:hover{color:var(--terra);border-color:var(--terra)}
 
@@ -133,6 +134,19 @@
     <li><span class="n">3</span><div><h3>My plan, with my funding</h3><p>I'm putting in my own savings and looking for a loan or funding. How much I can borrow is still to be worked out. For what the money could buy, see the list of unbelievable apartment prices in Germany.</p><a class="btn2" href="/germany-apartment-prices">Apartment prices in Germany &rarr;</a></div></li>
     <li><span class="n">4</span><div><h3>An Australian government fund plan</h3><p>A version of the plan for government funding, which we will be putting to Australians.</p><a class="btn2" href="/australia-government-fund-plan">The Australian fund plan &rarr;</a><span class="wip">work in progress</span></div></li>
   </ol>
+
+  <details class="fold">
+    <summary class="section-label">Why</summary>
+    <div class="body">
+      <h3>100% home ownership</h3>
+      <p>Everyone owns the place they live in, from the first day. A room or an apartment is paid off at what it cost plus inflation, never at a price that keeps climbing, so nobody is left renting forever or waiting on a list. Some homes are always kept free, so there is always somewhere to move to.</p>
+      <h3>Isolation</h3>
+      <p>More people live alone than ever, and being lonely or isolated harms health on a par with smoking. A 2026 national report found half of Australians are lonely, isolated, or both. The usual answer is a visit, a class or a group you travel to. The default life most people are left with is being alone, without community where they live.</p>
+      <h3>Community feeling</h3>
+      <p>The feeling people are missing is being part of something with people they like: people who can deal with problems, make things and make things better, right where they live. Living around people you chose, with something to do because they are around, is what gives it. A place to go is a place to live.</p>
+      <p><a href="/">Read more &rarr;</a></p>
+    </div>
+  </details>
 
   <footer>
     <p class="fmeta">Older plans, kept for the record: <a href="/business-plan-2026.html">Business plan 2026</a> &middot; <a href="/belonging/index.html">Belonging &mdash; the community design</a> &middot; <a href="/business-plan.html">The original plan</a> &middot; <a href="/pitch-letter-2023.html">Pitch letter 2023</a> &middot; <a href="/city-experiments.html">The journal</a><br>
