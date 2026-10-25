@@ -119,7 +119,7 @@
       </div>
     </details>
     <ul>
-      <li>More to come.</li>
+      <li><a href="/">View more &rarr;</a></li>
     </ul>
   </div>
   <div class="rule">The list is up to the people living there.</div>
