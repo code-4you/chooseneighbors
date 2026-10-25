@@ -115,7 +115,7 @@
       <summary>&ldquo;Around me&rdquo; work opportunities.</summary>
       <div class="text">
         <p>Local work and casual jobs you can do with your friends, the upkeep of the place, a meeting area, a say in how the area runs &mdash; things to do because the people you chose are around.</p>
-        <p><a href="/">Read more &rarr;</a></p>
+        <p><a href="/city-experiments.html#_1bc2mp9dx64w">Read more &rarr;</a></p>
       </div>
     </details>
     <ul>
