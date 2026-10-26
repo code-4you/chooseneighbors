@@ -131,8 +131,8 @@
   <ol class="steps">
     <li><span class="n">1</span><div><h3>People join the list</h3><p>and get notified when something is happening near them.</p><a class="btn" href="/interest">Join the list &rarr;</a></div></li>
     <li><span class="n">2</span><div><h3>Start it yourself</h3><p>Gather your people and begin at the scale you can: a shared house, a street, a building. The guide covers the rest.</p><a class="btn2" href="/start-a-community">Start a community &rarr;</a></div></li>
-    <li><span class="n">3</span><div><h3>My plan, with my funding</h3><p>I'm putting in my own savings and looking for a loan or funding. How much I can borrow is still to be worked out. For what the money could buy, see the list of unbelievable apartment prices in Germany.</p><a class="btn2" href="/germany-apartment-prices">Apartment prices in Germany &rarr;</a></div></li>
-    <li><span class="n">4</span><div><h3>An Australian government fund plan</h3><p>A version of the plan for government funding, which we will be putting to Australians.</p><a class="btn2" href="/australia-government-fund-plan">The Australian fund plan &rarr;</a><span class="wip">work in progress</span></div></li>
+    <li><span class="n">3</span><div><h3>An Australian government fund plan</h3><p>A version of the plan for government funding, which we will be putting to Australians: homes people pay off instead of rent, built by the people who will live there with work whenever they like, and a cheap work app for local jobs.</p><a class="btn2" href="/australia-government-fund-plan">The Australian fund plan &rarr;</a><span class="wip">work in progress</span></div></li>
+    <li><span class="n">4</span><div><h3>My plan, with my funding</h3><p>I'm putting in my own savings and looking for a loan or funding. How much I can borrow is still to be worked out. Buying existing apartments is much cheaper than building new ones.</p><a class="btn2" href="/germany-apartment-prices">Unbelievable apartment prices in Germany &rarr;</a></div></li>
   </ol>
 
   <details class="fold">
