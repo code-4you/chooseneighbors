@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Plan — people choose their neighbours · Choose Neighbors</title>
 <meta name="description" content="The Choose Neighbors plan: people choose their neighbours. Pay off a room or an apartment, whichever fits your budget, and upgrade later. How moving works with a custom AI system, optional add-ons a community can choose, and how it starts.">
-<meta name="robots" content="noindex">
 <link rel="canonical" href="https://chooseneighbors.com/the-plan">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
